@@ -20,4 +20,19 @@ public class Board {
             }
         }
     }
+
+    /**
+     * Returns true if the position passed in parameter is in the board, false
+     * otherwise
+     *
+     * @param position the position to check
+     * @return true if the position passed in parameter is in the board, false
+     * otherwise
+     */
+    boolean isInside(Position position) {
+        return (position.getRow() > 0
+                && position.getRow() < BOARD_SIZE)
+                && (position.getColumn() > 0
+                && position.getColumn() < BOARD_SIZE);
+    }
 }
