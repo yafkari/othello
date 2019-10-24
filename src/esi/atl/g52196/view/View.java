@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * @author 52196
  *
- *
+ * Represents the view
  */
 public class View {
 
@@ -50,8 +50,7 @@ public class View {
     /**
      * Displays the board passed in parameter
      *
-     * @param squares the board to be displayed
-     * @param currentColor the color of the current player
+     * @param cells the board to be displayed
      */
     public void displayBoard(Cell[][] cells) {
         System.out.print("A B C D E F G H");
