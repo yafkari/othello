@@ -46,6 +46,17 @@ public class Board {
         checkIsInside(position);
         return cells[position.getRow()][position.getColumn()];
     }
+    
+    /**
+     * Returns the Pawn at the position passed in parameter
+     *
+     * @param position the position of the Pawn we want to get
+     * @return the Pawn at the position passed in parameter
+     */
+    Pawn getPawn(Position position) {
+        checkIsInside(position);
+        return getCell(position).getPawn();
+    }
 
     /**
      * Adds a pawn in the cell at the position passed in parameter
