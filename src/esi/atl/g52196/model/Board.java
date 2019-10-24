@@ -41,6 +41,11 @@ public class Board {
         return cells[position.getRow()][position.getColumn()];
     }
 
+    void addPawn(Position position, Pawn pawn) {
+        checkIsInside(position);
+        getCell(position).fill(pawn);
+    }
+
     void checkIsInside(Position position) {
         if (!isInside(position)) {
             throw new IllegalArgumentException(
