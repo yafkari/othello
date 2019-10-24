@@ -37,6 +37,15 @@ public class Board {
     }
 
     /**
+     * Returns the board
+     *
+     * @return a 2d array of BOARD_SIZE x BOARD_SIZE
+     */
+    Cell[][] getCells() {
+        return cells;
+    }
+
+    /**
      * Returns the cell at the position passed in parameter
      *
      * @param position the position of the cell we want to get
@@ -46,7 +55,7 @@ public class Board {
         checkIsInside(position);
         return cells[position.getRow()][position.getColumn()];
     }
-    
+
     /**
      * Returns the Pawn at the position passed in parameter
      *
