@@ -3,7 +3,9 @@ package esi.atl.g52196.model;
 /**
  * @author 52196
  *
- * Represents the board of the game. The board is a 8x8 board
+ * Represents the board of the game.
+ *
+ * This is a 8x8 board
  */
 public class Board {
 

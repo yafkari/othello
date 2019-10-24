@@ -10,6 +10,7 @@ public class Game {
     private Board board;
     private Player blackPlayer;
     private Player whitePlayer;
+    private boolean isOver;
 
     /**
      * Creates a game with two players one black and one white
@@ -21,6 +22,9 @@ public class Game {
         whitePlayer = new Player(PlayerColor.WHITE);
     }
 
+    /**
+     * Initalizes the board
+     */
     public void initialize() {
         board = new Board();
 
@@ -38,6 +42,33 @@ public class Game {
         blackPlayer.addPawn(blackPawn2);
         whitePlayer.addPawn(whitePawn1);
         whitePlayer.addPawn(whitePawn2);
+    }
 
+    /**
+     * Returns the cells of the board
+     *
+     * @return the cells of the board
+     */
+    public Cell[][] getBoard() {
+        return board.getCells();
+    }
+
+    /**
+     * Returns the cells of the board
+     *
+     * @return the cells of the board
+     */
+    public boolean getIsOver() {
+        return isOver;
+    }
+
+    /**
+     * Sets the game as over.
+     *
+     * The game is set as over if a player does not have any pawn or if there is
+     * no possible moves for the two players anymore.
+     */
+    public void gameOver() {
+        isOver = true;
     }
 }
