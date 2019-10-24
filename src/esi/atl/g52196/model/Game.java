@@ -68,7 +68,7 @@ public class Game {
      * The game is set as over if a player does not have any pawn or if there is
      * no possible moves for the two players anymore.
      */
-    public void gameOver() {
+    void gameOver() {
         isOver = true;
     }
 }

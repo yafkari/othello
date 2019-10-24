@@ -14,6 +14,7 @@ public class Pawn {
      * Creates a pawn with a color and a position that are passed in parameter
      *
      * @param color the color of the pawn
+     * @param position the position of the pawn
      */
     public Pawn(PlayerColor color, Position position) {
         this.color = color;
@@ -28,7 +29,7 @@ public class Pawn {
     public PlayerColor getColor() {
         return color;
     }
-    
+
     /**
      * Returns the position of the pawn
      *
