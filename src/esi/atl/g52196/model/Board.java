@@ -53,7 +53,7 @@ public class Board {
      */
     Cell getCell(Position position) {
         checkIsInside(position);
-        return cells[position.getRow()][position.getColumn()];
+        return getCells()[position.getRow()][position.getColumn()];
     }
 
     /**
@@ -76,6 +76,18 @@ public class Board {
     void addPawn(Position position, Pawn pawn) {
         checkIsInside(position);
         getCell(position).fill(pawn);
+    }
+
+    /**
+     * Removes a pawn from the board
+     *
+     * @param position the position of the pawn to remove
+     */
+    public void remove(Position position) {
+        checkIsInside(position);
+        if (getCell(position) != null) {
+            getCells()[position.getRow()][position.getColumn()] = new Cell();
+        }
     }
 
     /**
