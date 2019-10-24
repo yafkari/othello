@@ -10,6 +10,9 @@ public class Board {
     private static final int BOARD_SIZE = 8;
     private Cell[][] cells = new Cell[BOARD_SIZE][BOARD_SIZE];
 
+    /**
+     * Fills the 8x8 board with empty cells
+     */
     public Board() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
