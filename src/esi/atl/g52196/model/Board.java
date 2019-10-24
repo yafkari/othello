@@ -73,9 +73,9 @@ public class Board {
      * @param position the position of the cell we want to set
      * @param pawn the pawn we want to add in the cell
      */
-    void addPawn(Position position, Pawn pawn) {
-        checkIsInside(position);
-        getCell(position).fill(pawn);
+    void addPawn(Pawn pawn) {
+        checkIsInside(pawn.getPosition());
+        getCell(pawn.getPosition()).fill(pawn);
     }
 
     /**
