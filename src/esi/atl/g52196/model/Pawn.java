@@ -8,14 +8,16 @@ package esi.atl.g52196.model;
 public class Pawn {
 
     private PlayerColor color;
+    private Position position;
 
     /**
-     * Creates a pawn with a color that is passed in parameter
+     * Creates a pawn with a color and a position that are passed in parameter
      *
      * @param color the color of the pawn
      */
-    public Pawn(PlayerColor color) {
+    public Pawn(PlayerColor color, Position position) {
         this.color = color;
+        this.position = position;
     }
 
     /**
@@ -25,5 +27,14 @@ public class Pawn {
      */
     public PlayerColor getColor() {
         return color;
+    }
+    
+    /**
+     * Returns the position of the pawn
+     *
+     * @return the position of the pawn
+     */
+    public Position getPosition() {
+        return position;
     }
 }
