@@ -36,16 +36,32 @@ public class Board {
                 && position.getColumn() < BOARD_SIZE);
     }
 
+    /**
+     * Returns the cell at the position passed in parameter
+     *
+     * @param position the position of the cell we want to get
+     * @return the cell at the position passed in parameter
+     */
     Cell getCell(Position position) {
         checkIsInside(position);
         return cells[position.getRow()][position.getColumn()];
     }
 
+    /**
+     * Adds a pawn in the cell at the position passed in parameter
+     *
+     * @param position the position of the cell we want to set
+     * @param pawn the pawn we want to add in the cell
+     */
     void addPawn(Position position, Pawn pawn) {
         checkIsInside(position);
         getCell(position).fill(pawn);
     }
 
+    /**
+     * @param position the position to look at
+     * @throws IllegalArgumentException if the position is not part of the board
+     */
     void checkIsInside(Position position) {
         if (!isInside(position)) {
             throw new IllegalArgumentException(
