@@ -35,4 +35,12 @@ public class Board {
                 && (position.getColumn() > 0
                 && position.getColumn() < BOARD_SIZE);
     }
+
+    Cell getCell(Position position) {
+        if (!isInside(position)) {
+            throw new IllegalArgumentException(
+                    "The position is not part of the board");
+        }
+        return cells[position.getRow()][position.getColumn()];
+    }
 }
