@@ -33,5 +33,11 @@ public class Game {
         board.addPawn(blackPawn1);
         board.addPawn(blackPawn2);
         board.addPawn(whitePawn2);
+
+        blackPlayer.addPawn(blackPawn1);
+        blackPlayer.addPawn(blackPawn2);
+        whitePlayer.addPawn(whitePawn1);
+        whitePlayer.addPawn(whitePawn2);
+
     }
 }
