@@ -37,10 +37,14 @@ public class Board {
     }
 
     Cell getCell(Position position) {
+        checkIsInside(position);
+        return cells[position.getRow()][position.getColumn()];
+    }
+
+    void checkIsInside(Position position) {
         if (!isInside(position)) {
             throw new IllegalArgumentException(
                     "The position is not part of the board");
         }
-        return cells[position.getRow()][position.getColumn()];
     }
 }
