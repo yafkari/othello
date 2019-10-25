@@ -9,16 +9,20 @@ public class Pawn {
 
     private PlayerColor color;
     private Position position;
+    private int value;
 
     /**
-     * Creates a pawn with a color and a position that are passed in parameter
+     * Creates a pawn with a color, a position and a value that are passed in
+     * parameter
      *
      * @param color the color of the pawn
      * @param position the position of the pawn
+     * @param value the value of the pawn
      */
-    public Pawn(PlayerColor color, Position position) {
+    public Pawn(PlayerColor color, Position position, int value) {
         this.color = color;
         this.position = position;
+        this.value = value;
     }
 
     /**
@@ -37,5 +41,14 @@ public class Pawn {
      */
     public Position getPosition() {
         return position;
+    }
+
+    /**
+     * Returns the value of the pawn
+     *
+     * @return the value of the pawn
+     */
+    public int getValue() {
+        return value;
     }
 }
