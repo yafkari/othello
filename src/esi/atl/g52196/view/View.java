@@ -100,5 +100,16 @@ public class View {
                 + "-score : displays the score of each player\n"
                 + "-play <row> <column> : allows to add a pawn in the board");
     }
-    
+
+    /**
+     * Displays the score of each player
+     *
+     * @param scores the scores of each player. scores[0] correspond to the
+     * black player
+     */
+    public void displayScores(int[] scores) {
+        displayInfo("Score:");
+        System.out.println("Black player: " + String.valueOf(scores[0]));
+        System.out.println("White player: " + String.valueOf(scores[1]));
+    }
 }

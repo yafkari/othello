@@ -78,19 +78,18 @@ public class Game {
     public boolean getIsOver() {
         return isOver;
     }
-    
+
     /**
      * Returns the score a player
-     * 
-     * @param playerColor the color of the player
+     *
      * @return the score a player
      */
-    public int getScore(PlayerColor playerColor) {
-        if (currentPlayer.getColor() == playerColor) {
-            return currentPlayer.getPawns().stream().mapToInt(x -> x.getValue()).sum();
-        } else {
-            return opponentPlayer.getPawns().stream().mapToInt(x -> x.getValue()).sum();
-        }
+    public int[] getScores() {
+        int[] scores = new int[2];
+        scores[0] = currentPlayer.getPawns().stream().mapToInt(x -> x.getValue()).sum();
+        scores[1] = opponentPlayer.getPawns().stream().mapToInt(x -> x.getValue()).sum();
+        
+        return scores;
     }
 
     /**
