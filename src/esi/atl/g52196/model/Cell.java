@@ -24,6 +24,10 @@ public class Cell {
     public Pawn getPawn() {
         return pawn;
     }
+    
+    public boolean isEmpty()  {
+        return pawn == null;
+    }
 
     /**
      * Adds a pawn to the cell if the pawn is not null and the cell is free
@@ -35,7 +39,7 @@ public class Cell {
     public void fill(Pawn pawn) {
         if (pawn == null) {
             throw new NullPointerException("The pawn can't be null");
-        } else if (this.pawn != null) {
+        } else if (!isEmpty()) {
             throw new IllegalStateException("The cell is not free");
         }
         this.pawn = pawn;
