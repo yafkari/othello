@@ -91,4 +91,14 @@ public class View {
     public void displayError(String message) {
         System.out.println(ANSI_RED + message + ANSI_RESET);
     }
+
+    /**
+     * Displays the possible action that the user can perform
+     */
+    public void displayActions() {
+        System.out.println("-show : displays the board\n"
+                + "-score : displays the score of each player\n"
+                + "-play <row> <column> : allows to add a pawn in the board");
+    }
+    
 }
