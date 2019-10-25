@@ -8,8 +8,8 @@ package esi.atl.g52196.model;
 public class Game {
 
     private Board board;
-    private Player blackPlayer;
-    private Player whitePlayer;
+    private Player currentPlayer;
+    private Player opponentPlayer;
     private boolean isOver;
 
     /**
@@ -18,8 +18,8 @@ public class Game {
      * The first player is black
      */
     public Game() {
-        blackPlayer = new Player(PlayerColor.BLACK);
-        whitePlayer = new Player(PlayerColor.WHITE);
+        currentPlayer = new Player(PlayerColor.BLACK);
+        opponentPlayer = new Player(PlayerColor.WHITE);
     }
 
     /**
@@ -38,10 +38,10 @@ public class Game {
         board.addPawn(blackPawn2);
         board.addPawn(whitePawn2);
 
-        blackPlayer.addPawn(blackPawn1);
-        blackPlayer.addPawn(blackPawn2);
-        whitePlayer.addPawn(whitePawn1);
-        whitePlayer.addPawn(whitePawn2);
+        currentPlayer.addPawn(blackPawn1);
+        currentPlayer.addPawn(blackPawn2);
+        opponentPlayer.addPawn(whitePawn1);
+        opponentPlayer.addPawn(whitePawn2);
     }
 
     /**
@@ -70,5 +70,14 @@ public class Game {
      */
     void gameOver() {
         isOver = true;
+    }
+    
+    /**
+     * Swaps the players
+     */
+    void swapPlayers() {
+        Player tmp = currentPlayer;
+        currentPlayer = opponentPlayer;
+        opponentPlayer = tmp;
     }
 }
