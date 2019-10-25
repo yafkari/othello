@@ -47,28 +47,32 @@ public class View {
 
         return stdin.nextLine().toLowerCase();
     }
+
     /**
      * Displays the board passed in parameter
      *
      * @param cells the board to be displayed
      */
     public void displayBoard(Cell[][] cells) {
-        System.out.print("A B C D E F G H");
+        System.out.println("  A B C D E F G H");
 
         for (int i = 0; i < cells.length; i++) {
             System.out.print(i + 1);
             for (Cell column : cells[i]) {
-                if (column.getPawn().getColor() == PlayerColor.WHITE) {
-                    System.out.print("W ");
+                if (column.isEmpty()) {
+                    System.out.print("  ");
                 } else {
-                    System.out.print("B ");
+                    if (column.getPawn().getColor() == PlayerColor.WHITE) {
+                        System.out.print(" W");
+                    } else {
+                        System.out.print(" B");
+                    }
                 }
             }
             System.out.println();
         }
         System.out.println();
     }
-    
 
     /**
      * Displays a message passed in parameter in blue
