@@ -1,5 +1,7 @@
 package esi.atl.g52196.model;
 
+import java.util.Collections;
+
 /**
  * @author 52196
  *
@@ -42,6 +44,21 @@ public class Game {
         currentPlayer.addPawn(blackPawn2);
         opponentPlayer.addPawn(whitePawn1);
         opponentPlayer.addPawn(whitePawn2);
+
+        currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 0));
+        currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 3));
+        opponentPlayer.addPawn(new Pawn(PlayerColor.WHITE, null, 0));
+        opponentPlayer.addPawn(new Pawn(PlayerColor.WHITE, null, 3));
+        for (int i = 0; i < 10; i++) {
+            currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 2));
+            opponentPlayer.addPawn(new Pawn(PlayerColor.WHITE, null, 2));
+        }
+        for (int i = 0; i < 18; i++) {
+            currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 1));
+            opponentPlayer.addPawn(new Pawn(PlayerColor.WHITE, null, 1));
+        }
+        Collections.shuffle(currentPlayer.getPawns());
+        Collections.shuffle(opponentPlayer.getPawns());
     }
 
     /**
@@ -71,7 +88,7 @@ public class Game {
     void gameOver() {
         isOver = true;
     }
-    
+
     /**
      * Swaps the players
      */
