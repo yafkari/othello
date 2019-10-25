@@ -24,8 +24,15 @@ public class Cell {
     public Pawn getPawn() {
         return pawn;
     }
-    
-    public boolean isEmpty()  {
+
+    /**
+     * Returns true if the Cell is empty
+     *
+     * A cell is empty if there is no pawn in it
+     *
+     * @return true if the cell is empty, false otherwise
+     */
+    public boolean isEmpty() {
         return pawn == null;
     }
 
