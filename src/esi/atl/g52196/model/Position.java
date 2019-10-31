@@ -82,4 +82,12 @@ public class Position {
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.row;
+        hash = 97 * hash + this.column;
+        return hash;
+    }
 }
