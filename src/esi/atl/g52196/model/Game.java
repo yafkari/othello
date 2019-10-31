@@ -80,16 +80,18 @@ public class Game {
     }
 
     /**
-     * Returns the score a player
+     * Returns the score each player
      *
-     * @return the score a player
+     * @return the score each player
      */
     public int[] getScores() {
         int[] scores = new int[2];
-        scores[0] = currentPlayer.getPawns()
-                .stream().mapToInt(x -> x.getPosition() != null ? x.getValue() : 0).sum();
-        scores[1] = opponentPlayer.getPawns()
-                .stream().mapToInt(x -> x.getPosition() != null ? x.getValue() : 0).sum();
+        scores[0] = currentPlayer.getPawns().stream()
+                .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
+                .sum();
+        scores[1] = opponentPlayer.getPawns().stream()
+                .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
+                .sum();
 
         return scores;
     }

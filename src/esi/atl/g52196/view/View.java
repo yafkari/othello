@@ -60,7 +60,7 @@ public class View {
             System.out.print(i + 1);
             for (Cell column : cells[i]) {
                 if (column.isEmpty()) {
-                    System.out.print("  ");
+                    System.out.print(" _");
                 } else {
                     if (column.getPawn().getColor() == PlayerColor.WHITE) {
                         System.out.print(" W");
@@ -89,7 +89,7 @@ public class View {
      * @param message the message that will be displayed
      */
     public void displayError(String message) {
-        System.out.println(ANSI_RED + message + ANSI_RESET);
+        System.out.println(ANSI_RED + message + ANSI_RESET + "\n");
     }
 
     /**
