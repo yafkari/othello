@@ -80,6 +80,15 @@ public class Game {
     }
 
     /**
+     * Returns the color of the current player
+     *
+     * @return the color of the current player
+     */
+    public PlayerColor getCurrentColor() {
+        return currentPlayer.getColor();
+    }
+
+    /**
      * Returns the score each player
      *
      * @return the score each player
@@ -96,6 +105,40 @@ public class Game {
         return scores;
     }
 
+    private boolean isLegalMove(Position position) {
+        if (!board.isInside(position)) {
+            return false;
+        }
+        for (int i = 0; i < board.getCells().length; i++) {
+            for (int j = 0; j < board.getCells()[i].length; j++) {
+                if (!board.getCell(position).isEmpty()) {
+                    return false;
+                }
+                // TODO check around the position
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns true if the move has been done, otherwise false
+     *
+     * If it returns false, it means that the move was not legal
+     *
+     * @param position The future position of the pawn
+     *
+     * @return true if the move has been done, otherwise false
+     */
+    public boolean play(Position position) {
+        if (!isLegalMove(position)) {
+            return false;
+        }
+        Pawn pawn = currentPlayer.getPawns().get(0);
+        pawn.setPosition(position);
+        board.addPawn(pawn);
+        return true;
+    }
+
     /**
      * Sets the game as over.
      *
@@ -109,7 +152,7 @@ public class Game {
     /**
      * Swaps the players
      */
-    void swapPlayers() {
+    public void swapPlayers() {
         Player tmp = currentPlayer;
         currentPlayer = opponentPlayer;
         opponentPlayer = tmp;
