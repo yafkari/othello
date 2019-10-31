@@ -32,9 +32,9 @@ public class Board {
      * otherwise
      */
     boolean isInside(Position position) {
-        return (position.getRow() > 0
+        return (position.getRow() >= 0
                 && position.getRow() < BOARD_SIZE)
-                && (position.getColumn() > 0
+                && (position.getColumn() >= 0
                 && position.getColumn() < BOARD_SIZE);
     }
 
@@ -56,17 +56,6 @@ public class Board {
     Cell getCell(Position position) {
         checkIsInside(position);
         return getCells()[position.getRow()][position.getColumn()];
-    }
-
-    /**
-     * Returns the Pawn at the position passed in parameter
-     *
-     * @param position the position of the Pawn we want to get
-     * @return the Pawn at the position passed in parameter
-     */
-    Pawn getPawn(Position position) {
-        checkIsInside(position);
-        return getCell(position).getPawn();
     }
 
     /**
