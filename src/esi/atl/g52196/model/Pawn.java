@@ -44,6 +44,15 @@ public class Pawn {
     }
 
     /**
+     * Sets the position on the board of a pawn that was not on the board
+     *
+     * @param position the future position of the pawn
+     */
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    /**
      * Returns the value of the pawn
      *
      * @return the value of the pawn
