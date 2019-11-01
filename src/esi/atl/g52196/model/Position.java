@@ -17,9 +17,6 @@ public class Position {
      * @param column the position in x-axis
      */
     public Position(int row, int column) {
-        if (row < 0 || column < 0) {
-            throw new IllegalArgumentException("Row and column can't be negative");
-        }
         this.row = row;
         this.column = column;
     }
@@ -89,5 +86,9 @@ public class Position {
         hash = 97 * hash + this.row;
         hash = 97 * hash + this.column;
         return hash;
+    }
+    
+    public String toString() {  //TMP
+        return row + " " + column;
     }
 }
