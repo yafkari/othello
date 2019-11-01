@@ -1,6 +1,8 @@
 package esi.atl.g52196.model;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author 52196
@@ -105,19 +107,64 @@ public class Game {
         return scores;
     }
 
-    private boolean isLegalMove(Position position) {
-        if (!board.isInside(position)) {
-            return false;
-        }
-        for (int i = 0; i < board.getCells().length; i++) {
-            for (int j = 0; j < board.getCells()[i].length; j++) {
-                if (!board.getCell(position).isEmpty()) {
-                    return false;
+    /**
+     * Returns the pawn of a position
+     *
+     * @param position the position to look at
+     * @return the pawn at the position or null if there is no pawn
+     */
+    private Pawn getPawn(Position position) {
+        return board.getCell(position).getPawn();
+    }
+
+    public List<Position> getPossibleMoves() {
+        List<Position> result = new ArrayList<>();
+
+        for (int row = 0; row < board.getCells().length; row++) {
+            for (int col = 0; col < board.getCells()[row].length; col++) {
+                Position position = new Position(row, col);
+                if (board.isInside(position)) {
+                    if (!board.getCell(position).isEmpty() && IsMyPawn(getPawn(position))) {
+                        for (Direction direction : Direction.values()) {
+                            Position nextPos = position.nextPos(direction);
+                            if (!board.getCell(nextPos).isEmpty() && !IsMyPawn(getPawn(nextPos))) {
+                                while (!board.getCell(nextPos).isEmpty() && !IsMyPawn(getPawn(nextPos))) {
+                                    nextPos = nextPos.nextPos(direction);
+                                }
+                                if (board.getCell(nextPos).isEmpty()) {
+                                    if (!result.contains(nextPos)) {
+                                        result.add(nextPos);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                // TODO check around the position
             }
         }
-        return true;
+        return result;
+    }
+
+    /**
+     * Returns true if the pawn passed in parameter is a pawn of the current
+     * player
+     *
+     * @param pawn the player to look at
+     * @return true if the pawn belongs to the current player, otherwise false
+     */
+    private boolean IsMyPawn(Pawn pawn) {
+        return pawn.getColor() == getCurrentColor();
+    }
+
+    /**
+     * Returns true if the move to the position passed in parameter is legal
+     *
+     * @param position the position to check
+     * @return true if the move to the position passed in parameter is legal
+     */
+    private boolean isLegalMove(Position position) {
+        System.out.println(getPossibleMoves());
+        return getPossibleMoves().contains(position);
     }
 
     /**

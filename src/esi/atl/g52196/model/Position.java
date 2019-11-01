@@ -89,6 +89,6 @@ public class Position {
     }
     
     public String toString() {  //TMP
-        return row + " " + column;
+        return "(" + row + ", " + column + ")";
     }
 }
