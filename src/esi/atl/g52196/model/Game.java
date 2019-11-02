@@ -117,6 +117,11 @@ public class Game {
         return board.getCell(position).getPawn();
     }
 
+    /**
+     * Returns a list of possible moves for the current player
+     *
+     * @return a list of possible move (position) for the current player
+     */
     public List<Position> getPossibleMoves() {
         List<Position> result = new ArrayList<>();
 
@@ -163,12 +168,16 @@ public class Game {
      * @return true if the move to the position passed in parameter is legal
      */
     private boolean isLegalMove(Position position) {
-        System.out.println(getPossibleMoves());
         return getPossibleMoves().contains(position);
     }
 
     /**
      * Returns true if the move has been done, otherwise false
+     *
+     * If the move was legal the method checks for the first pawn of the
+     * currentPlayer that is not present on board and sets its position and adds
+     * it to the board. Finally, the methods checks if the game need to be set
+     * to true
      *
      * If it returns false, it means that the move was not legal
      *
@@ -180,9 +189,14 @@ public class Game {
         if (!isLegalMove(position)) {
             return false;
         }
-        Pawn pawn = currentPlayer.getPawns().get(0);
+        Pawn pawn = currentPlayer.getPawns()
+                .stream()
+                .filter(p -> p.getPosition() == null)
+                .findFirst()
+                .orElse(null);
         pawn.setPosition(position);
         board.addPawn(pawn);
+        //checkIsOver();
         return true;
     }
 
