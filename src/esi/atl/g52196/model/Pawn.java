@@ -22,6 +22,10 @@ public class Pawn {
      * @param value the value of the pawn
      */
     public Pawn(PlayerColor color, Position position, int value) {
+        if (position != null && (position.getRow() < 0
+                || position.getColumn() < 0)) {
+            throw new IllegalArgumentException("Position cannott be negative");
+        }
         this.color = color;
         this.position = position;
         this.value = value;
@@ -53,7 +57,7 @@ public class Pawn {
     void setColor(PlayerColor color) {
         this.color = color;
     }
-    
+
     /**
      * Sets the position on the board of a pawn
      *
