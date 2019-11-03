@@ -152,7 +152,8 @@ public class Game {
         boolean legit = false;
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
-            if (board.isInside(nextPos) && !board.getCell(nextPos).isEmpty()) {
+            if (board.isInside(nextPos) && !board.getCell(nextPos).isEmpty()
+                    && !isMyPawn(getPawn(nextPos))) {
                 while (!board.getCell(nextPos).isEmpty()
                         && !isMyPawn(getPawn(nextPos))) {
                     toEat.add(nextPos);
@@ -169,6 +170,44 @@ public class Game {
             }
         }
         return legit;
+    }
+
+    /**
+     * Returns a list of possible moves for the current player
+     *
+     * @return a list of possible move (position) for the current player
+     */
+    public List<Position> getPossibleMoves() {
+        List<Position> result = new ArrayList<>();
+
+        for (int row = 0; row < board.getCells().length; row++) {
+            for (int col = 0; col < board.getCells()[row].length; col++) {
+                Position currentPos = new Position(row, col);
+                if (board.isInside(currentPos)) {
+                    if (!board.getCell(currentPos).isEmpty()
+                            && isMyPawn(getPawn(currentPos))) {
+                        for (Direction direction : Direction.values()) {
+                            Position nextPos = currentPos.nextPos(direction);
+                            if (board.isInside(nextPos)
+                                    && !board.getCell(nextPos).isEmpty()
+                                    && !isMyPawn(getPawn(nextPos))) {
+                                while (board.isInside(nextPos)
+                                        && !board.getCell(nextPos).isEmpty()
+                                        && !isMyPawn(getPawn(nextPos))) {
+                                    nextPos = nextPos.nextPos(direction);
+                                }
+                                if (board.getCell(nextPos).isEmpty()) {
+                                    if (!result.contains(nextPos)) {
+                                        result.add(nextPos);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -211,18 +250,25 @@ public class Game {
         }
 
         board.addPawn(pawn);
-        //checkIsOver();
+        isOver = checkIsOver();
         return true;
     }
 
     /**
-     * Sets the game as over.
+     * Checks if the two player have moves
      *
-     * The game is set as over if a player does not have any pawn or if there is
-     * no possible moves for the two players anymore.
+     * @return true if the game is over
      */
-    void gameOver() {
-        isOver = true;
+    private boolean checkIsOver() {
+        if (getPossibleMoves().isEmpty()) {
+            swapPlayers();
+            if (getPossibleMoves().isEmpty()) {
+                return true;
+            } else {
+                swapPlayers();
+            }
+        }
+        return false;
     }
 
     /**

@@ -2,6 +2,7 @@ package esi.atl.g52196.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 52196
@@ -42,6 +43,18 @@ public class Player {
      */
     public List<Pawn> getPawns() {
         return pawns;
+    }
+
+    /**
+     * Returns the list of pawns of the player that are present on board
+     *
+     * @return the list of pawns of the player that are present on board
+     */
+    public List<Pawn> getPawnsOnBoard() {
+        return pawns
+                .stream()
+                .filter(p -> p.getPosition() != null)
+                .collect(Collectors.toList());
     }
 
     /**
