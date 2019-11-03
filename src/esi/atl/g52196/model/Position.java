@@ -78,8 +78,4 @@ public class Position {
         hash = 97 * hash + this.column;
         return hash;
     }
-    
-    public String toString() {  //TMP
-        return "(" + row + ", " + column + ")";
-    }
 }
