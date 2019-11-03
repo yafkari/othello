@@ -147,7 +147,7 @@ public class Game {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    private boolean isLegalMove(Position position) {
+    boolean isLegalMove(Position position) {
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {

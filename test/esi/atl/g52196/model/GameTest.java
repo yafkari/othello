@@ -106,4 +106,19 @@ public class GameTest {
         assertEquals(PlayerColor.WHITE, instance.getCurrentColor());
     }
 
+    @Test
+    public void testIsLegalMoveWhenTrue() {
+        System.out.println("testIsLegalMoveWhenTrue");
+        Game instance = new Game();
+        instance.initialize();
+        assertTrue(instance.isLegalMove(instance.getPossibleMoves().get(0)));
+    }
+    
+    @Test
+    public void testIsLegalMoveWhenFalse() {
+        System.out.println("testIsLegalMoveWhenFalse");
+        Game instance = new Game();
+        instance.initialize();
+        assertFalse(instance.isLegalMove(new Position(0, 0)));
+    }
 }
