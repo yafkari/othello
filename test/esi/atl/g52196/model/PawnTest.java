@@ -40,8 +40,24 @@ public class PawnTest {
 
     @Test
     public void testGetValue() {
-        System.out.println("getValue");
+        System.out.println("testGetValue");
         Pawn instance = new Pawn(PlayerColor.BLACK, null, 0);
         assertEquals(0, instance.getValue());
+    }
+
+    @Test
+    public void testHashCodeWhenNotEquals() {
+        System.out.println("testHashCodeWhenNotEquals");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
+        assertNotEquals(instance1, instance2);
+    }
+
+    @Test
+    public void testHashCodeWhenEquals() {
+        System.out.println("testHashCodeWhenEquals");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 0);
+        assertEquals(instance1, instance2);
     }
 }
