@@ -228,6 +228,10 @@ public class Game {
     /**
      * Returns true if the move has been done, otherwise false
      *
+     * Checks if the player has possible moves, if not return false
+     *
+     * if the player has possible moves :
+     *
      * If the move was legal the method checks for the first pawn of the
      * currentPlayer that is not present on board and sets its position and adds
      * it to the board. Finally, the methods checks if the game need to be set
@@ -240,6 +244,10 @@ public class Game {
      * @return true if the move has been done, otherwise false
      */
     public boolean play(Position position) {
+        if (getPossibleMoves().isEmpty()) {
+            swapPlayers();
+            return false;
+        }
         if (!isLegalMove(position)) {
             return false;
         }
