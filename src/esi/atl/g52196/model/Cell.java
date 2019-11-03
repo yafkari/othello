@@ -1,5 +1,7 @@
 package esi.atl.g52196.model;
 
+import java.util.Objects;
+
 /**
  * @author 52196
  *
