@@ -1,5 +1,7 @@
 package esi.atl.g52196.model;
 
+import java.util.Objects;
+
 /**
  * @author 52196
  *
@@ -44,7 +46,16 @@ public class Pawn {
     }
 
     /**
-     * Sets the position on the board of a pawn that was not on the board
+     * Sets the color of a pawn
+     *
+     * @param color the future color of the pawn
+     */
+    public void setColor(PlayerColor color) {
+        this.color = color;
+    }
+    
+    /**
+     * Sets the position on the board of a pawn
      *
      * @param position the future position of the pawn
      */
@@ -59,5 +70,38 @@ public class Pawn {
      */
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + Objects.hashCode(this.color);
+        hash = 43 * hash + Objects.hashCode(this.position);
+        hash = 43 * hash + this.value;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pawn other = (Pawn) obj;
+        if (this.value != other.value) {
+            return false;
+        }
+        if (this.color != other.color) {
+            return false;
+        }
+        if (!Objects.equals(this.position, other.position)) {
+            return false;
+        }
+        return true;
     }
 }

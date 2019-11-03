@@ -118,47 +118,27 @@ public class Game {
     }
 
     /**
-     * Returns a list of possible moves for the current player
-     *
-     * @return a list of possible move (position) for the current player
-     */
-    public List<Position> getPossibleMoves() {
-        List<Position> result = new ArrayList<>();
-
-        for (int row = 0; row < board.getCells().length; row++) {
-            for (int col = 0; col < board.getCells()[row].length; col++) {
-                Position position = new Position(row, col);
-                if (board.isInside(position)) {
-                    if (!board.getCell(position).isEmpty() && IsMyPawn(getPawn(position))) {
-                        for (Direction direction : Direction.values()) {
-                            Position nextPos = position.nextPos(direction);
-                            if (!board.getCell(nextPos).isEmpty() && !IsMyPawn(getPawn(nextPos))) {
-                                while (!board.getCell(nextPos).isEmpty() && !IsMyPawn(getPawn(nextPos))) {
-                                    nextPos = nextPos.nextPos(direction);
-                                }
-                                if (board.getCell(nextPos).isEmpty()) {
-                                    if (!result.contains(nextPos)) {
-                                        result.add(nextPos);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    /**
      * Returns true if the pawn passed in parameter is a pawn of the current
      * player
      *
      * @param pawn the player to look at
      * @return true if the pawn belongs to the current player, otherwise false
      */
-    private boolean IsMyPawn(Pawn pawn) {
+    private boolean isMyPawn(Pawn pawn) {
         return pawn.getColor() == getCurrentColor();
+    }
+
+    /**
+     * Changes the color of a pawn to the color of the current player and
+     * returns it
+     *
+     * @param pawn the pawn to change the color
+     * @return the pawn passed in parameter after changing its color
+     */
+    private Pawn eatPawn(Pawn pawn) {
+        pawn.setColor(getCurrentColor());
+        currentPlayer.addPawn(opponentPlayer.removePawn(pawn));
+        return pawn;
     }
 
     /**
@@ -168,7 +148,42 @@ public class Game {
      * @return true if the move to the position passed in parameter is legal
      */
     private boolean isLegalMove(Position position) {
-        return getPossibleMoves().contains(position);
+        List<Position> toEat = new ArrayList<>();
+        boolean legit = false;
+        for (Direction direction : Direction.values()) {
+            Position nextPos = position.nextPos(direction);
+            if (board.isInside(nextPos) && !board.getCell(nextPos).isEmpty()) {
+                while (!board.getCell(nextPos).isEmpty()
+                        && !isMyPawn(getPawn(nextPos))) {
+                    toEat.add(nextPos);
+                    nextPos = nextPos.nextPos(direction);
+                }
+
+                if (!board.getCell(nextPos).isEmpty()
+                        && isMyPawn(getPawn(nextPos))) {
+                    toEat.stream().forEach(p -> eatPawn(getPawn(p)));
+                    legit = true;
+                } else {
+                    toEat.clear();
+                }
+            }
+        }
+        return legit;
+    }
+
+    /**
+     * Returns the first pawn that as no position (not on the board) of the
+     * current player
+     *
+     * @return the first pawn that as no position (not on the board) of the
+     * current player
+     */
+    private Pawn pickUnusedPawn() {
+        return currentPlayer.getPawns()
+                .stream()
+                .filter(p -> p.getPosition() == null)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -189,12 +204,12 @@ public class Game {
         if (!isLegalMove(position)) {
             return false;
         }
-        Pawn pawn = currentPlayer.getPawns()
-                .stream()
-                .filter(p -> p.getPosition() == null)
-                .findFirst()
-                .orElse(null);
+        Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
+        if (!board.getCell(pawn.getPosition()).isEmpty()) {
+            return false;
+        }
+
         board.addPawn(pawn);
         //checkIsOver();
         return true;
