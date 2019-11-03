@@ -46,11 +46,19 @@ public class PawnTest {
     }
 
     @Test
+    public void testHashCodeWhenNull() {
+        System.out.println("testHashCodeWhenNotEquals");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
+        assertFalse(instance1.equals(null));
+    }
+
+    @Test
     public void testHashCodeWhenNotEquals() {
         System.out.println("testHashCodeWhenNotEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
         Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
-        assertNotEquals(instance1, instance2);
+        assertFalse(instance1.equals(instance2));
     }
 
     @Test
@@ -58,6 +66,6 @@ public class PawnTest {
         System.out.println("testHashCodeWhenEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
         Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 0);
-        assertEquals(instance1, instance2);
+        assertTrue(instance1.equals(instance2));
     }
 }
