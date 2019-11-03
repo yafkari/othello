@@ -246,7 +246,10 @@ public class Game {
     public boolean play(Position position) {
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
-            return false;
+            if (getPossibleMoves().isEmpty()) {
+                isOver = true;
+                return false;
+            }
         }
         if (!isLegalMove(position)) {
             return false;
@@ -258,25 +261,7 @@ public class Game {
         }
 
         board.addPawn(pawn);
-        isOver = checkIsOver();
         return true;
-    }
-
-    /**
-     * Checks if the two player have moves
-     *
-     * @return true if the game is over
-     */
-    private boolean checkIsOver() {
-        if (getPossibleMoves().isEmpty()) {
-            swapPlayers();
-            if (getPossibleMoves().isEmpty()) {
-                return true;
-            } else {
-                swapPlayers();
-            }
-        }
-        return false;
     }
 
     /**
