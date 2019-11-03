@@ -50,7 +50,7 @@ public class Pawn {
      *
      * @param color the future color of the pawn
      */
-    public void setColor(PlayerColor color) {
+    void setColor(PlayerColor color) {
         this.color = color;
     }
     
@@ -59,7 +59,7 @@ public class Pawn {
      *
      * @param position the future position of the pawn
      */
-    public void setPosition(Position position) {
+    void setPosition(Position position) {
         this.position = position;
     }
 
@@ -68,7 +68,7 @@ public class Pawn {
      *
      * @return the value of the pawn
      */
-    public int getValue() {
+    int getValue() {
         return value;
     }
 

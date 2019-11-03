@@ -74,7 +74,7 @@ public class Board {
      *
      * @param position the position of the pawn to remove
      */
-    public void remove(Position position) {
+    void remove(Position position) {
         checkIsInside(position);
         if (getCell(position) != null) {
             getCells()[position.getRow()][position.getColumn()] = new Cell();

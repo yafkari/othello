@@ -12,7 +12,7 @@ public class Cell {
     /**
      * Creates an empty cell of the board
      */
-    public Cell() {
+    Cell() {
         this.pawn = null;
     }
 
@@ -43,7 +43,7 @@ public class Cell {
      * @throws NullPointerException if the pawn passed in parameter is null
      * @throws IllegalStateException if the cell is not empty
      */
-    public void fill(Pawn pawn) {
+    void fill(Pawn pawn) {
         if (pawn == null) {
             throw new NullPointerException("The pawn can't be null");
         } else if (!isEmpty()) {

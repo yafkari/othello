@@ -32,7 +32,7 @@ public class Player {
      *
      * @return the color of the player
      */
-    public PlayerColor getColor() {
+    PlayerColor getColor() {
         return color;
     }
 
@@ -41,20 +41,8 @@ public class Player {
      *
      * @return the list of pawns of the player
      */
-    public List<Pawn> getPawns() {
+    List<Pawn> getPawns() {
         return pawns;
-    }
-
-    /**
-     * Returns the list of pawns of the player that are present on board
-     *
-     * @return the list of pawns of the player that are present on board
-     */
-    public List<Pawn> getPawnsOnBoard() {
-        return pawns
-                .stream()
-                .filter(p -> p.getPosition() != null)
-                .collect(Collectors.toList());
     }
 
     /**
@@ -62,7 +50,7 @@ public class Player {
      *
      * @param pawn the pawn to be added to the list
      */
-    public void addPawn(Pawn pawn) {
+    void addPawn(Pawn pawn) {
         pawns.add(pawn);
     }
 
@@ -73,7 +61,7 @@ public class Player {
      * @param pawn the pawn to be removed
      * @return the pawn if it has been remove, otherwise null
      */
-    public Pawn removePawn(Pawn pawn) {
+    Pawn removePawn(Pawn pawn) {
         if (pawns.contains(pawn)) {
             if (pawns.remove(pawn)) {
                 return pawn;

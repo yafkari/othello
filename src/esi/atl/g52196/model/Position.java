@@ -22,20 +22,11 @@ public class Position {
     }
 
     /**
-     * Creates a position with the parameters of another position
-     *
-     * @param position
-     */
-    public Position(Position position) {
-        this(position.getRow(), position.getColumn());
-    }
-
-    /**
      * Returns the position in the y-axis of the position
      *
      * @return the row of the position
      */
-    public int getRow() {
+    int getRow() {
         return row;
     }
 
@@ -44,7 +35,7 @@ public class Position {
      *
      * @return the column of the position
      */
-    public int getColumn() {
+    int getColumn() {
         return column;
     }
     
@@ -54,7 +45,7 @@ public class Position {
      * @param direction the direction for the next position
      * @return the next position
      */
-    public Position nextPos(Direction direction) {
+    Position nextPos(Direction direction) {
         return new Position(row + direction.getRow(),
                 column + direction.getColumn());
     }
