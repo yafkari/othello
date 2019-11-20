@@ -77,7 +77,7 @@ public class Board {
     void remove(Position position) {
         checkIsInside(position);
         if (getCell(position) != null) {
-            getCells()[position.getRow()][position.getColumn()] = new Cell();
+            cells[position.getRow()][position.getColumn()] = new Cell();
         }
     }
 

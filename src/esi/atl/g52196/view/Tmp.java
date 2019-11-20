@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  * Represents the view
  */
-public class View {
+public class Tmp {
 
     private Scanner stdin;
     public static final String ANSI_RESET = "\u001B[0m";
@@ -19,7 +19,7 @@ public class View {
     /**
      * Initialize the Scanner
      */
-    public View() {
+    public Tmp() {
         stdin = new Scanner(System.in);
     }
 
