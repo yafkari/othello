@@ -272,4 +272,15 @@ public class Game {
         currentPlayer = opponentPlayer;
         opponentPlayer = tmp;
     }
+
+    /**
+     * Returns the color of the player that as the highest score
+     *
+     * @return the color of the player that as the highest score
+     */
+    public PlayerColor getWinnwer() {
+        return getScores()[0] > getScores()[1]
+                ? currentPlayer.getColor()
+                : opponentPlayer.getColor();
+    }
 }
