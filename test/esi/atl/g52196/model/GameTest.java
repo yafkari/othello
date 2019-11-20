@@ -137,4 +137,14 @@ public class GameTest {
         instance.initialize();
         assertFalse(instance.play(new Position(0, 0)));
     }
+
+    @Test
+    public void testGetWinner() {
+        System.out.println("testGetWinner");
+        Game instance = new Game();
+        instance.initialize();
+        instance.play(new Position(2, 3));
+        
+        assertEquals(PlayerColor.BLACK, instance.getWinnwer());
+    }
 }
