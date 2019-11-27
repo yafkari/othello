@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * Represents a game
  */
-public class Game { // implements Model
+public class Game implements Model { 
 
     private Board board;
     private Player currentPlayer;
@@ -169,31 +169,20 @@ public class Game { // implements Model
      *
      * @return a list of possible move (position) for the current player
      */
-    public List<Position> getPossibleMoves() {
+    List<Position> getPossibleMoves() {
         List<Position> result = new ArrayList<>();
 
         // BEAUCOUP trop compliqué --> découper en méthode
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
-                if (board.isInside(currentPos)) {
-                    if (!board.isEmpty(currentPos)
-                            && isMyPawn(getBoard().getPawn(currentPos))) {
-                        for (Direction direction : Direction.values()) {
-                            Position nextPos = currentPos.nextPos(direction);
-                            if (board.isInside(nextPos)
-                                    && !board.isEmpty(currentPos)
-                                    && !isMyPawn(getBoard().getPawn(nextPos))) {
-                                while (board.isInside(nextPos)
-                                        && !board.isEmpty(currentPos)
-                                        && !isMyPawn(getBoard().getPawn(nextPos))) {
-                                    nextPos = nextPos.nextPos(direction);
-                                }
-                                if (board.isEmpty(currentPos)) {
-                                    if (!result.contains(nextPos)) {
-                                        result.add(nextPos);
-                                    }
-                                }
+                if (board.isInside(currentPos) && !board.isEmpty(currentPos)
+                        && isMyPawn(getBoard().getPawn(currentPos))) {
+                    for (Direction direction : Direction.values()) {
+                        Position nextPos = currentPos.nextPos(direction);
+                        if (checkMoveDirection(currentPos, nextPos, direction)) {
+                            if (!result.contains(nextPos)) {
+                                result.add(nextPos);
                             }
                         }
                     }
@@ -201,6 +190,19 @@ public class Game { // implements Model
             }
         }
         return result;
+    }
+
+    boolean checkMoveDirection(Position currentPos, Position nextPos,
+            Direction direction) {
+        if (board.isInside(nextPos) && !board.isEmpty(currentPos)
+                && !isMyPawn(getBoard().getPawn(nextPos))) {
+            while (board.isInside(nextPos) && !board.isEmpty(currentPos)
+                    && !isMyPawn(getBoard().getPawn(nextPos))) {
+                nextPos = nextPos.nextPos(direction);
+            }
+            return board.isEmpty(currentPos);
+        }
+        return false;
     }
 
     /**
@@ -236,7 +238,7 @@ public class Game { // implements Model
      *
      * @return true if the move has been done, otherwise false
      */
-    public boolean play(Position position) {
+    boolean play(Position position) {
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
             if (getPossibleMoves().isEmpty()) {
@@ -272,7 +274,7 @@ public class Game { // implements Model
      *
      * @return the color of the player that as the highest score
      */
-    public PlayerColor getWinner() {
+    PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
         int opponentScore = getScore(opponentPlayer.getColor());
 
