@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Pawn {
 
     private PlayerColor color;
-    private Position position;
+    private Position position; // supprimer 
     private int value;
 
     /**

@@ -45,7 +45,7 @@ public class GameTest {
         System.out.println("getBoard");
         Game instance = new Game();
         instance.initialize();
-        Cell[][] result = instance.getBoard();
+        Cell[][] result = instance.getBoard().getCells();
         assertEquals(board[3][3].getPawn(), result[3][3].getPawn());
         assertEquals(board[0][0].getPawn(), result[0][0].getPawn());
 
@@ -55,7 +55,7 @@ public class GameTest {
     public void testGetIsOver() {
         System.out.println("testGetIsOver");
         Game instance = new Game();
-        boolean result = instance.getIsOver();
+        boolean result = instance.isOver();
         assertEquals(false, result);
     }
 

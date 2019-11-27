@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * Represents a game
  */
-public class Game {
+public class Game { // implements Model
 
     private Board board;
     private Player currentPlayer;
@@ -29,7 +29,7 @@ public class Game {
     /**
      * Initalizes the board
      */
-    public void initialize() {
+    public void initialize() { // découper ne méthode
         board = new Board();
 
         Pawn whitePawn1 = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);
@@ -37,7 +37,7 @@ public class Game {
         Pawn blackPawn2 = new Pawn(PlayerColor.BLACK, new Position(4, 3), 1);
         Pawn whitePawn2 = new Pawn(PlayerColor.WHITE, new Position(4, 4), 1);
 
-        board.addPawn(whitePawn1);
+        board.addPawn(whitePawn1); 
         board.addPawn(blackPawn1);
         board.addPawn(blackPawn2);
         board.addPawn(whitePawn2);
@@ -68,8 +68,8 @@ public class Game {
      *
      * @return the cells of the board
      */
-    public Cell[][] getBoard() {
-        return board.getCells();
+    public Board getBoard() {
+        return new Board(board);
     }
 
     /**
@@ -77,7 +77,7 @@ public class Game {
      *
      * @return the cells of the board
      */
-    public boolean getIsOver() {
+    public boolean isOver() {
         return isOver;
     }
 
@@ -86,35 +86,20 @@ public class Game {
      *
      * @return the color of the current player
      */
-    public PlayerColor getCurrentColor() {
+    public PlayerColor getCurrentColor() { //Player getCurrentPlayer
         return currentPlayer.getColor();
     }
-
+    
     /**
-     * Returns the score each player
-     *
-     * @return the score each player
+     * Returns the score of a player
+     * 
+     * @param player the player that we want to get the score
+     * @return the score of a player
      */
-    public int[] getScores() {      //TODO need to pass a param Player/playercolor
-        int[] scores = new int[2];
-        scores[0] = currentPlayer.getPawns().stream()
+    public int getScore(Player player) {
+        return player.getPawns().stream()
                 .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
                 .sum();
-        scores[1] = opponentPlayer.getPawns().stream()
-                .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
-                .sum();
-
-        return scores;
-    }
-
-    /**
-     * Returns the pawn of a position
-     *
-     * @param position the position to look at
-     * @return the pawn at the position or null if there is no pawn
-     */
-    private Pawn getPawn(Position position) {
-        return board.getCell(position).getPawn();
     }
 
     /**
@@ -124,7 +109,7 @@ public class Game {
      * @param pawn the player to look at
      * @return true if the pawn belongs to the current player, otherwise false
      */
-    private boolean isMyPawn(Pawn pawn) {
+    private boolean isMyPawn(Pawn pawn) { // supprimer -> A VOIR
         return pawn.getColor() == getCurrentColor();
     }
 
@@ -153,16 +138,16 @@ public class Game {
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
             if (board.isInside(nextPos) && !board.getCell(nextPos).isEmpty()
-                    && !isMyPawn(getPawn(nextPos))) {
+                    && !isMyPawn(getBoard().getPawn(nextPos))) {
                 while (!board.getCell(nextPos).isEmpty()
-                        && !isMyPawn(getPawn(nextPos))) {
+                        && !isMyPawn(getBoard().getPawn(nextPos))) {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
 
                 if (!board.getCell(nextPos).isEmpty()
-                        && isMyPawn(getPawn(nextPos))) {
-                    toEat.stream().forEach(p -> eatPawn(getPawn(p)));
+                        && isMyPawn(getBoard().getPawn(nextPos))) {
+                    toEat.stream().forEach(p -> eatPawn(getBoard().getPawn(p)));
                     legit = true;
                 } else {
                     toEat.clear();
@@ -180,20 +165,21 @@ public class Game {
     public List<Position> getPossibleMoves() {
         List<Position> result = new ArrayList<>();
 
-        for (int row = 0; row < board.getCells().length; row++) {
-            for (int col = 0; col < board.getCells()[row].length; col++) {
+        // BEAUCOUP trop compliqué --> découper en méthode
+        for (int row = 0; row < getBoard().getCells().length; row++) {
+            for (int col = 0; col < getBoard().getCells()[row].length; col++) {
                 Position currentPos = new Position(row, col);
                 if (board.isInside(currentPos)) {
                     if (!board.getCell(currentPos).isEmpty()
-                            && isMyPawn(getPawn(currentPos))) {
+                            && isMyPawn(getBoard().getPawn(currentPos))) {
                         for (Direction direction : Direction.values()) {
                             Position nextPos = currentPos.nextPos(direction);
                             if (board.isInside(nextPos)
                                     && !board.getCell(nextPos).isEmpty()
-                                    && !isMyPawn(getPawn(nextPos))) {
+                                    && !isMyPawn(getBoard().getPawn(nextPos))) {
                                 while (board.isInside(nextPos)
                                         && !board.getCell(nextPos).isEmpty()
-                                        && !isMyPawn(getPawn(nextPos))) {
+                                        && !isMyPawn(getBoard().getPawn(nextPos))) {
                                     nextPos = nextPos.nextPos(direction);
                                 }
                                 if (board.getCell(nextPos).isEmpty()) {
@@ -261,13 +247,14 @@ public class Game {
         }
 
         board.addPawn(pawn);
+        swapPlayers();
         return true;
     }
 
     /**
      * Swaps the players
      */
-    public void swapPlayers() {
+    void swapPlayers() {
         Player tmp = currentPlayer;
         currentPlayer = opponentPlayer;
         opponentPlayer = tmp;

@@ -1,13 +1,11 @@
 package esi.atl.g52196.model;
 
-import java.util.Objects;
-
 /**
  * @author 52196
  *
  * Represents one cell of the Board
  */
-public class Cell {
+public class Cell { // supprimer cette classe !
 
     private Pawn pawn;
 

@@ -23,6 +23,15 @@ public class Board {
         }
     }
 
+    public Board(Board oldBoard) {
+        Cell[][] board = new Cell[BOARD_SIZE][BOARD_SIZE];
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int column = 0; column < BOARD_SIZE; column++) {
+                board[row][column] = oldBoard.getCell(new Position(row, column));
+            }
+        }
+    }
+
     /**
      * Returns true if the position passed in parameter is in the board, false
      * otherwise
@@ -56,6 +65,17 @@ public class Board {
     Cell getCell(Position position) {
         checkIsInside(position);
         return getCells()[position.getRow()][position.getColumn()];
+    }
+
+    /**
+     * Returns the pawn at the position passed in parameter
+     *
+     * @param position the position of the pawn we want to get
+     * @return the pawn at the position passed in parameter
+     */
+    Pawn getPawn(Position position) {
+        checkIsInside(position);
+        return getCells()[position.getRow()][position.getColumn()].getPawn();
     }
 
     /**

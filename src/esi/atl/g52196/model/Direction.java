@@ -5,7 +5,7 @@ package esi.atl.g52196.model;
  *
  * Represents the possible directions
  */
-public enum Direction {
+ enum Direction { // supprimer ?
     NORTH(-1, 0),
     NORTHEAST(-1, 1),
     EAST(0, 1),
@@ -28,7 +28,7 @@ public enum Direction {
      *
      * @return the movement on the y-axis of the direction
      */
-    public int getRow() {
+    int getRow() {
         return row;
     }
 
@@ -37,7 +37,7 @@ public enum Direction {
      *
      * @return the movement on the x-axis of the direction
      */
-    public int getColumn() {
+    int getColumn() {
         return column;
     }
 }

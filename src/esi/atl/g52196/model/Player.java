@@ -11,7 +11,7 @@ import java.util.List;
 public class Player {
 
     private PlayerColor color;
-    private List<Pawn> pawns;
+    private List<Pawn> pawns; // ajouter une class Bag
 
     /**
      * Creates a new player
