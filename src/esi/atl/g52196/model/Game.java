@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * Represents a game
  */
-public class Game implements Model { 
+public class Game implements Model {
 
     private Board board;
     private Player currentPlayer;
@@ -30,6 +30,7 @@ public class Game implements Model {
     /**
      * Initalizes the board
      */
+    @Override
     public void initialize() {
         board = new Board();
 
@@ -73,6 +74,7 @@ public class Game implements Model {
      *
      * @return the cells of the board
      */
+    @Override
     public Board getBoard() {
         return new Board(board);
     }
@@ -91,6 +93,7 @@ public class Game implements Model {
      *
      * @return the color of the current player
      */
+    @Override
     public PlayerColor getCurrentColor() { //Player getCurrentPlayer > A VOIR
         return currentPlayer.getColor();
     }
@@ -101,6 +104,7 @@ public class Game implements Model {
      * @param color the color of the player we wants to get the score
      * @return the score of a player
      */
+    @Override
     public int getScore(PlayerColor color) {
         Player player = currentPlayer.getColor() == color ? currentPlayer
                 : opponentPlayer;
@@ -204,7 +208,6 @@ public class Game implements Model {
         }
         return false;
     }
-
     /**
      * Returns the first pawn that as no position (not on the board) of the
      * current player
