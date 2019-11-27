@@ -43,7 +43,7 @@ public class Board {
      *
      * @return a 2d array of BOARD_SIZE x BOARD_SIZE
      */
-    Cell[][] getCells() {
+    Cell[][] getCells() {       //TODO need to be changed
         return cells;
     }
 

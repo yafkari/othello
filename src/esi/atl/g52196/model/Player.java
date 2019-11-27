@@ -14,7 +14,8 @@ public class Player {
     private List<Pawn> pawns;
 
     /**
-     *
+     * Creates a new player
+     * 
      * @param color the color of the player (black or white)
      * @throws NullPointerException if the color is null
      */

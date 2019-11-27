@@ -95,7 +95,7 @@ public class Game {
      *
      * @return the score each player
      */
-    public int[] getScores() {      //TODO faire passé un param
+    public int[] getScores() {      //TODO need to pass a param Player/playercolor
         int[] scores = new int[2];
         scores[0] = currentPlayer.getPawns().stream()
                 .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
