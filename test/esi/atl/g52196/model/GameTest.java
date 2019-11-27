@@ -12,7 +12,7 @@ import org.junit.Before;
  */
 public class GameTest {
 
-        private Board board = new Board();
+    private Board board = new Board();
 
     @Before
     public void setUp() throws Exception {
@@ -21,18 +21,22 @@ public class GameTest {
         Pawn blackPawn2 = new Pawn(PlayerColor.BLACK, new Position(4, 3), 1);
         Pawn whitePawn2 = new Pawn(PlayerColor.WHITE, new Position(4, 4), 1);
 
-        board[3][3].fill(whitePawn1);
-        board[3][4].fill(blackPawn1);
-        board[4][3].fill(blackPawn2);
-        board[4][4].fill(whitePawn2);
+        board.addPawn(whitePawn1);
+        board.addPawn(blackPawn1);
+        board.addPawn(blackPawn2);
+        board.addPawn(whitePawn2);
     }
 
     @Test
     public void testInitialize() {
         System.out.println("testInitialize");
         Game instance = new Game();
+        
         instance.initialize();
-        assertEquals(4, instance.getPossibleMoves().size());
+        assertFalse(instance.getBoard().isEmpty(new Position(3, 3)));
+        assertFalse(instance.getBoard().isEmpty(new Position(3, 4)));
+        assertFalse(instance.getBoard().isEmpty(new Position(4, 3)));
+        assertFalse(instance.getBoard().isEmpty(new Position(4, 4)));
     }
 
     @Test
@@ -40,9 +44,11 @@ public class GameTest {
         System.out.println("getBoard");
         Game instance = new Game();
         instance.initialize();
-        Cell[][] result = instance.getBoard().getCells();
-        assertEquals(board[3][3].getPawn(), result[3][3].getPawn());
-        assertEquals(board[0][0].getPawn(), result[0][0].getPawn());
+        Board result = instance.getBoard();
+        assertEquals(board.getPawn(new Position(3, 3)),
+                result.getPawn(new Position(3, 3)));
+        assertEquals(board.getPawn(new Position(0, 0)),
+                result.getPawn(new Position(0, 0)));
 
     }
 
@@ -72,13 +78,13 @@ public class GameTest {
     }
 
     @Test
-    public void testGetScores() {
-        System.out.println("testGetScores");
+    public void testGetScore() {
+        System.out.println("testGetScore");
         Game instance = new Game();
         instance.initialize();
-        int[] expResult = {2, 2};
-        int[] result = instance.getScores();
-        assertArrayEquals(expResult, result);
+        int expResult = 2;
+        int result = instance.getScore(PlayerColor.BLACK);
+        assertEquals(expResult, result);
     }
 
     @Test
@@ -90,15 +96,6 @@ public class GameTest {
                 new Position(3, 2), new Position(2, 3), new Position(4, 5));
         List<Position> result = instance.getPossibleMoves();
         assertEquals(expResult, result);
-    }
-
-    @Test
-    public void testSwapPlayers() {
-        System.out.println("testSwapPlayers");
-        Game instance = new Game();
-        assertEquals(PlayerColor.BLACK, instance.getCurrentColor());
-        instance.swapPlayers();
-        assertEquals(PlayerColor.WHITE, instance.getCurrentColor());
     }
 
     @Test
@@ -132,6 +129,15 @@ public class GameTest {
         instance.initialize();
         assertFalse(instance.play(new Position(0, 0)));
     }
+    
+    @Test
+    public void testSwapPlayers() {
+        System.out.println("testSwapPlayers");
+        Game instance = new Game();
+        assertEquals(PlayerColor.BLACK, instance.getCurrentColor());
+        instance.swapPlayers();
+        assertEquals(PlayerColor.WHITE, instance.getCurrentColor());
+    }
 
     @Test
     public void testGetWinner() {
@@ -139,7 +145,7 @@ public class GameTest {
         Game instance = new Game();
         instance.initialize();
         instance.play(new Position(2, 3));
-        
-        assertEquals(PlayerColor.BLACK, instance.getWinnwer());
+
+        assertEquals(PlayerColor.BLACK, instance.getWinner());
     }
 }

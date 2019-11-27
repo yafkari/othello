@@ -37,7 +37,7 @@ public class BoardTest {
         assertTrue(instance.isInside(position));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testAddPawnWhenNotFree() {
         System.out.println("testAddPawnWhenNotFree");
         Pawn pawn = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);

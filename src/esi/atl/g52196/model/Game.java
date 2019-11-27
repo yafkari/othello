@@ -30,7 +30,7 @@ public class Game { // implements Model
     /**
      * Initalizes the board
      */
-    public void initialize() { // découper ne méthode
+    public void initialize() {
         board = new Board();
 
         Pawn whitePawn1 = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);
@@ -38,7 +38,7 @@ public class Game { // implements Model
         Pawn blackPawn2 = new Pawn(PlayerColor.BLACK, new Position(4, 3), 1);
         Pawn whitePawn2 = new Pawn(PlayerColor.WHITE, new Position(4, 4), 1);
 
-        board.addPawn(whitePawn1); 
+        board.addPawn(whitePawn1);
         board.addPawn(blackPawn1);
         board.addPawn(blackPawn2);
         board.addPawn(whitePawn2);
@@ -48,6 +48,10 @@ public class Game { // implements Model
         opponentPlayer.addPawn(whitePawn1);
         opponentPlayer.addPawn(whitePawn2);
 
+        initializePlayerPawns();
+    }
+
+    private void initializePlayerPawns() {
         currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 0));
         currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 3));
         opponentPlayer.addPawn(new Pawn(PlayerColor.WHITE, null, 0));
@@ -87,17 +91,19 @@ public class Game { // implements Model
      *
      * @return the color of the current player
      */
-    public PlayerColor getCurrentColor() { //Player getCurrentPlayer
+    public PlayerColor getCurrentColor() { //Player getCurrentPlayer > A VOIR
         return currentPlayer.getColor();
     }
-    
+
     /**
      * Returns the score of a player
-     * 
-     * @param player the player that we want to get the score
+     *
+     * @param color the color of the player we wants to get the score
      * @return the score of a player
      */
-    public int getScore(Player player) {
+    public int getScore(PlayerColor color) {
+        Player player = currentPlayer.getColor() == color ? currentPlayer
+                : opponentPlayer;
         return player.getPawns().stream()
                 .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
                 .sum();
@@ -111,7 +117,7 @@ public class Game { // implements Model
      * @return true if the pawn belongs to the current player, otherwise false
      */
     private boolean isMyPawn(Pawn pawn) { // supprimer -> A VOIR
-        return pawn.getColor() == getCurrentColor();
+        return pawn != null && pawn.getColor() == getCurrentColor();
     }
 
     /**
@@ -266,8 +272,11 @@ public class Game { // implements Model
      *
      * @return the color of the player that as the highest score
      */
-    public PlayerColor getWinnwer() {
-        return getScore(currentPlayer) > getScore(opponentPlayer)
+    public PlayerColor getWinner() {
+        int currentScore = getScore(currentPlayer.getColor());
+        int opponentScore = getScore(opponentPlayer.getColor());
+
+        return currentScore > opponentScore
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
     }

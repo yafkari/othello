@@ -24,10 +24,13 @@ public class Board {
     }
 
     public Board(Board oldBoard) {
-        Pawn[][] board = new Pawn[BOARD_SIZE][BOARD_SIZE];
+        //Pawn[][] board = new Pawn[BOARD_SIZE][BOARD_SIZE];
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
-                board[row][column] = oldBoard.getPawn(new Position(row, column));
+                //if (board[row][column] != null) {
+                    pawns[row][column] = oldBoard.getPawn(
+                            new Position(row, column));
+                //}
             }
         }
     }
@@ -55,6 +58,8 @@ public class Board {
      */
     Pawn getPawn(Position position) {
         checkIsInside(position);
+        if (isEmpty(position))
+            return null;
         return new Pawn(pawns[position.getRow()][position.getColumn()]);  //TODO defensive copy
     }
 
@@ -81,9 +86,9 @@ public class Board {
             pawns[position.getRow()][position.getColumn()] = null;
         }
     }
-    
+
     boolean isEmpty(Position position) {
-        return getPawn(position) == null;
+        return pawns[position.getRow()][position.getColumn()] == null;
     }
 
     /**
