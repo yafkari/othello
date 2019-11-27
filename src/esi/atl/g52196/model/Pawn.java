@@ -32,12 +32,25 @@ public class Pawn {
     }
 
     /**
+     * Creates a pawn from a pawn
+     * 
+     * @param oldPawn the pawn to copy
+     */
+    public Pawn(Pawn oldPawn) {
+        color = oldPawn.getColor();
+        position = oldPawn.getPosition();
+        value = oldPawn.getValue();
+    }
+
+    /**
      * Returns the color of the pawn
      *
      * @return the color of the pawn
      */
     public PlayerColor getColor() {
-        return color;
+        return color == PlayerColor.BLACK
+                ? PlayerColor.BLACK
+                : PlayerColor.WHITE;
     }
 
     /**

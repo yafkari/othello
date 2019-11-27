@@ -9,8 +9,8 @@ package esi.atl.g52196.model;
  */
 public class Board {
 
-    private static final int BOARD_SIZE = 8;
-    private Cell[][] cells = new Cell[BOARD_SIZE][BOARD_SIZE];
+    public static final int BOARD_SIZE = 8;
+    private Pawn[][] pawns = new Pawn[BOARD_SIZE][BOARD_SIZE];
 
     /**
      * Fills the 8x8 board with empty cells
@@ -18,16 +18,16 @@ public class Board {
     public Board() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
-                cells[row][column] = new Cell();
+                pawns[row][column] = null;  //.
             }
         }
     }
 
     public Board(Board oldBoard) {
-        Cell[][] board = new Cell[BOARD_SIZE][BOARD_SIZE];
+        Pawn[][] board = new Pawn[BOARD_SIZE][BOARD_SIZE];
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
-                board[row][column] = oldBoard.getCell(new Position(row, column));
+                board[row][column] = oldBoard.getPawn(new Position(row, column));
             }
         }
     }
@@ -48,34 +48,14 @@ public class Board {
     }
 
     /**
-     * Returns the board
-     *
-     * @return a 2d array of BOARD_SIZE x BOARD_SIZE
-     */
-    Cell[][] getCells() {       //TODO need to be changed
-        return cells;
-    }
-
-    /**
      * Returns the cell at the position passed in parameter
      *
      * @param position the position of the cell we want to get
      * @return the cell at the position passed in parameter
      */
-    Cell getCell(Position position) {
-        checkIsInside(position);
-        return getCells()[position.getRow()][position.getColumn()];
-    }
-
-    /**
-     * Returns the pawn at the position passed in parameter
-     *
-     * @param position the position of the pawn we want to get
-     * @return the pawn at the position passed in parameter
-     */
     Pawn getPawn(Position position) {
         checkIsInside(position);
-        return getCells()[position.getRow()][position.getColumn()].getPawn();
+        return new Pawn(pawns[position.getRow()][position.getColumn()]);  //TODO defensive copy
     }
 
     /**
@@ -85,8 +65,9 @@ public class Board {
      * @param pawn the pawn we want to add in the cell
      */
     void addPawn(Pawn pawn) {
-        checkIsInside(pawn.getPosition());
-        getCell(pawn.getPosition()).fill(pawn);
+        Position pos = pawn.getPosition();
+        checkIsInside(pos);
+        pawns[pos.getRow()][pos.getColumn()] = pawn;
     }
 
     /**
@@ -96,9 +77,13 @@ public class Board {
      */
     void remove(Position position) {
         checkIsInside(position);
-        if (getCell(position) != null) {
-            cells[position.getRow()][position.getColumn()] = new Cell();
+        if (getPawn(position) != null) {
+            pawns[position.getRow()][position.getColumn()] = null;
         }
+    }
+    
+    boolean isEmpty(Position position) {
+        return getPawn(position) == null;
     }
 
     /**

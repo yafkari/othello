@@ -1,5 +1,6 @@
 package esi.atl.g52196.model;
 
+import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -14,20 +15,10 @@ public class BoardTest {
 
     @Before
     public void setUp() throws Exception {
-        for (int i = 0; i < board.getCells().length; i++) {
-            for (int j = 0; j < board.getCells()[i].length; j++) {
-                board.getCells()[i][j] = new Cell();
-            }
-        }
-        Pawn whitePawn1 = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);
-        Pawn blackPawn1 = new Pawn(PlayerColor.BLACK, new Position(3, 4), 1);
-        Pawn blackPawn2 = new Pawn(PlayerColor.BLACK, new Position(4, 3), 1);
-        Pawn whitePawn2 = new Pawn(PlayerColor.WHITE, new Position(4, 4), 1);
-
-        board.getCells()[3][3].fill(whitePawn1);
-        board.getCells()[3][4].fill(blackPawn1);
-        board.getCells()[4][3].fill(blackPawn2);
-        board.getCells()[4][4].fill(whitePawn2);
+        board.addPawn(new Pawn(PlayerColor.WHITE, new Position(3, 3), 1));
+        board.addPawn(new Pawn(PlayerColor.BLACK, new Position(3, 4), 1));
+        board.addPawn(new Pawn(PlayerColor.BLACK, new Position(4, 3), 1));
+        board.addPawn(new Pawn(PlayerColor.WHITE, new Position(4, 4), 1));
     }
 
     @Test
@@ -61,11 +52,16 @@ public class BoardTest {
     }
 
     @Test
-    public void testRemoveWhenPawnPresent() {
-        System.out.println("testRemoveWhenPawnPresent");
+    public void testRemoveWhenPawnNotPresent() {
+        System.out.println("testRemoveWhenPawnNotPresent");
         Position position = new Position(3, 3);
         board.remove(position);
-        assertTrue(board.getCell(position).getPawn() == null);
+        assertTrue(board.isEmpty(position));
     }
-
+    
+    @Test
+    public void testRemoveWhenPawnPresent() {
+        System.out.println("testRemoveWhenPawnPresent");
+        assertFalse(board.isEmpty(new Position(3, 3)));
+    }
 }

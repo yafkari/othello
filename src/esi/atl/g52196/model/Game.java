@@ -1,5 +1,6 @@
 package esi.atl.g52196.model;
 
+import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -137,15 +138,15 @@ public class Game { // implements Model
         boolean legit = false;
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
-            if (board.isInside(nextPos) && !board.getCell(nextPos).isEmpty()
+            if (board.isInside(nextPos) && !board.isEmpty(nextPos)
                     && !isMyPawn(getBoard().getPawn(nextPos))) {
-                while (!board.getCell(nextPos).isEmpty()
+                while (!board.isEmpty(nextPos)
                         && !isMyPawn(getBoard().getPawn(nextPos))) {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
 
-                if (!board.getCell(nextPos).isEmpty()
+                if (!board.isEmpty(nextPos)
                         && isMyPawn(getBoard().getPawn(nextPos))) {
                     toEat.stream().forEach(p -> eatPawn(getBoard().getPawn(p)));
                     legit = true;
@@ -166,23 +167,23 @@ public class Game { // implements Model
         List<Position> result = new ArrayList<>();
 
         // BEAUCOUP trop compliqué --> découper en méthode
-        for (int row = 0; row < getBoard().getCells().length; row++) {
-            for (int col = 0; col < getBoard().getCells()[row].length; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
                 if (board.isInside(currentPos)) {
-                    if (!board.getCell(currentPos).isEmpty()
+                    if (!board.isEmpty(currentPos)
                             && isMyPawn(getBoard().getPawn(currentPos))) {
                         for (Direction direction : Direction.values()) {
                             Position nextPos = currentPos.nextPos(direction);
                             if (board.isInside(nextPos)
-                                    && !board.getCell(nextPos).isEmpty()
+                                    && !board.isEmpty(currentPos)
                                     && !isMyPawn(getBoard().getPawn(nextPos))) {
                                 while (board.isInside(nextPos)
-                                        && !board.getCell(nextPos).isEmpty()
+                                        && !board.isEmpty(currentPos)
                                         && !isMyPawn(getBoard().getPawn(nextPos))) {
                                     nextPos = nextPos.nextPos(direction);
                                 }
-                                if (board.getCell(nextPos).isEmpty()) {
+                                if (board.isEmpty(currentPos)) {
                                     if (!result.contains(nextPos)) {
                                         result.add(nextPos);
                                     }
@@ -242,7 +243,7 @@ public class Game { // implements Model
         }
         Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
-        if (!board.getCell(pawn.getPosition()).isEmpty()) {
+        if (!board.isEmpty(pawn.getPosition())) {
             return false;
         }
 
@@ -266,7 +267,7 @@ public class Game { // implements Model
      * @return the color of the player that as the highest score
      */
     public PlayerColor getWinnwer() {
-        return getScores()[0] > getScores()[1]
+        return getScore(currentPlayer) > getScore(opponentPlayer)
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
     }

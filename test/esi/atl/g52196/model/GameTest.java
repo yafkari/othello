@@ -12,15 +12,10 @@ import org.junit.Before;
  */
 public class GameTest {
 
-    private Cell[][] board = new Cell[8][8];
+        private Board board = new Board();
 
     @Before
     public void setUp() throws Exception {
-        for (int row = 0; row < board.length; row++) {
-            for (int column = 0; column < board[row].length; column++) {
-                board[row][column] = new Cell();
-            }
-        }
         Pawn whitePawn1 = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);
         Pawn blackPawn1 = new Pawn(PlayerColor.BLACK, new Position(3, 4), 1);
         Pawn blackPawn2 = new Pawn(PlayerColor.BLACK, new Position(4, 3), 1);
