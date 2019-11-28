@@ -197,8 +197,7 @@ public class Game implements Model {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
-                if (board.isInside(currentPos) && !board.isEmpty(currentPos)
-                        && isMyPawn(getBoard().getPawn(currentPos))) {
+                if (board.isInside(currentPos)) {
                     checkDirections(currentPos, moves);
                 }
             }
@@ -213,16 +212,21 @@ public class Game implements Model {
      * @param moves the list of moves to update
      */
     private void checkDirections(Position currentPos, List<Position> moves) {
-        for (Direction direction : Direction.values()) {
-            Position nextPos = currentPos.nextPos(direction);
-
-            while (board.isInside(nextPos) && !board.isEmpty(nextPos)
-                    && !isMyPawn(getBoard().getPawn(nextPos))) {
-                nextPos = nextPos.nextPos(direction);
-            }
-            if (board.isEmpty(nextPos)) {
-                if (!moves.contains(nextPos)) {
-                    moves.add(nextPos);
+        if (!board.isEmpty(currentPos) 
+                && isMyPawn(getBoard().getPawn(currentPos))) {
+            for (Direction direction : Direction.values()) {
+                Position nextPos = currentPos.nextPos(direction);
+                if (board.isInside(nextPos) && !board.isEmpty(nextPos)
+                        && !isMyPawn(getBoard().getPawn(nextPos))) {
+                    while (board.isInside(nextPos) && !board.isEmpty(nextPos)
+                            && !isMyPawn(getBoard().getPawn(nextPos))) {
+                        nextPos = nextPos.nextPos(direction);
+                    }
+                    if (board.isEmpty(nextPos)) {
+                        if (!moves.contains(nextPos)) {
+                            moves.add(nextPos);
+                        }
+                    }
                 }
             }
         }

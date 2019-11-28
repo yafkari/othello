@@ -103,7 +103,7 @@ public class GameTest {
         System.out.println("testIsLegalMoveWhenTrue");
         Game instance = new Game();
         instance.initialize();
-        assertTrue(instance.isLegalMove(instance.getPossibleMoves().get(0)));
+        assertTrue(instance.isLegalMove(new Position(2, 3)));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class GameTest {
         Game instance = new Game();
         instance.initialize();
         assertFalse(instance.getPossibleMoves().isEmpty());
-        assertTrue(instance.play(instance.getPossibleMoves().get(0)));
+        assertTrue(instance.play(new Position(2, 3)));
     }
 
     @Test
