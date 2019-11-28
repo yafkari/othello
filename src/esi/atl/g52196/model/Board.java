@@ -10,7 +10,7 @@ package esi.atl.g52196.model;
 public class Board {
 
     public static final int BOARD_SIZE = 8;
-    private Pawn[][] pawns = new Pawn[BOARD_SIZE][BOARD_SIZE];
+    private final Pawn[][] pawns = new Pawn[BOARD_SIZE][BOARD_SIZE];
 
     /**
      * Fills the 8x8 board with empty cells
@@ -25,7 +25,7 @@ public class Board {
 
     /**
      * Creates a new Board from a board.
-     * 
+     *
      * @param oldBoard the old board to copy
      */
     public Board(Board oldBoard) {

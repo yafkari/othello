@@ -89,6 +89,7 @@ public class Game implements Model {
      *
      * @return true if the game is over, otherwise false
      */
+    @Override
     public boolean isOver() {
         return isOver;
     }
@@ -212,7 +213,7 @@ public class Game implements Model {
      * @param moves the list of moves to update
      */
     private void checkDirections(Position currentPos, List<Position> moves) {
-        if (!board.isEmpty(currentPos) 
+        if (!board.isEmpty(currentPos)
                 && isMyPawn(getBoard().getPawn(currentPos))) {
             for (Direction direction : Direction.values()) {
                 Position nextPos = currentPos.nextPos(direction);

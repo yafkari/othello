@@ -3,10 +3,12 @@ package esi.atl.g52196.view;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
 import static java.lang.Math.sqrt;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -35,5 +37,21 @@ public class Tile extends StackPane {
         } else {
             getChildren().add(tile);
         }
+
+        addEventHandler(MouseEvent.MOUSE_ENTERED, e -> handleMouseEntered(e));
+        addEventHandler(MouseEvent.MOUSE_EXITED, e -> handleMouseExited(e));
+    }
+
+    //TODO to separate from the view
+    private void handleMouseEntered(MouseEvent event) {
+        StackPane tile1 = (StackPane) event.getSource();
+        Shape shape1 = (Shape) tile1.getChildren().get(0);
+        shape1.setFill(Color.GREEN);
+    }
+
+    private void handleMouseExited(MouseEvent event) {
+        StackPane tile1 = (StackPane) event.getSource();
+        Shape shape1 = (Shape) tile1.getChildren().get(0);
+        shape1.setFill(Color.DARKGREEN);
     }
 }
