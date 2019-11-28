@@ -141,13 +141,20 @@ public class GameTest {
     }
 
     @Test
+    public void testEatPawn() {
+        System.out.println("testEatPawn");
+        Game instance = new Game();
+        instance.initialize();
+        instance.play(new Position(2, 3));
+    }
+
+    @Test
     public void testGetWinner() {
         System.out.println("testGetWinner");
         Game instance = new Game();
         instance.initialize();
         assertTrue(instance.play(new Position(2, 3)));
         PlayerColor result = instance.getWinner();
-
         assertEquals(PlayerColor.BLACK, result);
     }
 }

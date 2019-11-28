@@ -116,10 +116,7 @@ public class Pawn {
         if (this.color != other.color) {
             return false;
         }
-        if (!Objects.equals(this.position, other.position)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.position, other.position);
     }
 
     @Override

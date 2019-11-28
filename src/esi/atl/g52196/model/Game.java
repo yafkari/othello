@@ -125,7 +125,7 @@ public class Game implements Model {
      * @return true if the pawn belongs to the current player, otherwise false
      */
     private boolean isMyPawn(Pawn pawn) { // supprimer -> A VOIR
-        return pawn != null && pawn.getColor() == getCurrentColor();
+        return pawn.getColor() == getCurrentColor();
     }
 
     /**
@@ -135,9 +135,9 @@ public class Game implements Model {
      * @param pawn the pawn to change the color
      * @return the pawn passed in parameter after changing its color
      */
-    private Pawn eatPawn(Pawn pawn) {
-        pawn.setColor(getCurrentColor());
+    Pawn eatPawn(Pawn pawn) {
         currentPlayer.addPawn(opponentPlayer.removePawn(pawn));
+        pawn.setColor(getCurrentColor());
         return pawn;
     }
 
@@ -162,7 +162,9 @@ public class Game implements Model {
 
                 if (!board.isEmpty(nextPos)
                         && isMyPawn(getBoard().getPawn(nextPos))) {
-                    toEat.stream().forEach(p -> eatPawn(getBoard().getPawn(p)));
+                    toEat.stream().forEach(p -> {
+                        board.addPawn(eatPawn(getBoard().getPawn(p)));
+                    });
                     legit = true;
                 } else {
                     toEat.clear();
@@ -257,7 +259,7 @@ public class Game implements Model {
         }
         Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
-        if (!board.isEmpty(pawn.getPosition())) {
+        if (!board.isEmpty(position)) {
             return false;
         }
 
@@ -283,13 +285,9 @@ public class Game implements Model {
     PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
 
-        System.out.println(currentScore);
         int opponentScore = getScore(opponentPlayer.getColor());
 
-        System.out.println(opponentScore);
-
         if (currentScore == opponentScore) {
-            System.out.println("EGALITE");
             return null;
         }
 

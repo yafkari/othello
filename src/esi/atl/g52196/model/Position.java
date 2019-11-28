@@ -38,7 +38,7 @@ public class Position {
     int getColumn() {
         return column;
     }
-    
+
     /**
      * Returns the next position depending to the direction passed in parameter
      *
@@ -74,5 +74,10 @@ public class Position {
         hash = 97 * hash + this.row;
         hash = 97 * hash + this.column;
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return row + "," + column;
     }
 }

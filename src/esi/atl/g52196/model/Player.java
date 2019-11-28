@@ -15,7 +15,7 @@ public class Player {
 
     /**
      * Creates a new player
-     * 
+     *
      * @param color the color of the player (black or white)
      * @throws NullPointerException if the color is null
      */
@@ -63,6 +63,7 @@ public class Player {
      */
     Pawn removePawn(Pawn pawn) {
         if (pawns.contains(pawn)) {
+            System.out.println("LOST ONE");
             if (pawns.remove(pawn)) {
                 return pawn;
             }
