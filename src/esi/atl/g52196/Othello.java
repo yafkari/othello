@@ -3,10 +3,10 @@ package esi.atl.g52196;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.view.CustomMenu;
 import esi.atl.g52196.view.GameBoard;
+import esi.atl.g52196.view.LeftPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -22,10 +22,8 @@ public class Othello extends Application {
 
         BorderPane root = new BorderPane();
         CustomMenu menu = new CustomMenu();
-        VBox leftPane = new VBox(20);
-        GameBoard board = new GameBoard(game.getBoard());
+        LeftPane leftPane = new LeftPane(20, game);
 
-        leftPane.getChildren().add(board);
         root.setTop(menu);
         root.setLeft(leftPane);
         Scene scene = new Scene(root, 999, 749);

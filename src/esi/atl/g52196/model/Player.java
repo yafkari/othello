@@ -12,6 +12,7 @@ public class Player {
 
     private PlayerColor color;
     private List<Pawn> pawns;
+    private String name;
 
     /**
      * Creates a new player
@@ -25,6 +26,7 @@ public class Player {
         }
         this.color = color;
         this.pawns = new ArrayList<>();
+        this.name = "";
     }
 
     /**
@@ -34,6 +36,19 @@ public class Player {
      */
     PlayerColor getColor() {
         return color;
+    }
+    
+    /**
+     * Returns the name of the player
+     * 
+     * @return the name of the player
+     */
+    String getName() {
+        return name;
+    }
+    
+    public void setName(String newName) {
+        name = newName;
     }
 
     /**
