@@ -55,15 +55,15 @@ public class Player {
     }
 
     /**
-     * Removes a pawn passed in parameter. Returns it if it has been effectively
-     * removed
+     * Removes a pawn passed in parameter.
+     *
+     * Returns it if it has been effectively removed
      *
      * @param pawn the pawn to be removed
      * @return the pawn if it has been remove, otherwise null
      */
     Pawn removePawn(Pawn pawn) {
         if (pawns.contains(pawn)) {
-            System.out.println("LOST ONE");
             if (pawns.remove(pawn)) {
                 return pawn;
             }

@@ -18,7 +18,9 @@ public class Game implements Model {
     private boolean isOver;
 
     /**
-     * Creates a game with two players one black and one white
+     * Creates a game with two players.
+     *
+     * One is black and the other is white
      *
      * The first player is black
      */
@@ -52,6 +54,9 @@ public class Game implements Model {
         initializePlayerPawns();
     }
 
+    /**
+     * Initialize and shuffle player pawns
+     */
     private void initializePlayerPawns() {
         currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 0));
         currentPlayer.addPawn(new Pawn(PlayerColor.BLACK, null, 3));
@@ -80,9 +85,9 @@ public class Game implements Model {
     }
 
     /**
-     * Returns the cells of the board
+     * Returns true if the game is over
      *
-     * @return the cells of the board
+     * @return true if the game is over, otherwise false
      */
     public boolean isOver() {
         return isOver;
@@ -124,7 +129,7 @@ public class Game implements Model {
      * @param pawn the player to look at
      * @return true if the pawn belongs to the current player, otherwise false
      */
-    private boolean isMyPawn(Pawn pawn) { // supprimer -> A VOIR
+    private boolean isMyPawn(Pawn pawn) {
         return pawn.getColor() == getCurrentColor();
     }
 
@@ -159,19 +164,27 @@ public class Game implements Model {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
-
-                if (!board.isEmpty(nextPos)
-                        && isMyPawn(getBoard().getPawn(nextPos))) {
-                    toEat.stream().forEach(p -> {
-                        board.addPawn(eatPawn(getBoard().getPawn(p)));
-                    });
-                    legit = true;
-                } else {
-                    toEat.clear();
-                }
+                legit = eatLine(nextPos, toEat);
             }
         }
         return legit;
+    }
+
+    /**
+     * Eats pawns in a same direction.
+     *
+     * @param nextPos the next position to look at
+     * @param toEat the list of position to eat to update
+     * @return a boolean that represents the legibility of a move
+     */
+    private boolean eatLine(Position nextPos, List<Position> toEat) {
+        if (!board.isEmpty(nextPos) && isMyPawn(getBoard().getPawn(nextPos))) {
+            toEat.stream().forEach(p -> board.addPawn(eatPawn(board.getPawn(p))));
+            return true;
+        } else {
+            toEat.clear();
+        }
+        return false;
     }
 
     /**
@@ -179,38 +192,40 @@ public class Game implements Model {
      *
      * @return a list of possible move (position) for the current player
      */
-    public List<Position> getPossibleMoves() {
-        List<Position> result = new ArrayList<>();
-
-        // BEAUCOUP trop compliqué --> découper en méthode
+    List<Position> getPossibleMoves() {
+        List<Position> moves = new ArrayList<>();
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
-                if (board.isInside(currentPos)) {
-                    if (!board.isEmpty(currentPos)
-                            && isMyPawn(getBoard().getPawn(currentPos))) {
-                        for (Direction direction : Direction.values()) {
-                            Position nextPos = currentPos.nextPos(direction);
-                            if (board.isInside(nextPos)
-                                    && !board.isEmpty(nextPos)
-                                    && !isMyPawn(getBoard().getPawn(nextPos))) {
-                                while (board.isInside(nextPos)
-                                        && !board.isEmpty(nextPos)
-                                        && !isMyPawn(getBoard().getPawn(nextPos))) {
-                                    nextPos = nextPos.nextPos(direction);
-                                }
-                                if (board.isEmpty(nextPos)) {
-                                    if (!result.contains(nextPos)) {
-                                        result.add(nextPos);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                if (board.isInside(currentPos) && !board.isEmpty(currentPos)
+                        && isMyPawn(getBoard().getPawn(currentPos))) {
+                    checkDirections(currentPos, moves);
                 }
             }
         }
-        return result;
+        return moves;
+    }
+
+    /**
+     * Looks for possible moves in each directions.
+     *
+     * @param currentPos the current position to look at
+     * @param moves the list of moves to update
+     */
+    private void checkDirections(Position currentPos, List<Position> moves) {
+        for (Direction direction : Direction.values()) {
+            Position nextPos = currentPos.nextPos(direction);
+
+            while (board.isInside(nextPos) && !board.isEmpty(nextPos)
+                    && !isMyPawn(getBoard().getPawn(nextPos))) {
+                nextPos = nextPos.nextPos(direction);
+            }
+            if (board.isEmpty(nextPos)) {
+                if (!moves.contains(nextPos)) {
+                    moves.add(nextPos);
+                }
+            }
+        }
     }
 
     /**
@@ -246,7 +261,7 @@ public class Game implements Model {
      *
      * @return true if the move has been done, otherwise false
      */
-    boolean play(Position position) {
+    public boolean play(Position position) {
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
             if (getPossibleMoves().isEmpty()) {
@@ -278,13 +293,14 @@ public class Game implements Model {
     }
 
     /**
-     * Returns the color of the player that as the highest score
+     * Returns the color of the player that as the highest score.
+     *
+     * Returns null if players have the same score.
      *
      * @return the color of the player that as the highest score
      */
     PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
-
         int opponentScore = getScore(opponentPlayer.getColor());
 
         if (currentScore == opponentScore) {

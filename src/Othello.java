@@ -13,8 +13,10 @@ public class Othello extends Application {
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
         
-        Scene scene = new Scene(root, 1000, 750);
         
+        
+        
+        Scene scene = new Scene(root, 1000, 750);
         primaryStage.setTitle("Othello");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

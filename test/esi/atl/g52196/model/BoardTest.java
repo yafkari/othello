@@ -1,6 +1,5 @@
 package esi.atl.g52196.model;
 
-import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
