@@ -19,6 +19,8 @@ public class Othello extends Application {
     public void start(Stage primaryStage) {
         Game game = new Game();
         game.initialize();
+        
+        // TODO get player names
 
         BorderPane root = new BorderPane();
         CustomMenu menu = new CustomMenu();
