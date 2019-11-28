@@ -99,7 +99,7 @@ public class Game implements Model {
      * @return the color of the current player
      */
     @Override
-    public PlayerColor getCurrentColor() { //Player getCurrentPlayer > A VOIR
+    public PlayerColor getCurrentColor() {
         return currentPlayer.getColor();
     }
 
