@@ -18,7 +18,7 @@ public class Board {
     public Board() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
-                pawns[row][column] = null;  //.
+                pawns[row][column] = null;
             }
         }
     }
@@ -63,7 +63,7 @@ public class Board {
         if (isEmpty(position)) {
             return null;
         }
-        return new Pawn(pawns[position.getRow()][position.getColumn()]);  //TODO defensive copy
+        return new Pawn(pawns[position.getRow()][position.getColumn()]);
     }
 
     /**

@@ -20,6 +20,11 @@ public class Position {
         this.row = row;
         this.column = column;
     }
+    
+    public Position(Position position) {
+        this.column = position.getColumn();
+        this.row = position.getRow();
+    }
 
     /**
      * Returns the position in the y-axis of the position

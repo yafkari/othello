@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Pawn {
 
     private PlayerColor color;
-    private Position position; // supprimer 
+    private Position position;
     private int value;
 
     /**
@@ -59,7 +59,7 @@ public class Pawn {
      * @return the position of the pawn
      */
     public Position getPosition() {
-        return position;
+        return new Position(position);
     }
 
     /**
