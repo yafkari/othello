@@ -32,22 +32,44 @@ public class BoardTest {
     public void testIsInsideWhenTrue() {
         System.out.println("testIsInsideWhenTrue");
         Position position = new Position(0, 0);
-        Board instance = new Board();
 
-        assertTrue(instance.isInside(position));
+        assertTrue(board.isInside(position));
+    }
+
+    @Test
+    public void testIsEmptyWhenFalse() {
+        System.out.println("testIsEmptyWhenFalse");
+        assertFalse(board.isEmpty(new Position(3, 4)));
+    }
+
+    @Test
+    public void testIsEmptyWhenTrue() {
+        System.out.println("testIsEmptyWhenTrue");
+        assertTrue(board.isEmpty(new Position(1, 1)));
     }
 
     @Test
     public void testAddPawnWhenNotFree() {
         System.out.println("testAddPawnWhenNotFree");
         Pawn pawn = new Pawn(PlayerColor.WHITE, new Position(3, 3), 1);
+        assertFalse(board.isEmpty(pawn.getPosition()));
         board.addPawn(pawn);
+        assertEquals(pawn, board.getPawn(pawn.getPosition()));
     }
 
     @Test
     public void testAddPawnWhenFree() {
         System.out.println("testAddPawnWhenFree");
         Pawn pawn = new Pawn(PlayerColor.WHITE, new Position(0, 0), 1);
+        assertTrue(board.isEmpty(pawn.getPosition()));
+        board.addPawn(pawn);
+        assertEquals(pawn, board.getPawn(pawn.getPosition()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddPawnWhenNotInside() {
+        System.out.println("testAddPawnWhenNotInside");
+        Pawn pawn = new Pawn(PlayerColor.WHITE, new Position(-1, -1), 1);
         board.addPawn(pawn);
     }
 
@@ -58,7 +80,7 @@ public class BoardTest {
         board.remove(position);
         assertTrue(board.isEmpty(position));
     }
-    
+
     @Test
     public void testRemoveWhenPawnPresent() {
         System.out.println("testRemoveWhenPawnPresent");
