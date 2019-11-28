@@ -106,9 +106,13 @@ public class Game implements Model {
      */
     @Override
     public int getScore(PlayerColor color) {
-        Player player = currentPlayer.getColor() == color ? currentPlayer
-                : opponentPlayer;
-        return player.getPawns().stream()
+        if (getCurrentColor() == color) {
+            return currentPlayer.getPawns().stream()
+                    .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
+                    .sum();
+        }
+
+        return opponentPlayer.getPawns().stream()
                 .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
                 .sum();
     }
@@ -173,20 +177,31 @@ public class Game implements Model {
      *
      * @return a list of possible move (position) for the current player
      */
-    List<Position> getPossibleMoves() {
+    public List<Position> getPossibleMoves() {
         List<Position> result = new ArrayList<>();
 
         // BEAUCOUP trop compliqué --> découper en méthode
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
-                if (board.isInside(currentPos) && !board.isEmpty(currentPos)
-                        && isMyPawn(getBoard().getPawn(currentPos))) {
-                    for (Direction direction : Direction.values()) {
-                        Position nextPos = currentPos.nextPos(direction);
-                        if (checkMoveDirection(currentPos, nextPos, direction)) {
-                            if (!result.contains(nextPos)) {
-                                result.add(nextPos);
+                if (board.isInside(currentPos)) {
+                    if (!board.isEmpty(currentPos)
+                            && isMyPawn(getBoard().getPawn(currentPos))) {
+                        for (Direction direction : Direction.values()) {
+                            Position nextPos = currentPos.nextPos(direction);
+                            if (board.isInside(nextPos)
+                                    && !board.isEmpty(nextPos)
+                                    && !isMyPawn(getBoard().getPawn(nextPos))) {
+                                while (board.isInside(nextPos)
+                                        && !board.isEmpty(nextPos)
+                                        && !isMyPawn(getBoard().getPawn(nextPos))) {
+                                    nextPos = nextPos.nextPos(direction);
+                                }
+                                if (board.isEmpty(nextPos)) {
+                                    if (!result.contains(nextPos)) {
+                                        result.add(nextPos);
+                                    }
+                                }
                             }
                         }
                     }
@@ -196,18 +211,6 @@ public class Game implements Model {
         return result;
     }
 
-    boolean checkMoveDirection(Position currentPos, Position nextPos,
-            Direction direction) {
-        if (board.isInside(nextPos) && !board.isEmpty(currentPos)
-                && !isMyPawn(getBoard().getPawn(nextPos))) {
-            while (board.isInside(nextPos) && !board.isEmpty(currentPos)
-                    && !isMyPawn(getBoard().getPawn(nextPos))) {
-                nextPos = nextPos.nextPos(direction);
-            }
-            return board.isEmpty(currentPos);
-        }
-        return false;
-    }
     /**
      * Returns the first pawn that as no position (not on the board) of the
      * current player
@@ -279,7 +282,16 @@ public class Game implements Model {
      */
     PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
+
+        System.out.println(currentScore);
         int opponentScore = getScore(opponentPlayer.getColor());
+
+        System.out.println(opponentScore);
+
+        if (currentScore == opponentScore) {
+            System.out.println("EGALITE");
+            return null;
+        }
 
         return currentScore > opponentScore
                 ? currentPlayer.getColor()

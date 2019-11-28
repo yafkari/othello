@@ -33,7 +33,7 @@ public class Pawn {
 
     /**
      * Creates a pawn from a pawn
-     * 
+     *
      * @param oldPawn the pawn to copy
      */
     public Pawn(Pawn oldPawn) {
@@ -120,5 +120,10 @@ public class Pawn {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 }

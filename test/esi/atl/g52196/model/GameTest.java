@@ -31,7 +31,7 @@ public class GameTest {
     public void testInitialize() {
         System.out.println("testInitialize");
         Game instance = new Game();
-        
+
         instance.initialize();
         assertFalse(instance.getBoard().isEmpty(new Position(3, 3)));
         assertFalse(instance.getBoard().isEmpty(new Position(3, 4)));
@@ -119,6 +119,7 @@ public class GameTest {
         System.out.println("testPlayWhenTrue");
         Game instance = new Game();
         instance.initialize();
+        assertFalse(instance.getPossibleMoves().isEmpty());
         assertTrue(instance.play(instance.getPossibleMoves().get(0)));
     }
 
@@ -129,7 +130,7 @@ public class GameTest {
         instance.initialize();
         assertFalse(instance.play(new Position(0, 0)));
     }
-    
+
     @Test
     public void testSwapPlayers() {
         System.out.println("testSwapPlayers");
@@ -144,8 +145,9 @@ public class GameTest {
         System.out.println("testGetWinner");
         Game instance = new Game();
         instance.initialize();
-        instance.play(new Position(2, 3));
+        assertTrue(instance.play(new Position(2, 3)));
+        PlayerColor result = instance.getWinner();
 
-        assertEquals(PlayerColor.BLACK, instance.getWinner());
+        assertEquals(PlayerColor.BLACK, result);
     }
 }
