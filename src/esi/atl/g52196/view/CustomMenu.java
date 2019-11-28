@@ -7,7 +7,7 @@ import javafx.scene.control.MenuItem;
 
 /**
  *
- * @author Younes
+ * @author 52196
  */
 public class CustomMenu extends MenuBar {
 

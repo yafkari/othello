@@ -58,7 +58,7 @@ public class Board {
      * @param position the position of the cell we want to get
      * @return the cell at the position passed in parameter
      */
-    Pawn getPawn(Position position) {
+    public Pawn getPawn(Position position) {
         checkIsInside(position);
         if (isEmpty(position)) {
             return null;
@@ -90,7 +90,7 @@ public class Board {
         }
     }
 
-    boolean isEmpty(Position position) {
+    public boolean isEmpty(Position position) {
         return pawns[position.getRow()][position.getColumn()] == null;
     }
 

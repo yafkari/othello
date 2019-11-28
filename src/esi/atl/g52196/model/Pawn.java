@@ -85,7 +85,7 @@ public class Pawn {
      *
      * @return the value of the pawn
      */
-    int getValue() {
+    public int getValue() {
         return value;
     }
 
