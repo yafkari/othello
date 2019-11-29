@@ -1,7 +1,6 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Game;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -13,7 +12,7 @@ import javafx.scene.layout.VBox;
  */
 public class LeftPane extends VBox {
 
-    //TODO will contains board + progressbar + buttons
+    //TODO will contains progressbar
     public LeftPane(double padding, Game game) {
         super(padding);
         GameBoard board = new GameBoard(game.getBoard());

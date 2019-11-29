@@ -2,8 +2,8 @@ package esi.atl.g52196;
 
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.view.CustomMenu;
-import esi.atl.g52196.view.GameBoard;
 import esi.atl.g52196.view.LeftPane;
+import esi.atl.g52196.view.StartPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -17,10 +17,13 @@ public class Othello extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Game game = new Game();
+
+        StartPage startPage = new StartPage();
+        startPage.show();
+        startPage.setOnHiding(e -> primaryStage.show());
+
+        Game game = new Game(startPage.getBlackName(), startPage.getWhiteName());
         game.initialize();
-        
-        // TODO get player names
 
         BorderPane root = new BorderPane();
         CustomMenu menu = new CustomMenu();
@@ -32,7 +35,6 @@ public class Othello extends Application {
         primaryStage.setTitle("OthelloFX++");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.show();
     }
 
     /**

@@ -16,17 +16,22 @@ public class Game implements Model {
     private Player currentPlayer;
     private Player opponentPlayer;
     private boolean isOver;
+    private final String blackPlayerName;
+    private final String whitePlayerName;
 
     /**
-     * Creates a game with two players.
-     *
-     * One is black and the other is white
+     * Creates a game with two players.One is black and the other is white
      *
      * The first player is black
+     *
+     * @param blackPlayerName the name of the black player
+     * @param whitePlayerName the name of the white player
      */
-    public Game() {
-        currentPlayer = new Player(PlayerColor.BLACK);
-        opponentPlayer = new Player(PlayerColor.WHITE);
+    public Game(String blackPlayerName, String whitePlayerName) {
+        currentPlayer = new Player(PlayerColor.BLACK, blackPlayerName);
+        opponentPlayer = new Player(PlayerColor.WHITE, whitePlayerName);
+        this.blackPlayerName = blackPlayerName;
+        this.whitePlayerName = whitePlayerName;
     }
 
     /**
