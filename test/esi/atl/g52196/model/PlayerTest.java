@@ -12,7 +12,7 @@ public class PlayerTest {
     @Test
     public void testGetColor() {
         System.out.println("testGetColor");
-        Player player = new Player(PlayerColor.BLACK);
+        Player player = new Player(PlayerColor.BLACK, "");
         PlayerColor result = player.getColor();
         assertEquals(PlayerColor.BLACK, result);
     }
@@ -20,7 +20,7 @@ public class PlayerTest {
     @Test
     public void testGetPawnsWhenNoPawns() {
         System.out.println("testGetPawnsWhenNoPawns");
-        Player player = new Player(PlayerColor.BLACK);
+        Player player = new Player(PlayerColor.BLACK, "");
         int result = player.getPawns().size();
         assertEquals(0, result);
     }
@@ -28,7 +28,7 @@ public class PlayerTest {
     @Test
     public void testGetPawnsWhenPawns() {
         System.out.println("testGetPawnsWhenPawns");
-        Player player = new Player(PlayerColor.BLACK);
+        Player player = new Player(PlayerColor.BLACK, "");
         for (int i = 0; i < 10; i++) {
             player.addPawn(new Pawn(PlayerColor.BLACK, null, i));
         }
@@ -39,7 +39,7 @@ public class PlayerTest {
     @Test
     public void testRemovePawnWhenExist() {
         System.out.println("testRemovePawnWhenExist");
-        Player player = new Player(PlayerColor.BLACK);
+        Player player = new Player(PlayerColor.BLACK, "");
         for (int i = 0; i < 10; i++) {
             player.addPawn(new Pawn(PlayerColor.BLACK, null, i));
         }
