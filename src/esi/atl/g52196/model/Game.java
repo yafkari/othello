@@ -132,11 +132,22 @@ public class Game implements Model, Observable {
      * Returns true if the pawn passed in parameter is a pawn of the current
      * player
      *
-     * @param pawn the player to look at
+     * @param pawn the pawn to look at
      * @return true if the pawn belongs to the current player, otherwise false
      */
     private boolean isMyPawn(Pawn pawn) {
         return pawn.getColor() == getCurrentColor();
+    }
+
+    /**
+     * Returns true if the pawn at the position passed in parameter is a pawn of
+     * the current player
+     *
+     * @param position the position of the pawn to look at
+     * @return true if the pawn belongs to the current player, otherwise false
+     */
+    private boolean isMyPawn(Position position) {
+        return isMyPawn(getPawn(position));
     }
 
     /**
@@ -158,15 +169,15 @@ public class Game implements Model, Observable {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    boolean isLegalMove(Position position) {
+    boolean isLegalMove(Position position) {    //TODO fix problem
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
-            if (board.isInside(nextPos) && !board.isEmpty(nextPos)
-                    && !isMyPawn(getBoard().getPawn(nextPos))) {
-                while (!board.isEmpty(nextPos)
-                        && !isMyPawn(getBoard().getPawn(nextPos))) {
+            if (isInside(nextPos) && !isEmpty(nextPos)
+                    && !isMyPawn(nextPos)) {
+                while (!isEmpty(nextPos)
+                        && !isMyPawn(nextPos)) {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
@@ -184,8 +195,9 @@ public class Game implements Model, Observable {
      * @return a boolean that represents the legibility of a move
      */
     private boolean eatLine(Position nextPos, List<Position> toEat) {
-        if (!board.isEmpty(nextPos) && isMyPawn(getBoard().getPawn(nextPos))) {
-            toEat.stream().forEach(p -> board.addPawn(eatPawn(board.getPawn(p))));
+        if (!isEmpty(nextPos) && isMyPawn(nextPos)) {
+            board.addPawn(eatPawn(getPawn(nextPos)));
+            toEat.stream().forEach(p -> board.addPawn(eatPawn(getPawn(p))));
             return true;
         } else {
             toEat.clear();
@@ -203,7 +215,7 @@ public class Game implements Model, Observable {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Position currentPos = new Position(row, col);
-                if (board.isInside(currentPos)) {
+                if (isInside(currentPos)) {
                     checkDirections(currentPos, moves);
                 }
             }
@@ -218,17 +230,16 @@ public class Game implements Model, Observable {
      * @param moves the list of moves to update
      */
     private void checkDirections(Position currentPos, List<Position> moves) {
-        if (!board.isEmpty(currentPos)
-                && isMyPawn(getBoard().getPawn(currentPos))) {
+        if (!isEmpty(currentPos) && isMyPawn(currentPos)) {
             for (Direction direction : Direction.values()) {
                 Position nextPos = currentPos.nextPos(direction);
-                if (board.isInside(nextPos) && !board.isEmpty(nextPos)
-                        && !isMyPawn(getBoard().getPawn(nextPos))) {
-                    while (board.isInside(nextPos) && !board.isEmpty(nextPos)
-                            && !isMyPawn(getBoard().getPawn(nextPos))) {
+                if (isInside(nextPos) && !isEmpty(nextPos)
+                        && !isMyPawn(nextPos)) {
+                    while (isInside(nextPos) && !isEmpty(nextPos)
+                            && !isMyPawn(nextPos)) {
                         nextPos = nextPos.nextPos(direction);
                     }
-                    if (board.isEmpty(nextPos)) {
+                    if (isEmpty(nextPos)) {
                         if (!moves.contains(nextPos)) {
                             moves.add(nextPos);
                         }
@@ -236,6 +247,18 @@ public class Game implements Model, Observable {
                 }
             }
         }
+    }
+
+    private boolean isInside(Position position) {
+        return getBoard().isInside(position);
+    }
+
+    private boolean isEmpty(Position position) {
+        return getBoard().isEmpty(position);
+    }
+
+    private Pawn getPawn(Position position) {
+        return getBoard().getPawn(position);
     }
 
     /**
@@ -290,7 +313,7 @@ public class Game implements Model, Observable {
 
         board.addPawn(pawn);
         swapPlayers();
-        this.notifyObservers();
+        notifyObservers();
 
         return true;
     }

@@ -90,7 +90,8 @@ public class Board {
     }
 
     public boolean isEmpty(Position position) {
-        return pawns[position.getRow()][position.getColumn()] == null;
+        return isInside(position)
+                && pawns[position.getRow()][position.getColumn()] == null;
     }
 
     /**

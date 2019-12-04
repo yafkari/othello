@@ -99,11 +99,33 @@ public class GameTest {
     }
 
     @Test
-    public void testIsLegalMoveWhenTrue() {
-        System.out.println("testIsLegalMoveWhenTrue");
+    public void testIsLegalMoveWhenTrueFirstTurn() {
+        System.out.println("testIsLegalMoveWhenTrueFirstTurn");
         Game instance = new Game("", "");
         instance.initialize();
         assertTrue(instance.isLegalMove(new Position(2, 3)));
+
+    }
+    
+    @Test
+    public void testIsLegalMoveWhenTrueSecondTurn() {
+        System.out.println("testIsLegalMoveWhenTrueSecondTurn");
+        Game instance = new Game("", "");
+        instance.initialize();
+        testIsLegalMoveWhenTrueFirstTurn();
+        instance.play(new Position(2, 3));
+        assertTrue(instance.isLegalMove(new Position(4, 2)));
+    }
+    
+    @Test
+    public void testIsLegalMoveWhenTrueThirdTurn() {
+        System.out.println("testIsLegalMoveWhenTrueThirdTurn");
+        Game instance = new Game("", "");
+        instance.initialize();
+        testIsLegalMoveWhenTrueSecondTurn();
+        instance.play(new Position(2, 3));
+        instance.play(new Position(4, 2));
+        assertTrue(instance.isLegalMove(new Position(5, 3)));
     }
 
     @Test

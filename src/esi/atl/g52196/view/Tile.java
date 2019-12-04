@@ -74,7 +74,7 @@ public class Tile extends StackPane {
     }
 
     private void handleMouseClicked(MouseEvent event) {
-        System.out.println("CLICKED="+position);
+        System.out.println("CLICKED="+position+ " worked="+game.play(position));
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
             game.notifyObservers();
