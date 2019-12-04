@@ -44,4 +44,4 @@ nbdist/
 # End of https://www.gitignore.io/api/java,netbeans
 
 .jacocoverage
-nbproject/
+nbproject/project.properties

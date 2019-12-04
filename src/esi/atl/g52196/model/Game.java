@@ -28,10 +28,10 @@ public class Game implements Model, Observable {
      * @param blackPlayerName the name of the black player
      * @param whitePlayerName the name of the white player
      */
-    public Game(String blackPlayerName, String whitePlayerName) {
+    public Game(String blackPlayerName, String whitePlayerName) {   //names not working
         observers = new ArrayList<>();
-        currentPlayer = new Player(PlayerColor.BLACK, blackPlayerName);
-        opponentPlayer = new Player(PlayerColor.WHITE, whitePlayerName);
+        currentPlayer = new Player(PlayerColor.BLACK,  "BLACK");
+        opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
     }
 
     /**
@@ -345,6 +345,20 @@ public class Game implements Model, Observable {
         return currentScore > opponentScore
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
+    }
+
+    /**
+     * Get the name of a player
+     *
+     * @param color the color of the player we want
+     * @return the name of a player
+     */
+    public String getPlayerName(PlayerColor color) {
+        if (color == currentPlayer.getColor()) {
+            return currentPlayer.getName();
+        } else {
+            return opponentPlayer.getName();
+        }
     }
 
     @Override
