@@ -30,7 +30,7 @@ public class Game implements Model, Observable {
      */
     public Game(String blackPlayerName, String whitePlayerName) {   //names not working
         observers = new ArrayList<>();
-        currentPlayer = new Player(PlayerColor.BLACK,  "BLACK");
+        currentPlayer = new Player(PlayerColor.BLACK, "BLACK");
         opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
     }
 
@@ -158,7 +158,9 @@ public class Game implements Model, Observable {
      * @return the pawn passed in parameter after changing its color
      */
     Pawn eatPawn(Pawn pawn) {
-        currentPlayer.addPawn(opponentPlayer.removePawn(pawn));
+        Pawn removed = opponentPlayer.removePawn(pawn);
+        if (removed != null)
+            currentPlayer.addPawn(removed);
         pawn.setColor(getCurrentColor());
         return pawn;
     }
@@ -295,6 +297,8 @@ public class Game implements Model, Observable {
      * @return true if the move has been done, otherwise false
      */
     public boolean play(Position position) {
+
+        System.out.println(currentPlayer.getPawns());
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
             if (getPossibleMoves().isEmpty()) {
