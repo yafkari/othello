@@ -20,10 +20,9 @@ public class Position {
         this.row = row;
         this.column = column;
     }
-    
+
     public Position(Position position) {
-        this.column = position.getColumn();
-        this.row = position.getRow();
+        this(position.getRow(), position.getColumn());
     }
 
     /**

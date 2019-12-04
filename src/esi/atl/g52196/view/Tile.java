@@ -1,5 +1,6 @@
 package esi.atl.g52196.view;
 
+import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
@@ -73,10 +74,22 @@ public class Tile extends StackPane {
     }
 
     private void handleMouseClicked(MouseEvent event) {
-        System.out.println(position);
+        System.out.println("CLICKED="+position);
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
             game.notifyObservers();
+        } //TMP
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                Pawn pawn = game.getBoard().getPawn(new Position(i, j));
+                if (pawn != null) {
+                    System.out.print(pawn + " ");
+                }
+                else {
+                    System.out.print(". ");
+                }
+            }
+            System.out.println("");
         }
     }
 }

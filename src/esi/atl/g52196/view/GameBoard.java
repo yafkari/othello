@@ -29,11 +29,12 @@ public class GameBoard extends GridPane implements Observer {
 
         initializeBoard();
     }
-    
+
     private void initializeBoard() {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                add(new Tile(60, 60, new Position(i, j), game), j, i);
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int column = 0; column < BOARD_SIZE; column++) {
+                add(new Tile(60, 60, new Position(row, column), game),
+                        column, row);
             }
         }
     }

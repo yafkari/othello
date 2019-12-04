@@ -37,9 +37,7 @@ public class Pawn {
      * @param oldPawn the pawn to copy
      */
     public Pawn(Pawn oldPawn) {
-        color = oldPawn.getColor();
-        position = oldPawn.getPosition();
-        value = oldPawn.getValue();
+        this(oldPawn.getColor(), oldPawn.getPosition(), oldPawn.getValue());
     }
 
     /**
