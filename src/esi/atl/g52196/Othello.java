@@ -17,7 +17,6 @@ public class Othello extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         StartPage startPage = new StartPage();
         startPage.show();
         startPage.setOnHiding(e -> primaryStage.show());

@@ -1,5 +1,7 @@
 package esi.atl.g52196.model;
 
+import esi.atl.g52196.dp.Observable;
+import esi.atl.g52196.dp.Observer;
 import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  *
  * Represents a game
  */
-public class Game implements Model {
+public class Game implements Model, Observable {
 
     private Board board;
     private Player currentPlayer;
@@ -18,6 +20,7 @@ public class Game implements Model {
     private boolean isOver;
     private final String blackPlayerName;
     private final String whitePlayerName;
+    private List<Observer> observers;
 
     /**
      * Creates a game with two players.One is black and the other is white
@@ -28,6 +31,7 @@ public class Game implements Model {
      * @param whitePlayerName the name of the white player
      */
     public Game(String blackPlayerName, String whitePlayerName) {
+        observers = new ArrayList<>();
         currentPlayer = new Player(PlayerColor.BLACK, blackPlayerName);
         opponentPlayer = new Player(PlayerColor.WHITE, whitePlayerName);
         this.blackPlayerName = blackPlayerName;
@@ -198,7 +202,7 @@ public class Game implements Model {
      *
      * @return a list of possible move (position) for the current player
      */
-    List<Position> getPossibleMoves() {
+    public List<Position> getPossibleMoves() {
         List<Position> moves = new ArrayList<>();
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
@@ -290,6 +294,8 @@ public class Game implements Model {
 
         board.addPawn(pawn);
         swapPlayers();
+        this.notifyObservers();
+
         return true;
     }
 
@@ -320,5 +326,26 @@ public class Game implements Model {
         return currentScore > opponentScore
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
+    }
+
+    @Override
+    public void registerObserver(Observer obs) {
+        if (!observers.contains(obs)) {
+            observers.add(obs);
+        }
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        if (observers.contains(obs)) {
+            observers.remove(obs);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer obs : observers) {
+            obs.update();
+        }
     }
 }

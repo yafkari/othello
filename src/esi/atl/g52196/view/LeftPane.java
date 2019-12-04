@@ -15,7 +15,7 @@ public class LeftPane extends VBox {
     //TODO will contains progressbar
     public LeftPane(double padding, Game game) {
         super(padding);
-        GameBoard board = new GameBoard(game.getBoard());
+        GameBoard board = new GameBoard(game);
 
         Button giveUpButton = new Button("Give up");
         Button skipTurnButton = new Button("Skip Turn");

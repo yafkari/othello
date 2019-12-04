@@ -59,6 +59,9 @@ public class Pawn {
      * @return the position of the pawn
      */
     public Position getPosition() {
+        if (position == null) {
+            return null;
+        }
         return new Position(position);
     }
 

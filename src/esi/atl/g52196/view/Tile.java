@@ -1,7 +1,9 @@
 package esi.atl.g52196.view;
 
+import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
+import esi.atl.g52196.model.Position;
 import static java.lang.Math.sqrt;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -18,11 +20,19 @@ import javafx.scene.text.Text;
  */
 public class Tile extends StackPane {
 
-    Tile(double width, double height, Pawn pawn) {
+    private final Game game;
+    private final Position position;
+
+    Tile(double width, double height, Position position, Game game) {
+        this.game = game;
+        this.position = position;
+
         setPrefSize(width + 2, height + 2);
         Rectangle tile = new Rectangle(width, height);
         Circle circle = new Circle(sqrt(width * width + height * height) / 3);
         tile.setFill(Color.DARKGREEN);
+
+        Pawn pawn = game.getBoard().getPawn(this.position);
         if (pawn != null) {
             Text valueText = new Text(String.valueOf(pawn.getValue()));
             valueText.setFont(Font.font(30));
@@ -40,18 +50,33 @@ public class Tile extends StackPane {
 
         addEventHandler(MouseEvent.MOUSE_ENTERED, e -> handleMouseEntered(e));
         addEventHandler(MouseEvent.MOUSE_EXITED, e -> handleMouseExited(e));
+        this.setOnMouseClicked(e -> handleMouseClicked(e));
     }
 
     //TODO to separate from the view
     private void handleMouseEntered(MouseEvent event) {
         StackPane tile1 = (StackPane) event.getSource();
-        Shape shape1 = (Shape) tile1.getChildren().get(0);
-        shape1.setFill(Color.GREEN);
+        Rectangle r = (Rectangle) tile1.getChildren().get(0);
+        if (game.getBoard().isEmpty(position)) {
+            if (game.getPossibleMoves().contains(this.position)) {
+                r.setFill(Color.LIGHTGREEN);
+            } else {
+                r.setFill(Color.RED);
+            }
+        }
     }
 
     private void handleMouseExited(MouseEvent event) {
         StackPane tile1 = (StackPane) event.getSource();
         Shape shape1 = (Shape) tile1.getChildren().get(0);
         shape1.setFill(Color.DARKGREEN);
+    }
+
+    private void handleMouseClicked(MouseEvent event) {
+        System.out.println(position);
+        if (game.getPossibleMoves().contains(position)) {
+            game.play(position);
+            game.notifyObservers();
+        }
     }
 }
