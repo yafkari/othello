@@ -40,7 +40,7 @@ public class GameBoard extends GridPane implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update() {  //handle end game
         this.getChildren().clear();
         initializeBoard();
     }

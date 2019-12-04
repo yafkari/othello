@@ -18,8 +18,6 @@ public class Game implements Model, Observable {
     private Player currentPlayer;
     private Player opponentPlayer;
     private boolean isOver;
-    private final String blackPlayerName;
-    private final String whitePlayerName;
     private List<Observer> observers;
 
     /**
@@ -34,8 +32,6 @@ public class Game implements Model, Observable {
         observers = new ArrayList<>();
         currentPlayer = new Player(PlayerColor.BLACK, blackPlayerName);
         opponentPlayer = new Player(PlayerColor.WHITE, whitePlayerName);
-        this.blackPlayerName = blackPlayerName;
-        this.whitePlayerName = whitePlayerName;
     }
 
     /**
