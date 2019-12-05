@@ -328,7 +328,7 @@ public class Game implements Model, Observable {
      *
      * @return the color of the player that as the highest score
      */
-    PlayerColor getWinner() {
+    public PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
         int opponentScore = getScore(opponentPlayer.getColor());
 
