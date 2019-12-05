@@ -19,6 +19,7 @@ public class Game implements Model, Observable {
     private Player opponentPlayer;
     private boolean isOver;
     private List<Observer> observers;
+    private List<History> history;
 
     /**
      * Creates a game with two players.One is black and the other is white
@@ -30,8 +31,11 @@ public class Game implements Model, Observable {
      */
     public Game(String blackPlayerName, String whitePlayerName) {   //names not working
         observers = new ArrayList<>();
+        history = new ArrayList();
         currentPlayer = new Player(PlayerColor.BLACK, "BLACK");
         opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
+        history.add(new History("BLACK", "Start new game", null));
+        //history.add(new History(currentPlayer.getName(), "Start new game", null));
     }
 
     /**
@@ -331,6 +335,15 @@ public class Game implements Model, Observable {
         return currentScore > opponentScore
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
+    }
+
+    /**
+     * Returns the historic of the game
+     *
+     * @return the historic of the game
+     */
+    List<History> getHistory() {
+        return history;
     }
 
     /**
