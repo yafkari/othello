@@ -6,6 +6,8 @@ import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * @author 52196
@@ -30,12 +32,12 @@ public class Game implements Model, Observable {
      * @param whitePlayerName the name of the white player
      */
     public Game(String blackPlayerName, String whitePlayerName) {   //names not working
-        observers = new ArrayList<>();
+        observers = new ArrayList();
         history = new ArrayList();
         currentPlayer = new Player(PlayerColor.BLACK, "BLACK");
         opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
-        history.add(new History("BLACK", "Start new game", null));
-        //history.add(new History(currentPlayer.getName(), "Start new game", null));
+        history.add(new History(currentPlayer.getName(),
+                "Start new game", ""));
     }
 
     /**
@@ -277,6 +279,8 @@ public class Game implements Model, Observable {
         }
 
         board.addPawn(pawn);
+        history.add(new History(currentPlayer.getName(),
+                "make a move", position.toString()));
         swapPlayers();
         notifyObservers();
 
@@ -342,8 +346,8 @@ public class Game implements Model, Observable {
      *
      * @return the historic of the game
      */
-    List<History> getHistory() {
-        return history;
+    public ObservableList<History> getHistory() {
+        return FXCollections.observableArrayList(history);
     }
 
     /**
