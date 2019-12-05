@@ -23,16 +23,20 @@ public class BoardTest {
     @Test
     public void testIsInsideWhenFalse() {
         System.out.println("testIsInsideWhenFalse");
-        Position position = new Position(-1, -1);
-        assertFalse(board.isInside(position));
+        assertFalse(board.isInside(new Position(-1, -1)));
+        assertFalse(board.isInside(new Position(8, 8)));
+
     }
 
     @Test
     public void testIsInsideWhenTrue() {
         System.out.println("testIsInsideWhenTrue");
-        Position position = new Position(0, 0);
+        assertTrue(board.isInside(new Position(0, 0)));
+        assertTrue(board.isInside(new Position(1, 1)));
+        assertTrue(board.isInside(new Position(7, 7)));
+        assertTrue(board.isInside(new Position(6, 7)));
+        assertTrue(board.isInside(new Position(7, 6)));
 
-        assertTrue(board.isInside(position));
     }
 
     @Test

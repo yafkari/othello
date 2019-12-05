@@ -103,7 +103,7 @@ public class GameTest {
         System.out.println("testIsLegalMoveWhenTrueFirstTurn");
         Game instance = new Game("", "");
         instance.initialize();
-        assertTrue(instance.isLegalMove(new Position(2, 3)));
+        assertTrue(instance.applyMove(new Position(2, 3)));
 
     }
 
@@ -114,10 +114,10 @@ public class GameTest {
         instance.initialize();
         testIsLegalMoveWhenTrueFirstTurn();
         instance.play(new Position(2, 3));
-        assertTrue(instance.isLegalMove(new Position(4, 2)));
+        assertTrue(instance.applyMove(new Position(4, 2)));
     }
 
-    /*@Test
+    @Test
     public void testIsLegalMoveWhenTrueThirdTurn() {
         System.out.println("testIsLegalMoveWhenTrueThirdTurn");
         Game instance = new Game("", "");
@@ -125,14 +125,15 @@ public class GameTest {
         testIsLegalMoveWhenTrueSecondTurn();
         instance.play(new Position(2, 3));
         instance.play(new Position(4, 2));
-        assertTrue(instance.isLegalMove(new Position(5, 3)));
-    }*/
+        assertTrue(instance.applyMove(new Position(5, 3)));
+    }
+
     @Test
     public void testIsLegalMoveWhenFalse() {
         System.out.println("testIsLegalMoveWhenFalse");
         Game instance = new Game("", "");
         instance.initialize();
-        assertFalse(instance.isLegalMove(new Position(0, 0)));
+        assertFalse(instance.applyMove(new Position(0, 0)));
     }
 
     @Test

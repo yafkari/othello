@@ -129,28 +129,6 @@ public class Game implements Model, Observable {
     }
 
     /**
-     * Returns true if the pawn passed in parameter is a pawn of the current
-     * player
-     *
-     * @param pawn the pawn to look at
-     * @return true if the pawn belongs to the current player, otherwise false
-     */
-    private boolean isMyPawn(Pawn pawn) {
-        return pawn.getColor() == getCurrentColor();
-    }
-
-    /**
-     * Returns true if the pawn at the position passed in parameter is a pawn of
-     * the current player
-     *
-     * @param position the position of the pawn to look at
-     * @return true if the pawn belongs to the current player, otherwise false
-     */
-    private boolean isMyPawn(Position position) {
-        return isMyPawn(getPawn(position));
-    }
-
-    /**
      * Changes the color of a pawn to the color of the current player and
      * returns it
      *
@@ -159,10 +137,12 @@ public class Game implements Model, Observable {
      */
     Pawn eatPawn(Pawn pawn) {
         Pawn removed = opponentPlayer.removePawn(pawn);
-        if (removed != null)
+
+        if (removed != null) {
             currentPlayer.addPawn(removed);
-        pawn.setColor(getCurrentColor());
-        return pawn;
+            removed.setColor(getCurrentColor());
+        }
+        return removed;
     }
 
     /**
@@ -171,40 +151,29 @@ public class Game implements Model, Observable {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    boolean isLegalMove(Position position) {    //TODO fix problem
+    boolean applyMove(Position position) {
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
-            if (isInside(nextPos) && !isEmpty(nextPos)
-                    && !isMyPawn(nextPos)) {
-                while (!isEmpty(nextPos)
-                        && !isMyPawn(nextPos)) {
+            if (isInside(nextPos) && !isEmpty(nextPos) && !isMyPawn(nextPos)) {
+                while (!isEmpty(nextPos) && !isMyPawn(nextPos)) {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
-                legit = eatLine(nextPos, toEat);
+
+                if (isInside(nextPos) && !isEmpty(nextPos) && isMyPawn(nextPos)) {
+                    toEat.stream().forEach(p
+                            -> board.addPawn(eatPawn(getPawn(p))));;
+                    System.out.println(toEat);
+                    legit = true;
+                } else {
+                    toEat.clear();
+                    legit = legit == true ? true : false;
+                }
             }
         }
         return legit;
-    }
-
-    /**
-     * Eats pawns in a same direction.
-     *
-     * @param nextPos the next position to look at
-     * @param toEat the list of position to eat to update
-     * @return a boolean that represents the legibility of a move
-     */
-    private boolean eatLine(Position nextPos, List<Position> toEat) {
-        if (!isEmpty(nextPos) && isMyPawn(nextPos)) {
-            board.addPawn(eatPawn(getPawn(nextPos)));
-            toEat.stream().forEach(p -> board.addPawn(eatPawn(getPawn(p))));
-            return true;
-        } else {
-            toEat.clear();
-        }
-        return false;
     }
 
     /**
@@ -251,18 +220,6 @@ public class Game implements Model, Observable {
         }
     }
 
-    private boolean isInside(Position position) {
-        return getBoard().isInside(position);
-    }
-
-    private boolean isEmpty(Position position) {
-        return getBoard().isEmpty(position);
-    }
-
-    private Pawn getPawn(Position position) {
-        return getBoard().getPawn(position);
-    }
-
     /**
      * Returns the first pawn that as no position (not on the board) of the
      * current player
@@ -297,18 +254,18 @@ public class Game implements Model, Observable {
      * @return true if the move has been done, otherwise false
      */
     public boolean play(Position position) {
-
-        System.out.println(currentPlayer.getPawns());
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
             if (getPossibleMoves().isEmpty()) {
-                isOver = true;
+                isOver = true;  //TODO notify observers
                 return false;
             }
         }
-        if (!isLegalMove(position)) {
+        if (!getPossibleMoves().contains(position)) {
             return false;
         }
+
+        applyMove(position);
         Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
         if (!board.isEmpty(position)) {
@@ -323,12 +280,37 @@ public class Game implements Model, Observable {
     }
 
     /**
-     * Swaps the players
+     * Returns true if the pawn passed in parameter is a pawn of the current
+     * player
+     *
+     * @param pawn the pawn to look at
+     * @return true if the pawn belongs to the current player, otherwise false
      */
-    void swapPlayers() {
-        Player tmp = currentPlayer;
-        currentPlayer = opponentPlayer;
-        opponentPlayer = tmp;
+    private boolean isMyPawn(Pawn pawn) {
+        return pawn.getColor() == getCurrentColor();
+    }
+
+    /**
+     * Returns true if the pawn at the position passed in parameter is a pawn of
+     * the current player
+     *
+     * @param position the position of the pawn to look at
+     * @return true if the pawn belongs to the current player, otherwise false
+     */
+    private boolean isMyPawn(Position position) {
+        return isMyPawn(getPawn(position));
+    }
+
+    private boolean isInside(Position position) {
+        return getBoard().isInside(position);
+    }
+
+    private boolean isEmpty(Position position) {
+        return getBoard().isEmpty(position);
+    }
+
+    private Pawn getPawn(Position position) {
+        return getBoard().getPawn(position);
     }
 
     /**
@@ -349,6 +331,15 @@ public class Game implements Model, Observable {
         return currentScore > opponentScore
                 ? currentPlayer.getColor()
                 : opponentPlayer.getColor();
+    }
+
+    /**
+     * Swaps the players
+     */
+    void swapPlayers() {
+        Player tmp = currentPlayer;
+        currentPlayer = opponentPlayer;
+        opponentPlayer = tmp;
     }
 
     /**

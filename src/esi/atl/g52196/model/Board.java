@@ -72,6 +72,9 @@ public class Board {
      * @param pawn the pawn we want to add in the cell
      */
     void addPawn(Pawn pawn) {
+        if (pawn == null) {
+            throw new NullPointerException("Pawn can't be null");
+        }
         Position pos = pawn.getPosition();
         checkIsInside(pos);
         pawns[pos.getRow()][pos.getColumn()] = pawn;
