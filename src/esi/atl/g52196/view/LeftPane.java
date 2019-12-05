@@ -1,7 +1,7 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Game;
-import esi.atl.g52196.view.endGame;
+import esi.atl.g52196.view.GiveUpPage;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -38,7 +38,7 @@ public class LeftPane extends VBox {
 
     private void handleGiveUp(ActionEvent event) {
         getScene().getWindow().hide();
-        endGame end = new endGame(game);
+        GiveUpPage end = new GiveUpPage(game);
         end.show();
     }
 }

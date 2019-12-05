@@ -31,10 +31,11 @@ public class Game implements Model, Observable {
      * @param blackPlayerName the name of the black player
      * @param whitePlayerName the name of the white player
      */
-    public Game(String blackPlayerName, String whitePlayerName) {   //names not working
+    public Game() {
         observers = new ArrayList();
         history = new ArrayList();
-        currentPlayer = new Player(PlayerColor.BLACK, "BLACK");
+        currentPlayer = new Player(PlayerColor.BLACK,
+                getPlayerName(PlayerColor.BLACK));
         opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
         history.add(new History(currentPlayer.getName(),
                 "Start new game", ""));
@@ -370,6 +371,14 @@ public class Game implements Model, Observable {
             return currentPlayer.getName();
         } else {
             return opponentPlayer.getName();
+        }
+    }
+
+    public void setPlayerName(PlayerColor color, String name) {
+        if (getCurrentColor() == color) {
+            currentPlayer.setName(name);
+        } else {
+            opponentPlayer.setName(name);
         }
     }
 

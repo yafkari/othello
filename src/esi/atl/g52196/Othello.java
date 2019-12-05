@@ -1,6 +1,7 @@
 package esi.atl.g52196;
 
 import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.PlayerColor;
 import esi.atl.g52196.view.CustomMenu;
 import esi.atl.g52196.view.LeftPane;
 import esi.atl.g52196.view.RightPane;
@@ -18,10 +19,11 @@ public class Othello extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        StartPage startPage = new StartPage();
+        Game game = new Game();
+        StartPage startPage = new StartPage(game);
         startPage.show();
         startPage.setOnHiding(e -> primaryStage.show());
-        Game game = new Game(startPage.getBlackName(), startPage.getWhiteName());   //not working
+
         game.initialize();
 
         BorderPane root = new BorderPane();

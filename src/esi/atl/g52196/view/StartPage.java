@@ -1,5 +1,7 @@
 package esi.atl.g52196.view;
 
+import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.PlayerColor;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,9 +21,11 @@ public class StartPage extends Stage {  //TODO Check values
     private String whitePlayerName;
     private TextField blackNameField;
     private TextField whiteNameField;
+    private Game game;
 
-    public StartPage() {
+    public StartPage(Game game) {
         setTitle("Player names");
+        this.game = game;
 
         GridPane layout = new GridPane();
         layout.setVgap(10);
@@ -45,7 +49,7 @@ public class StartPage extends Stage {  //TODO Check values
 
     /**
      * Returns black player name
-     * 
+     *
      * @return black player name
      */
     public String getBlackName() {
@@ -54,16 +58,16 @@ public class StartPage extends Stage {  //TODO Check values
 
     /**
      * Returns black player name
-     * 
+     *
      * @return black player name
      */
     public String getWhiteName() {
         return whitePlayerName;
     }
 
-    private void handleSubmit(ActionEvent e) {
-        blackPlayerName = blackNameField.getText();
-        whitePlayerName = whiteNameField.getText();
+    private void handleSubmit(ActionEvent e) {        
+        game.setPlayerName(PlayerColor.BLACK, blackNameField.getText());
+        game.setPlayerName(PlayerColor.WHITE, whiteNameField.getText());
         hide();
     }
 }

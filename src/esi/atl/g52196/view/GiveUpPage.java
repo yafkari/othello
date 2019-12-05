@@ -11,9 +11,9 @@ import javafx.stage.Stage;
  *
  * @author 52196
  */
-public class endGame extends Stage {
+public class GiveUpPage extends Stage {
 
-    public endGame(Game game) {
+    public GiveUpPage(Game game) {
         PlayerColor winnerColor = game.getCurrentColor() == PlayerColor.BLACK
                 ? PlayerColor.WHITE
                 : PlayerColor.BLACK;

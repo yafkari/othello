@@ -46,6 +46,10 @@ public class Player {
     String getName() {
         return name;
     }
+    
+    void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Returns the list of pawns of the player
