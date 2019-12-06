@@ -29,6 +29,11 @@ public class Historic extends TableView {
         TableColumn positionCol = new TableColumn("Position");
         positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
 
+        idCol.setMinWidth(20);
+        nameCol.setMinWidth(100);
+        actionCol.setMinWidth(150);
+        positionCol.setMinWidth(20);
+
         getColumns().setAll(idCol, nameCol, actionCol, positionCol);
     }
 }

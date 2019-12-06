@@ -368,17 +368,29 @@ public class Game implements Model, Observable {
      */
     public String getPlayerName(PlayerColor color) {
         if (color == currentPlayer.getColor()) {
-            return currentPlayer.getName();
+            return currentPlayer.getName().length() == 0
+                    ? currentPlayer.getColor().toString()
+                    : currentPlayer.getName();
         } else {
-            return opponentPlayer.getName();
+            return opponentPlayer.getName().length() == 0
+                    ? opponentPlayer.getColor().toString()
+                    : opponentPlayer.getName();
         }
     }
 
     public void setPlayerName(PlayerColor color, String name) {
         if (getCurrentColor() == color) {
-            currentPlayer.setName(name);
+            if (name.length() == 0) {
+                currentPlayer.setName(color.toString());
+            } else {
+                currentPlayer.setName(name);
+            }
         } else {
-            opponentPlayer.setName(name);
+            if (name.length() == 0) {
+                opponentPlayer.setName(color.toString());
+            } else {
+                opponentPlayer.setName(name);
+            }
         }
     }
 
