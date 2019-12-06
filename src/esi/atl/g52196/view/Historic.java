@@ -1,6 +1,5 @@
 package esi.atl.g52196.view;
 
-import esi.atl.g52196.model.Game;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;

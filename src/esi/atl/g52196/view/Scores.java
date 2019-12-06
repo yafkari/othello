@@ -41,8 +41,8 @@ public class Scores extends HBox implements Observer {
                 game.getScore(PlayerColor.BLACK)));
         VBox blackScoreBox = new VBox(10, blackScoreLabel, blackScoreValue);
 
-        HBox unnamed = new HBox(10, blackName, blackPawnColor, blackScoreBox);
-        StackPane blackScore = new StackPane(blackRec, unnamed);
+        StackPane blackScore = new StackPane(blackRec, 
+                new HBox(10, blackName, blackPawnColor, blackScoreBox));
 
         Rectangle whiteRec = new Rectangle(225, 50, Color.LIGHTGREY);
 
@@ -59,8 +59,8 @@ public class Scores extends HBox implements Observer {
                 game.getScore(PlayerColor.WHITE)));
         VBox whiteScoreBox = new VBox(10, whiteScoreLabel, whiteScoreValue);
 
-        HBox unnamed2 = new HBox(10, whiteName, whitePawnColor, whiteScoreBox);
-        StackPane whiteScore = new StackPane(whiteRec, unnamed2);
+        StackPane whiteScore = new StackPane(whiteRec, 
+                new HBox(10, whiteName, whitePawnColor, whiteScoreBox));
 
         whiteScore.setAlignment(Pos.TOP_CENTER);
         blackScore.setAlignment(Pos.TOP_CENTER);

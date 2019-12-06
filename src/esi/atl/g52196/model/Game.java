@@ -28,8 +28,6 @@ public class Game implements Model, Observable {
      *
      * The first player is black
      *
-     * @param blackPlayerName the name of the black player
-     * @param whitePlayerName the name of the white player
      */
     public Game() {
         observers = new ArrayList();
