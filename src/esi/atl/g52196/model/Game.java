@@ -354,7 +354,7 @@ public class Game implements Model, Observable {
     /**
      * Swaps the players
      */
-    void swapPlayers() {
+    public void swapPlayers() {
         Player tmp = currentPlayer;
         currentPlayer = opponentPlayer;
         opponentPlayer = tmp;
@@ -378,6 +378,12 @@ public class Game implements Model, Observable {
         }
     }
 
+    /**
+     * Sets player's name
+     *
+     * @param color the color of the player
+     * @param name the name to set
+     */
     public void setPlayerName(PlayerColor color, String name) {
         if (getCurrentColor() == color) {
             if (name.length() == 0) {
@@ -413,5 +419,12 @@ public class Game implements Model, Observable {
         for (Observer obs : observers) {
             obs.update();
         }
+    }
+
+    public void skip() {
+        swapPlayers();
+        history.add(new History(history.size(), currentPlayer.getName(),
+                "change player", ""));
+        notifyObservers();
     }
 }

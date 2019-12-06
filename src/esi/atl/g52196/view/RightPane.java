@@ -36,7 +36,6 @@ public class RightPane extends VBox implements Observer {
     @Override
     public void update() {
         turn.setText(game.getPlayerName(game.getCurrentColor()));
-        System.out.println("testé");
         history.setItems(game.getHistory());
     }
 }

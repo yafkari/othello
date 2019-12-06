@@ -4,6 +4,7 @@ import esi.atl.g52196.model.Game;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -16,7 +17,6 @@ public class LeftPane extends VBox {
 
     Game game;
 
-    //TODO will contains progressbar
     public LeftPane(double padding, Game game) {
         super(padding);
         this.game = game;
@@ -25,7 +25,9 @@ public class LeftPane extends VBox {
         Button giveUpButton = new Button("Give up");
         giveUpButton.setOnAction(e -> handleGiveUp(e));
         Button skipTurnButton = new Button("Skip Turn");
+        skipTurnButton.setOnAction(e -> handleSkip(e));
         Button restartButton = new Button("Restart");
+        restartButton.setOnAction(e -> handleRestart(e));
         HBox buttons = new HBox(20, giveUpButton, skipTurnButton, restartButton);
         buttons.setAlignment(Pos.CENTER);
 
@@ -36,5 +38,13 @@ public class LeftPane extends VBox {
         getScene().getWindow().hide();
         GiveUpPage end = new GiveUpPage(game);
         end.show();
+    }
+
+    private void handleSkip(ActionEvent event) {
+        game.skip();
+    }
+    
+    private void handleRestart(ActionEvent event) {
+        System.out.println("restart");        
     }
 }

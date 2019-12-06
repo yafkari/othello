@@ -8,7 +8,6 @@ import esi.atl.g52196.view.StartPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -18,6 +17,8 @@ import javafx.stage.Stage;
 public class Othello extends Application {
 
     Game game;
+    Scene scene;
+    BorderPane root;
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,7 +32,7 @@ public class Othello extends Application {
     private void initializeGame(Stage primaryStage) {
         game.initialize();
 
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         CustomMenu menu = new CustomMenu();
         LeftPane leftPane = new LeftPane(20, game);
         RightPane rightPane = new RightPane(20, game);
@@ -39,7 +40,7 @@ public class Othello extends Application {
         root.setTop(menu);
         root.setLeft(leftPane);
         root.setRight(rightPane);
-        Scene scene = new Scene(root, 999, 749);
+        scene = new Scene(root, 999, 749);
 
         primaryStage.setTitle("OthelloFX++");
         primaryStage.setScene(scene);
