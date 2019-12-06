@@ -34,10 +34,9 @@ public class Game implements Model, Observable {
     public Game() {
         observers = new ArrayList();
         history = new ArrayList();
-        currentPlayer = new Player(PlayerColor.BLACK,
-                getPlayerName(PlayerColor.BLACK));
-        opponentPlayer = new Player(PlayerColor.WHITE, "WHITE");
-        history.add(new History(currentPlayer.getName(),
+        currentPlayer = new Player(PlayerColor.BLACK);
+        opponentPlayer = new Player(PlayerColor.WHITE);
+        history.add(new History(history.size(), currentPlayer.getName(),
                 "Start new game", ""));
     }
 
@@ -264,7 +263,7 @@ public class Game implements Model, Observable {
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
             if (getPossibleMoves().isEmpty()) {
-                isOver = true;  //TODO notify observers
+                isOver = true;  //TODO notify observers call endgame
                 return false;
             }
         }
@@ -275,12 +274,13 @@ public class Game implements Model, Observable {
         applyMove(position);
         Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
+
         if (!board.isEmpty(position)) {
             return false;
         }
 
         board.addPawn(pawn);
-        history.add(new History(currentPlayer.getName(),
+        history.add(new History(history.size(), currentPlayer.getName(),
                 "make a move", position.toString()));
         swapPlayers();
         notifyObservers();

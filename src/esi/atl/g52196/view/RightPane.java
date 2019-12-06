@@ -2,7 +2,6 @@ package esi.atl.g52196.view;
 
 import esi.atl.g52196.dp.Observer;
 import esi.atl.g52196.model.Game;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;

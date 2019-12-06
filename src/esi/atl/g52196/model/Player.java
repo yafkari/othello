@@ -20,13 +20,12 @@ public class Player {
      * @param color the color of the player (black or white)
      * @throws NullPointerException if the color is null
      */
-    Player(PlayerColor color, String name) {
+    Player(PlayerColor color) {
         if (color == null) {
             throw new NullPointerException("The color can't be null !");
         }
         this.color = color;
         this.pawns = new ArrayList<>();
-        this.name = name;
     }
 
     /**

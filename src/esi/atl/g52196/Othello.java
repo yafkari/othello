@@ -1,7 +1,6 @@
 package esi.atl.g52196;
 
 import esi.atl.g52196.model.Game;
-import esi.atl.g52196.model.PlayerColor;
 import esi.atl.g52196.view.CustomMenu;
 import esi.atl.g52196.view.LeftPane;
 import esi.atl.g52196.view.RightPane;
@@ -17,13 +16,18 @@ import javafx.stage.Stage;
  */
 public class Othello extends Application {
 
+    Game game;
+
     @Override
     public void start(Stage primaryStage) {
-        Game game = new Game();
+        game = new Game();
         StartPage startPage = new StartPage(game);
         startPage.show();
-        startPage.setOnHiding(e -> primaryStage.show());
+        startPage.setOnHiding(e -> initializeGame(primaryStage));
 
+    }
+
+    private void initializeGame(Stage primaryStage) {
         game.initialize();
 
         BorderPane root = new BorderPane();
@@ -35,9 +39,11 @@ public class Othello extends Application {
         root.setLeft(leftPane);
         root.setRight(rightPane);
         Scene scene = new Scene(root, 999, 749);
+
         primaryStage.setTitle("OthelloFX++");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
     /**

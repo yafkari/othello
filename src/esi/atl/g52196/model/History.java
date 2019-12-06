@@ -6,14 +6,14 @@ package esi.atl.g52196.model;
  */
 public class History {
 
-    private int id = -1;
+    private int id;
     private String playerName;
     private String action;
     private String position;
     //private int nbTaken;
 
-    public History(String playerName, String action, String position) {
-        id++;
+    public History(int id, String playerName, String action, String position) {
+        this.id = id;
         this.playerName = playerName;
         this.action = action;
         this.position = position;

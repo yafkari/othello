@@ -30,7 +30,7 @@ public class GameTest {
     @Test
     public void testInitialize() {
         System.out.println("testInitialize");
-        Game instance = new Game("", "");
+        Game instance = new Game();
 
         instance.initialize();
         assertFalse(instance.getBoard().isEmpty(new Position(3, 3)));
@@ -42,7 +42,8 @@ public class GameTest {
     @Test
     public void testGetBoard() {
         System.out.println("getBoard");
-        Game instance = new Game("", "");
+        Game instance = new Game();
+
         instance.initialize();
         Board result = instance.getBoard();
         assertEquals(board.getPawn(new Position(3, 3)),
@@ -55,7 +56,8 @@ public class GameTest {
     @Test
     public void testGetIsOver() {
         System.out.println("testGetIsOver");
-        Game instance = new Game("", "");
+        Game instance = new Game();
+
         boolean result = instance.isOver();
         assertEquals(false, result);
     }
@@ -63,7 +65,7 @@ public class GameTest {
     @Test
     public void testGetCurrentColorWhenBlack() {
         System.out.println("testGetCurrentColorWhenBlack");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         PlayerColor result = instance.getCurrentColor();
         assertEquals(PlayerColor.BLACK, result);
     }
@@ -71,7 +73,7 @@ public class GameTest {
     @Test
     public void testGetCurrentColorWhenWhite() {
         System.out.println("testGetCurrentColorWhenWhite");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.swapPlayers();
         PlayerColor result = instance.getCurrentColor();
         assertEquals(PlayerColor.WHITE, result);
@@ -80,7 +82,7 @@ public class GameTest {
     @Test
     public void testGetScore() {
         System.out.println("testGetScore");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         int expResult = 2;
         int result = instance.getScore(PlayerColor.BLACK);
@@ -90,7 +92,7 @@ public class GameTest {
     @Test
     public void testGetPossibleMoves() {
         System.out.println("testGetPossibleMoves");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         List<Position> expResult = Arrays.asList(new Position(5, 4),
                 new Position(3, 2), new Position(2, 3), new Position(4, 5));
@@ -101,7 +103,7 @@ public class GameTest {
     @Test
     public void testIsLegalMoveWhenTrueFirstTurn() {
         System.out.println("testIsLegalMoveWhenTrueFirstTurn");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         assertTrue(instance.applyMove(new Position(2, 3)));
 
@@ -110,7 +112,7 @@ public class GameTest {
     @Test
     public void testIsLegalMoveWhenTrueSecondTurn() {
         System.out.println("testIsLegalMoveWhenTrueSecondTurn");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         testIsLegalMoveWhenTrueFirstTurn();
         instance.play(new Position(2, 3));
@@ -120,7 +122,7 @@ public class GameTest {
     @Test
     public void testIsLegalMoveWhenTrueThirdTurn() {
         System.out.println("testIsLegalMoveWhenTrueThirdTurn");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         testIsLegalMoveWhenTrueSecondTurn();
         instance.play(new Position(2, 3));
@@ -131,7 +133,7 @@ public class GameTest {
     @Test
     public void testIsLegalMoveWhenFalse() {
         System.out.println("testIsLegalMoveWhenFalse");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         assertFalse(instance.applyMove(new Position(0, 0)));
     }
@@ -139,7 +141,7 @@ public class GameTest {
     @Test
     public void testPlayWhenTrue() {
         System.out.println("testPlayWhenTrue");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         assertFalse(instance.getPossibleMoves().isEmpty());
         assertTrue(instance.play(new Position(2, 3)));
@@ -148,7 +150,7 @@ public class GameTest {
     @Test
     public void testPlayWhenFalse() {
         System.out.println("testPlayWhenFalse");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         assertFalse(instance.play(new Position(0, 0)));
     }
@@ -156,7 +158,7 @@ public class GameTest {
     @Test
     public void testSwapPlayers() {
         System.out.println("testSwapPlayers");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         assertEquals(PlayerColor.BLACK, instance.getCurrentColor());
         instance.swapPlayers();
         assertEquals(PlayerColor.WHITE, instance.getCurrentColor());
@@ -165,7 +167,7 @@ public class GameTest {
     @Test
     public void testEatPawn() {
         System.out.println("testEatPawn");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         instance.play(new Position(2, 3));
     }
@@ -173,7 +175,7 @@ public class GameTest {
     @Test
     public void testGetWinnerWhenWinner() {
         System.out.println("testGetWinnerWhenWinner");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         instance.play(new Position(2, 3));
         PlayerColor result = instance.getWinner();
@@ -183,7 +185,7 @@ public class GameTest {
     @Test
     public void testGetWinnerWhenEquality() {
         System.out.println("testGetWinnerWhenEquality");
-        Game instance = new Game("", "");
+        Game instance = new Game();
         instance.initialize();
         PlayerColor result = instance.getWinner();
         assertNull(result);
