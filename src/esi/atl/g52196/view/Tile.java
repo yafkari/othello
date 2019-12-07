@@ -77,7 +77,7 @@ public class Tile extends StackPane {
         System.out.println("CLICKED=" + position + " worked=" + game.play(position));
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
-            game.notifyObservers();
+            //game.notifyObservers();
         } //TMP
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {

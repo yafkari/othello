@@ -104,7 +104,7 @@ public class Board {
     void checkIsInside(Position position) {
         if (!isInside(position)) {
             throw new IllegalArgumentException(
-                    "The position is not part of the board");
+                    "The position" + position + " is not part of the board");
         }
     }
 }
