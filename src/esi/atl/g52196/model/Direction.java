@@ -5,7 +5,7 @@ package esi.atl.g52196.model;
  *
  * Represents the possible directions
  */
-enum Direction { // supprimer ?
+enum Direction {
     NORTH(-1, 0),
     NORTHEAST(-1, 1),
     EAST(0, 1),

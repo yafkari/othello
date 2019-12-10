@@ -18,7 +18,6 @@ public class Historic extends TableView {
         setEditable(false);
         TableColumn idCol = new TableColumn("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        //idCol.styleProperty().
 
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));

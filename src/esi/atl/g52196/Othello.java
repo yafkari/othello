@@ -1,7 +1,9 @@
 package esi.atl.g52196;
 
+import esi.atl.g52196.dp.Observer;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.view.CustomMenu;
+import esi.atl.g52196.view.GameOver;
 import esi.atl.g52196.view.LeftPane;
 import esi.atl.g52196.view.RightPane;
 import esi.atl.g52196.view.StartPage;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author g52196
  */
-public class Othello extends Application {
+public class Othello extends Application implements Observer {
 
     Game game;
     Scene scene;
@@ -23,6 +25,7 @@ public class Othello extends Application {
     @Override
     public void start(Stage primaryStage) {
         game = new Game();
+        game.registerObserver(this);
         StartPage startPage = new StartPage(game);
         startPage.show();
         startPage.setOnHiding(e -> initializeGame(primaryStage));
@@ -53,5 +56,17 @@ public class Othello extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void update() {
+        if (game.isOver()) {
+            try {
+                scene.getWindow().hide();
+                GameOver end = new GameOver(game, false);
+                end.show();
+            } catch (Exception ex) {
+            }
+        }
     }
 }
