@@ -11,12 +11,13 @@ import javafx.stage.Stage;
  *
  * @author 52196
  */
-public class GiveUpPage extends Stage {
+public class GameOver extends Stage {
 
-    public GiveUpPage(Game game) {
-        PlayerColor winner = game.getCurrentColor() == PlayerColor.BLACK
-                ? PlayerColor.WHITE
-                : PlayerColor.BLACK;
+    public GameOver(Game game, boolean givingUp) {
+        PlayerColor winner = givingUp
+                ? game.getOpponentColor()
+                : game.getWinner();
+
         Label textWinner = new Label(game.getPlayerName(winner) + " wins with "
                 + game.getScore(winner) + " points");
         setScene(new Scene(new VBox(textWinner), 200, 150));
