@@ -1,6 +1,5 @@
 package esi.atl.g52196.view;
 
-import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
@@ -33,7 +32,7 @@ public class Tile extends StackPane {
         Circle circle = new Circle(sqrt(width * width + height * height) / 3);
         tile.setFill(Color.DARKGREEN);
 
-        Pawn pawn = game.getBoard().getPawn(this.position);
+        Pawn pawn = game.getBoard().getPawn(position);
         if (pawn != null) {
             Text valueText = new Text(String.valueOf(pawn.getValue()));
             valueText.setFont(Font.font(30));
@@ -81,7 +80,7 @@ public class Tile extends StackPane {
             game.play(position);
         }
 
-        for (int i = 0; i < BOARD_SIZE; i++) {
+        /*for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 Pawn pawn = game.getBoard().getPawn(new Position(i, j));
                 if (pawn != null) {
@@ -92,6 +91,6 @@ public class Tile extends StackPane {
                 }
             }
             System.out.println("");
-        }
+        }*/
     }
 }

@@ -167,8 +167,7 @@ public class Game implements Model, Observable {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    boolean applyMove(Position position
-    ) {
+    boolean applyMove(Position position) {
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {
@@ -372,6 +371,9 @@ public class Game implements Model, Observable {
         opponentPlayer = tmp;
     }
 
+    /**
+     * Checks if the game is over
+     */
     private void checkIsOver() {
         if (getPossibleMoves().isEmpty()) {
             swapPlayers();
@@ -422,6 +424,9 @@ public class Game implements Model, Observable {
         }
     }
 
+    /**
+     * Resets the game
+     */
     public void reset() {
         String currentName = currentPlayer.getName();
         String opponentName = opponentPlayer.getName();
@@ -435,6 +440,16 @@ public class Game implements Model, Observable {
         opponentPlayer.setName(opponentName);
         initialize();
         isOver = false;
+        notifyObservers();
+    }
+
+    /**
+     * Skip turn of current player
+     */
+    public void skip() {
+        swapPlayers();
+        history.add(new History(history.size(), currentPlayer.getName(),
+                "change player", ""));
         notifyObservers();
     }
 
@@ -457,12 +472,5 @@ public class Game implements Model, Observable {
         for (Observer obs : observers) {
             obs.update();
         }
-    }
-
-    public void skip() {
-        swapPlayers();
-        history.add(new History(history.size(), currentPlayer.getName(),
-                "change player", ""));
-        notifyObservers();
     }
 }
