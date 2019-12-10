@@ -114,6 +114,16 @@ public class Game implements Model, Observable {
     }
 
     /**
+     * Returns the color of the opponent player
+     *
+     * @return the color of the opponent player
+     */
+    @Override
+    public PlayerColor getOpponentColor() {
+        return opponentPlayer.getColor();
+    }
+
+    /**
      * Returns the score of a player
      *
      * @param color the color of the player we wants to get the score
@@ -134,19 +144,21 @@ public class Game implements Model, Observable {
 
     /**
      * Changes the color of a pawn to the color of the current player and
-     * returns it
+     * removes it from the opponent
      *
      * @param pawn the pawn to change the color
-     * @return the pawn passed in parameter after changing its color
+     * @return true if the pawn has been eaten
      */
-    Pawn eatPawn(Pawn pawn) {
-        Pawn removed = opponentPlayer.removePawn(pawn);
-
-        if (removed != null) {
-            currentPlayer.addPawn(removed);
-            removed.setColor(getCurrentColor());
+    boolean eatPawn(Pawn pawn) {
+        if (pawn != null) {
+            if (opponentPlayer.getPawns().contains(pawn)) {
+                currentPlayer.addPawn(opponentPlayer.removePawn(pawn));
+                pawn.setColor(getCurrentColor());
+                return true;
+            }
         }
-        return removed;
+
+        return false;
     }
 
     /**
@@ -155,7 +167,8 @@ public class Game implements Model, Observable {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    boolean applyMove(Position position) {
+    boolean applyMove(Position position
+    ) {
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {
@@ -168,9 +181,15 @@ public class Game implements Model, Observable {
                 }
 
                 if (isInside(nextPos) && !isEmpty(nextPos) && isMyPawn(nextPos)) {
-                    toEat.stream().forEach(p
-                            -> board.addPawn(eatPawn(getPawn(p))));;
-                    System.out.println(toEat);
+                    toEat.stream().forEach(p -> {
+                        Pawn pawn = getPawn(p);
+                        if (pawn != null) {
+                            if (eatPawn(pawn)) {
+                                board.addPawn(pawn);
+                            }
+                        }
+                    });
+                    System.out.println("toEat=" + toEat);
                     legit = true;
                 } else {
                     toEat.clear();
@@ -259,13 +278,6 @@ public class Game implements Model, Observable {
      * @return true if the move has been done, otherwise false
      */
     public boolean play(Position position) {
-        if (getPossibleMoves().isEmpty()) {
-            swapPlayers();
-            if (getPossibleMoves().isEmpty()) {
-                isOver = true;  //TODO notify observers call endgame
-                return false;
-            }
-        }
         if (!getPossibleMoves().contains(position)) {
             return false;
         }
@@ -282,6 +294,7 @@ public class Game implements Model, Observable {
         history.add(new History(history.size(), currentPlayer.getName(),
                 "made a move", position.toString()));
         swapPlayers();
+        checkIsOver();
         notifyObservers();
 
         return true;
@@ -359,6 +372,16 @@ public class Game implements Model, Observable {
         opponentPlayer = tmp;
     }
 
+    private void checkIsOver() {
+        if (getPossibleMoves().isEmpty()) {
+            swapPlayers();
+            if (getPossibleMoves().isEmpty()) {
+                isOver = true;
+                swapPlayers();
+            }
+        }
+    }
+
     /**
      * Get the name of a player
      *
@@ -385,13 +408,13 @@ public class Game implements Model, Observable {
      */
     public void setPlayerName(PlayerColor color, String name) {
         if (getCurrentColor() == color) {
-            if (name.length() == 0) {
+            if (name == null || name.length() == 0) {
                 currentPlayer.setName(color.toString());
             } else {
                 currentPlayer.setName(name);
             }
         } else {
-            if (name.length() == 0) {
+            if (name == null || name.length() == 0) {
                 opponentPlayer.setName(color.toString());
             } else {
                 opponentPlayer.setName(name);

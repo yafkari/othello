@@ -31,6 +31,13 @@ public interface Model {
      * @return the color of the current player
      */
     PlayerColor getCurrentColor();
+    
+    /**
+     * Returns the color of the opponent player
+     *
+     * @return the color of the opponent player
+     */
+    PlayerColor getOpponentColor();
 
     /**
      * Returns the score of a player
