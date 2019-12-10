@@ -18,6 +18,7 @@ public class Historic extends TableView {
         setEditable(false);
         TableColumn idCol = new TableColumn("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //idCol.styleProperty().
 
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("playerName"));
@@ -28,10 +29,10 @@ public class Historic extends TableView {
         TableColumn positionCol = new TableColumn("Position");
         positionCol.setCellValueFactory(new PropertyValueFactory<>("position"));
 
-        idCol.setMinWidth(20);
-        nameCol.setMinWidth(100);
-        actionCol.setMinWidth(150);
-        positionCol.setMinWidth(20);
+        idCol.setMinWidth(30);
+        nameCol.setMinWidth(120);
+        actionCol.setMinWidth(175);
+        positionCol.setMinWidth(30);
 
         getColumns().setAll(idCol, nameCol, actionCol, positionCol);
     }

@@ -35,7 +35,7 @@ public class Game implements Model, Observable {
         currentPlayer = new Player(PlayerColor.BLACK);
         opponentPlayer = new Player(PlayerColor.WHITE);
         history.add(new History(history.size(), currentPlayer.getName(),
-                "Start new game", ""));
+                "New game started", ""));
     }
 
     /**

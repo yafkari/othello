@@ -31,7 +31,7 @@ public class GameBoard extends GridPane implements Observer {
 
     private void initializeBoard() {
         for (int i = 1; i < BOARD_SIZE + 1; i++) {
-            Text text = new Text(String.valueOf(i));
+            Text text = new Text(String.valueOf(i - 1));
             text.setFill(Color.WHITE);
             StackPane stack = new StackPane(
                     new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
@@ -39,7 +39,7 @@ public class GameBoard extends GridPane implements Observer {
         }
 
         for (int i = 1; i < BOARD_SIZE + 1; i++) {
-            Text text = new Text(String.valueOf(i));
+            Text text = new Text(String.valueOf(i - 1));
             text.setFill(Color.WHITE);
             StackPane stack = new StackPane(
                     new Rectangle(SIDE_SIZE, SIDE_SIZE), text);

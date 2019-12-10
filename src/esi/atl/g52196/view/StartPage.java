@@ -31,9 +31,9 @@ public class StartPage extends Stage {  //TODO Check values
         layout.setVgap(10);
         layout.setPadding(new Insets(20));
         Label blackNameLabel = new Label("Black player name: ");
-        blackNameField = new TextField();
+        blackNameField = new TextField("");
         Label whiteNameLabel = new Label("White player name: ");
-        whiteNameField = new TextField();
+        whiteNameField = new TextField("");
         Button submitButton = new Button("Submit");
         submitButton.setMinWidth(250);
         submitButton.setOnAction(e -> handleSubmit(e));
