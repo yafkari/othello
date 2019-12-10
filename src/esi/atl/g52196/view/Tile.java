@@ -51,7 +51,7 @@ public class Tile extends StackPane {
 
         addEventHandler(MouseEvent.MOUSE_ENTERED, e -> handleMouseEntered(e));
         addEventHandler(MouseEvent.MOUSE_EXITED, e -> handleMouseExited(e));
-        this.setOnMouseClicked(e -> handleMouseClicked(e));
+        setOnMouseClicked(e -> handleMouseClicked(e));
     }
 
     //TODO to separate from the view
@@ -74,16 +74,19 @@ public class Tile extends StackPane {
     }
 
     private void handleMouseClicked(MouseEvent event) {
-        System.out.println("CLICKED=" + position + " worked=" + game.play(position));
+        //System.out.println("CLICKED=" + position);
+        //System.out.println("moves=" + game.getPossibleMoves());
+
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
-            //game.notifyObservers();
-        } //TMP
+        }
+
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 Pawn pawn = game.getBoard().getPawn(new Position(i, j));
                 if (pawn != null) {
-                    System.out.print(pawn + String.valueOf(pawn.getColor().toString().charAt(0)) + " ");
+                    System.out.print(pawn + String.valueOf(
+                            pawn.getColor().toString().charAt(0)) + " ");
                 } else {
                     System.out.print(".  ");
                 }

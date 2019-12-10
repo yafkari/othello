@@ -22,7 +22,6 @@ public class GameBoard extends GridPane implements Observer {
 
     public GameBoard(Game game) {
         this.game = game;
-        System.out.println(this.game.getCurrentColor());
         game.registerObserver(this);
         setPadding(new Insets(20));
 
@@ -30,21 +29,8 @@ public class GameBoard extends GridPane implements Observer {
     }
 
     private void initializeBoard() {
-        for (int i = 1; i < BOARD_SIZE + 1; i++) {
-            Text text = new Text(String.valueOf(i - 1));
-            text.setFill(Color.WHITE);
-            StackPane stack = new StackPane(
-                    new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
-            add(stack, i, 0);
-        }
-
-        for (int i = 1; i < BOARD_SIZE + 1; i++) {
-            Text text = new Text(String.valueOf(i - 1));
-            text.setFill(Color.WHITE);
-            StackPane stack = new StackPane(
-                    new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
-            add(stack, 0, i);
-        }
+        initializeRowIndexes();
+        initializeColIndexes();
 
         for (int row = 1; row < BOARD_SIZE + 1; row++) {
             for (int col = 1; col < BOARD_SIZE + 1; col++) {
@@ -54,8 +40,28 @@ public class GameBoard extends GridPane implements Observer {
         }
     }
 
+    private void initializeRowIndexes() {
+        for (int i = 1; i < BOARD_SIZE + 1; i++) {
+            Text text = new Text(String.valueOf(i - 1));
+            text.setFill(Color.WHITE);
+            StackPane stack = new StackPane(
+                    new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
+            add(stack, i, 0);
+        }
+    }
+
+    private void initializeColIndexes() {
+        for (int i = 1; i < BOARD_SIZE + 1; i++) {
+            Text text = new Text(String.valueOf(i - 1));
+            text.setFill(Color.WHITE);
+            StackPane stack = new StackPane(
+                    new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
+            add(stack, 0, i);
+        }
+    }
+
     @Override
-    public void update() {  //handle end game
+    public void update() {
         this.getChildren().clear();
         initializeBoard();
     }

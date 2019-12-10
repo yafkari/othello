@@ -35,7 +35,7 @@ public class LeftPane extends VBox {
 
     private void handleGiveUp(ActionEvent event) {
         getScene().getWindow().hide();
-        GiveUpPage end = new GiveUpPage(game);
+        GameOver end = new GameOver(game, true);
         end.show();
     }
 
