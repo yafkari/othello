@@ -65,7 +65,7 @@ public class Scores extends HBox implements Observer {
         whiteScore.setAlignment(Pos.TOP_CENTER);
         blackScore.setAlignment(Pos.TOP_CENTER);
 
-        getChildren().addAll(whiteScore, blackScore);
+        getChildren().addAll(blackScore, whiteScore);
         setSpacing(10);
     }
 
