@@ -24,9 +24,6 @@ public class GameBoard extends GridPane implements Observer {
         this.game = game;
         System.out.println(this.game.getCurrentColor());
         game.registerObserver(this);
-
-        /*setBackground(new Background(new BackgroundFill(Color.BLACK,
-                CornerRadii.EMPTY, new Insets(20))));*/
         setPadding(new Insets(20));
 
         initializeBoard();

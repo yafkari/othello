@@ -161,7 +161,8 @@ public class Game implements Model, Observable {
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
             if (isInside(nextPos) && !isEmpty(nextPos) && !isMyPawn(nextPos)) {
-                while (!isEmpty(nextPos) && !isMyPawn(nextPos)) {
+                while (isInside(nextPos) && !isEmpty(nextPos)
+                        && !isMyPawn(nextPos)) {
                     toEat.add(nextPos);
                     nextPos = nextPos.nextPos(direction);
                 }
@@ -279,7 +280,7 @@ public class Game implements Model, Observable {
 
         board.addPawn(pawn);
         history.add(new History(history.size(), currentPlayer.getName(),
-                "make a move", position.toString()));
+                "made a move", position.toString()));
         swapPlayers();
         notifyObservers();
 
@@ -396,6 +397,22 @@ public class Game implements Model, Observable {
                 opponentPlayer.setName(name);
             }
         }
+    }
+
+    public void reset() {
+        String currentName = currentPlayer.getName();
+        String opponentName = opponentPlayer.getName();
+        history.add(new History(history.size(), currentName,
+                "restarted game", ""));
+
+        currentPlayer = new Player(PlayerColor.BLACK);
+        currentPlayer.setName(currentName);
+
+        opponentPlayer = new Player(PlayerColor.WHITE);
+        opponentPlayer.setName(opponentName);
+        initialize();
+        isOver = false;
+        notifyObservers();
     }
 
     @Override
