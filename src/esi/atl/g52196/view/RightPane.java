@@ -2,6 +2,7 @@ package esi.atl.g52196.view;
 
 import esi.atl.g52196.dp.Observer;
 import esi.atl.g52196.model.Game;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -37,5 +38,6 @@ public class RightPane extends VBox implements Observer {
     public void update() {
         turn.setText(game.getPlayerName(game.getCurrentColor()));
         history.setItems(game.getHistory());
+        history.scrollTo(history.getItems().size() - 1);
     }
 }
