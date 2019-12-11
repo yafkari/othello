@@ -27,23 +27,26 @@ public class LeftPane extends VBox {
         skipTurnButton.setOnAction(e -> handleSkip(e));
         Button restartButton = new Button("Restart");
         restartButton.setOnAction(e -> handleRestart(e));
+
         HBox buttons = new HBox(20, giveUpButton, skipTurnButton, restartButton);
         buttons.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(board, buttons);
+        Progresses progress = new Progresses(game);
+
+        getChildren().addAll(board, progress, buttons);
     }
 
-    private void handleGiveUp(ActionEvent event) {
+    private void handleGiveUp(ActionEvent e) {
         getScene().getWindow().hide();
         GameOver end = new GameOver(game, true);
         end.show();
     }
 
-    private void handleSkip(ActionEvent event) {
-        game.skip();
+    private void handleSkip(ActionEvent e) {
+        game.skipTurn();
     }
-    
-    private void handleRestart(ActionEvent event) {
+
+    private void handleRestart(ActionEvent e) {
         game.reset();
     }
 }

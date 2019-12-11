@@ -38,6 +38,8 @@ public class StartPage extends Stage {  //TODO Check values
         submitButton.setMinWidth(250);
         submitButton.setOnAction(e -> handleSubmit(e));
 
+        setOnCloseRequest(e -> setPlayerNames());
+
         layout.add(blackNameLabel, 0, 0);
         layout.add(blackNameField, 1, 0, 2, 1);
         layout.add(whiteNameLabel, 0, 1);
@@ -65,9 +67,13 @@ public class StartPage extends Stage {  //TODO Check values
         return whitePlayerName;
     }
 
-    private void handleSubmit(ActionEvent e) {        
+    private void setPlayerNames() {
         game.setPlayerName(PlayerColor.BLACK, blackNameField.getText());
         game.setPlayerName(PlayerColor.WHITE, whiteNameField.getText());
+    }
+
+    private void handleSubmit(ActionEvent e) {
+        setPlayerNames();
         hide();
     }
 }

@@ -384,6 +384,15 @@ public class Game implements Model, Observable {
         }
     }
 
+    public int getNbPawns(PlayerColor color) {
+        if (color == getCurrentColor()) {
+            return (int) currentPlayer.getPawns().stream()
+                    .filter(p -> p.getPosition() != null).count();
+        }
+        return (int) opponentPlayer.getPawns().stream()
+                .filter(p -> p.getPosition() != null).count();
+    }
+
     /**
      * Get the name of a player
      *
@@ -445,7 +454,7 @@ public class Game implements Model, Observable {
     /**
      * Skip turn of current player
      */
-    public void skip() {
+    public void skipTurn() {
         swapPlayers();
         history.add(new History(currentPlayer.getName(), "change player", ""));
         notifyObservers();
