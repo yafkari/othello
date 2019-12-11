@@ -2,14 +2,10 @@ package esi.atl.g52196;
 
 import esi.atl.g52196.model.Observer;
 import esi.atl.g52196.model.Game;
-import esi.atl.g52196.view.CustomMenu;
 import esi.atl.g52196.view.GameOver;
-import esi.atl.g52196.view.LeftPane;
-import esi.atl.g52196.view.RightPane;
 import esi.atl.g52196.view.StartPage;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -20,33 +16,16 @@ public class Othello extends Application implements Observer {
 
     Game game;
     Scene scene;
-    BorderPane root;
 
     @Override
     public void start(Stage primaryStage) {
         game = new Game();
-        game.registerObserver(this);
-        StartPage startPage = new StartPage(game);
-        startPage.show();
-        startPage.setOnHiding(e -> initializeGame(primaryStage));
-
-    }
-
-    private void initializeGame(Stage primaryStage) {
         game.initialize();
+        game.registerObserver(this);
 
-        root = new BorderPane();
-        CustomMenu menu = new CustomMenu();
-        LeftPane leftPane = new LeftPane(20, game);
-        RightPane rightPane = new RightPane(20, game);
-
-        root.setTop(menu);
-        root.setLeft(leftPane);
-        root.setRight(rightPane);
-        scene = new Scene(root, 999, 749);
-
+        StartPage startPage = new StartPage(game);
+        primaryStage.setScene(new Scene(startPage, 300, 150));
         primaryStage.setTitle("OthelloFX++");
-        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
