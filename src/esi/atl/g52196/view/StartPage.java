@@ -23,6 +23,9 @@ public class StartPage extends GridPane {
     private String whitePlayerName;
     private TextField blackNameField;
     private TextField whiteNameField;
+    private CheckBox isWhiteIA;
+    private CheckBox isBlackIA;
+
     private Game game;
 
     public StartPage(Game game) {
@@ -30,11 +33,11 @@ public class StartPage extends GridPane {
 
         Label blackNameLabel = new Label("Black player name: ");
         blackNameField = new TextField("");
-        CheckBox isBlackIA = new CheckBox("IA ?");
+        isBlackIA = new CheckBox("IA ?");
 
         Label whiteNameLabel = new Label("White player name: ");
         whiteNameField = new TextField("");
-        CheckBox isWhiteIA = new CheckBox("IA ?");
+        isWhiteIA = new CheckBox("IA ?");
 
         Button submitButton = new Button("Submit");
         submitButton.setMinWidth(250);
@@ -71,6 +74,24 @@ public class StartPage extends GridPane {
      */
     public String getWhiteName() {
         return whitePlayerName;
+    }
+
+    /**
+     * Returns true if the black checkbox is selected
+     *
+     * @return true if the checkbox is selected
+     */
+    public boolean isBlackABot() {
+        return isBlackIA.isSelected();
+    }
+
+    /**
+     * Returns true if the white checkbox is selected
+     *
+     * @return true if the checkbox is selected
+     */
+    public boolean isWhiteABot() {
+        return isWhiteIA.isSelected();
     }
 
     private void handleSubmit(ActionEvent e) {
