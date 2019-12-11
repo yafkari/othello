@@ -41,11 +41,16 @@ public class Othello extends Application implements Observer {
     public void update() {
         if (game.isOver()) {
             try {
-                scene.getWindow().hide();
                 GameOver end = new GameOver(game, false);
-                end.show();
+                end.setOnHidden(e -> handleQuit());
             } catch (Exception ex) {
             }
         }
+    }
+
+    private void handleQuit() {
+        System.out.println("deja");
+        Stage s = (Stage) scene.getWindow();
+        s.close();
     }
 }
