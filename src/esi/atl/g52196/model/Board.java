@@ -52,10 +52,10 @@ public class Board {
     }
 
     /**
-     * Returns the cell at the position passed in parameter
+     * Returns the pawn at the position passed in parameter
      *
      * @param position the position of the cell we want to get
-     * @return the cell at the position passed in parameter
+     * @return the pawn at the position passed in parameter
      */
     public Pawn getPawn(Position position) {
         checkIsInside(position);
@@ -92,9 +92,15 @@ public class Board {
         }
     }
 
+    /**
+     * Returns if the position is free or not
+     * 
+     * @param position the position to look at
+     * @return true if the position is free, otherwise false
+     */
     public boolean isEmpty(Position position) {
-        return isInside(position)
-                && pawns[position.getRow()][position.getColumn()] == null;
+        checkIsInside(position);
+        return pawns[position.getRow()][position.getColumn()] == null;
     }
 
     /**

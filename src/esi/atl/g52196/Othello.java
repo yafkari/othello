@@ -1,6 +1,6 @@
 package esi.atl.g52196;
 
-import esi.atl.g52196.dp.Observer;
+import esi.atl.g52196.model.Observer;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.view.CustomMenu;
 import esi.atl.g52196.view.GameOver;

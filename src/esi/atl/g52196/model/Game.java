@@ -1,7 +1,5 @@
 package esi.atl.g52196.model;
 
-import esi.atl.g52196.dp.Observable;
-import esi.atl.g52196.dp.Observer;
 import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import java.util.Collections;
 import java.util.List;
@@ -204,6 +202,7 @@ public class Game implements Model, Observable {
      *
      * @return a list of possible move (position) for the current player
      */
+    @Override
     public List<Position> getPossibleMoves() {
         List<Position> moves = new ArrayList<>();
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -276,6 +275,7 @@ public class Game implements Model, Observable {
      *
      * @return true if the move has been done, otherwise false
      */
+    @Override
     public boolean play(Position position) {
         if (!getPossibleMoves().contains(position)) {
             return false;
@@ -321,14 +321,34 @@ public class Game implements Model, Observable {
         return isMyPawn(getPawn(position));
     }
 
+    /**
+     * Returns true if the position passed in parameter is in the board, false
+     * otherwise
+     *
+     * @param position the position to check
+     * @return true if the position passed in parameter is in the board, false
+     * otherwise
+     */
     private boolean isInside(Position position) {
         return getBoard().isInside(position);
     }
 
+    /**
+     * Returns if the position is free or not
+     * 
+     * @param position the position to look at
+     * @return true if the position is free, otherwise false
+     */
     private boolean isEmpty(Position position) {
         return getBoard().isEmpty(position);
     }
-
+    
+    /**
+     * Returns the pawn at the position passed in parameter
+     *
+     * @param position the position of the pawn we want to get
+     * @return the pawn at the position passed in parameter
+     */
     private Pawn getPawn(Position position) {
         return getBoard().getPawn(position);
     }
@@ -340,6 +360,7 @@ public class Game implements Model, Observable {
      *
      * @return the color of the player that as the highest score
      */
+    @Override
     public PlayerColor getWinner() {
         int currentScore = getScore(currentPlayer.getColor());
         int opponentScore = getScore(opponentPlayer.getColor());
@@ -358,6 +379,7 @@ public class Game implements Model, Observable {
      *
      * @return the historic of the game
      */
+    @Override
     public ObservableList<History> getHistory() {
         return FXCollections.observableArrayList(history);
     }
@@ -365,6 +387,7 @@ public class Game implements Model, Observable {
     /**
      * Swaps the players
      */
+    @Override
     public void swapPlayers() {
         Player tmp = currentPlayer;
         currentPlayer = opponentPlayer;
@@ -384,21 +407,13 @@ public class Game implements Model, Observable {
         }
     }
 
-    public int getNbPawns(PlayerColor color) {
-        if (color == getCurrentColor()) {
-            return (int) currentPlayer.getPawns().stream()
-                    .filter(p -> p.getPosition() != null).count();
-        }
-        return (int) opponentPlayer.getPawns().stream()
-                .filter(p -> p.getPosition() != null).count();
-    }
-
     /**
      * Get the name of a player
      *
      * @param color the color of the player we want
      * @return the name of a player
      */
+    @Override
     public String getPlayerName(PlayerColor color) {
         if (color == currentPlayer.getColor()) {
             return currentPlayer.getName().length() == 0
@@ -417,25 +432,23 @@ public class Game implements Model, Observable {
      * @param color the color of the player
      * @param name the name to set
      */
+    @Override
     public void setPlayerName(PlayerColor color, String name) {
         if (getCurrentColor() == color) {
-            if (name == null || name.length() == 0) {
-                currentPlayer.setName(color.toString());
-            } else {
-                currentPlayer.setName(name);
-            }
+            currentPlayer.setName(name.length() == 0
+                    ? color.toString()
+                    : name);
         } else {
-            if (name == null || name.length() == 0) {
-                opponentPlayer.setName(color.toString());
-            } else {
-                opponentPlayer.setName(name);
-            }
+            opponentPlayer.setName(name.length() == 0
+                    ? color.toString()
+                    : name);
         }
     }
 
     /**
      * Resets the game
      */
+    @Override
     public void reset() {
         String currentName = currentPlayer.getName();
         String opponentName = opponentPlayer.getName();
@@ -454,6 +467,7 @@ public class Game implements Model, Observable {
     /**
      * Skip turn of current player
      */
+    @Override
     public void skipTurn() {
         swapPlayers();
         history.add(new History(currentPlayer.getName(), "change player", ""));

@@ -1,4 +1,4 @@
-package esi.atl.g52196.dp;
+package esi.atl.g52196.model;
 
 /**
  * Represents an Observable.

@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author 52196
  */
-public class StartPage extends Stage {  //TODO Check values
+public class StartPage extends Stage {  //TODO change to scene
 
     private String blackPlayerName;
     private String whitePlayerName;

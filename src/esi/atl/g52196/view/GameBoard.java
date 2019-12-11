@@ -1,6 +1,6 @@
 package esi.atl.g52196.view;
 
-import esi.atl.g52196.dp.Observer;
+import esi.atl.g52196.model.Observer;
 import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Position;
