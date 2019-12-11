@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -29,8 +30,11 @@ public class StartPage extends GridPane {
 
         Label blackNameLabel = new Label("Black player name: ");
         blackNameField = new TextField("");
+        CheckBox isBlackIA = new CheckBox("IA ?");
+
         Label whiteNameLabel = new Label("White player name: ");
         whiteNameField = new TextField("");
+        CheckBox isWhiteIA = new CheckBox("IA ?");
 
         Button submitButton = new Button("Submit");
         submitButton.setMinWidth(250);
@@ -38,10 +42,16 @@ public class StartPage extends GridPane {
 
         add(blackNameLabel, 0, 0);
         add(blackNameField, 1, 0, 2, 1);
+        add(isBlackIA, 3, 0);
+
         add(whiteNameLabel, 0, 1);
         add(whiteNameField, 1, 1, 2, 1);
+        add(isWhiteIA, 3, 1);
+
         add(submitButton, 0, 2, 2, 1);
+
         setVgap(10);
+        setHgap(10);
         setPadding(new Insets(20));
     }
 
