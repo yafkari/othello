@@ -44,7 +44,6 @@ public class LeftPane extends VBox {
     }
     
     private void handleRestart(ActionEvent event) {
-        System.out.println("TEST");
         game.reset();
     }
 }
