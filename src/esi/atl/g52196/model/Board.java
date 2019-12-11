@@ -107,7 +107,7 @@ public class Board {
      * @param position the position to look at
      * @throws IllegalArgumentException if the position is not part of the board
      */
-    void checkIsInside(Position position) {
+    private void checkIsInside(Position position) {
         if (!isInside(position)) {
             throw new IllegalArgumentException(
                     "The position" + position + " is not part of the board");

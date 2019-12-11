@@ -44,8 +44,8 @@ public class GameBoard extends GridPane implements Observer {
         for (int i = 1; i < BOARD_SIZE + 1; i++) {
             Text text = new Text(String.valueOf(i - 1));
             text.setFill(Color.WHITE);
-            StackPane stack = new StackPane(
-                    new Rectangle(SIDE_SIZE, SIDE_SIZE), text);
+            Rectangle tile = new Rectangle(SIDE_SIZE, SIDE_SIZE);
+            StackPane stack = new StackPane(tile, text);
             add(stack, i, 0);
         }
     }
@@ -62,7 +62,7 @@ public class GameBoard extends GridPane implements Observer {
 
     @Override
     public void update() {
-        this.getChildren().clear();
+        getChildren().clear();
         initializeBoard();
     }
 }

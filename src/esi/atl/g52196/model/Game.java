@@ -186,7 +186,7 @@ public class Game implements Model, Observable {
                             }
                         }
                     });
-                    System.out.println("toEat=" + toEat);
+                    //System.out.println("toEat=" + toEat);
                     legit = true;
                 } else {
                     toEat.clear();

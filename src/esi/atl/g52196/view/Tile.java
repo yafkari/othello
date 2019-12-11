@@ -53,7 +53,6 @@ public class Tile extends StackPane {
         setOnMouseClicked(e -> handleMouseClicked(e));
     }
 
-    //TODO to separate from the view
     private void handleMouseEntered(MouseEvent event) {
         StackPane tile1 = (StackPane) event.getSource();
         Rectangle r = (Rectangle) tile1.getChildren().get(0);
