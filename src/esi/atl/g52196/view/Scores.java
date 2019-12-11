@@ -71,7 +71,6 @@ public class Scores extends HBox implements Observer {
 
     @Override
     public void update() {
-        System.out.println(game.getScore(PlayerColor.BLACK));
         blackScoreValue.setText(String.valueOf(game.getScore(PlayerColor.BLACK)));
         whiteScoreValue.setText(String.valueOf(game.getScore(PlayerColor.WHITE)));
     }

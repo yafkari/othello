@@ -171,28 +171,41 @@ public class Game implements Model, Observable {
         for (Direction direction : Direction.values()) {
             Position nextPos = position.nextPos(direction);
             if (isInside(nextPos) && !isEmpty(nextPos) && !isMyPawn(nextPos)) {
-                while (isInside(nextPos) && !isEmpty(nextPos)
-                        && !isMyPawn(nextPos)) {
-                    toEat.add(nextPos);
-                    nextPos = nextPos.nextPos(direction);
-                }
-
-                if (isInside(nextPos) && !isEmpty(nextPos) && isMyPawn(nextPos)) {
-                    toEat.stream().forEach(p -> {
-                        Pawn pawn = getPawn(p);
-                        if (pawn != null) {
-                            if (eatPawn(pawn)) {
-                                board.addPawn(pawn);
-                            }
-                        }
-                    });
-                    //System.out.println("toEat=" + toEat);
-                    legit = true;
-                } else {
-                    toEat.clear();
-                    legit = legit == true ? true : false;
-                }
+                legit = eatLine(nextPos, direction, toEat, legit);
             }
+        }
+        return legit;
+    }
+
+    /**
+     * Eats the current line
+     *
+     * @param pos the current position
+     * @param direction the current direction
+     * @param toEat the list of pawn to eat
+     * @param legit if the previous move was legit
+     * @return true if the move was legit
+     */
+    private boolean eatLine(Position pos, Direction direction,
+            List<Position> toEat, boolean legit) {
+        while (isInside(pos) && !isEmpty(pos) && !isMyPawn(pos)) {
+            toEat.add(pos);
+            pos = pos.nextPos(direction);
+        }
+
+        if (isInside(pos) && !isEmpty(pos) && isMyPawn(pos)) {
+            toEat.stream().forEach(p -> {
+                Pawn pawn = getPawn(p);
+                if (pawn != null) {
+                    if (eatPawn(pawn)) {
+                        board.addPawn(pawn);
+                    }
+                }
+            });
+            legit = true;
+        } else {
+            toEat.clear();
+            legit = legit == true ? true : false;
         }
         return legit;
     }
@@ -232,7 +245,7 @@ public class Game implements Model, Observable {
                             && !isMyPawn(nextPos)) {
                         nextPos = nextPos.nextPos(direction);
                     }
-                    if (isEmpty(nextPos)) {
+                    if (isInside(nextPos) && isEmpty(nextPos)) {
                         if (!moves.contains(nextPos)) {
                             moves.add(nextPos);
                         }
@@ -280,7 +293,6 @@ public class Game implements Model, Observable {
         if (!getPossibleMoves().contains(position)) {
             return false;
         }
-
         applyMove(position);
         Pawn pawn = pickUnusedPawn();
         pawn.setPosition(position);
@@ -335,14 +347,14 @@ public class Game implements Model, Observable {
 
     /**
      * Returns if the position is free or not
-     * 
+     *
      * @param position the position to look at
      * @return true if the position is free, otherwise false
      */
     private boolean isEmpty(Position position) {
         return getBoard().isEmpty(position);
     }
-    
+
     /**
      * Returns the pawn at the position passed in parameter
      *

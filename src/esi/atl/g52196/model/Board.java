@@ -94,7 +94,7 @@ public class Board {
 
     /**
      * Returns if the position is free or not
-     * 
+     *
      * @param position the position to look at
      * @return true if the position is free, otherwise false
      */

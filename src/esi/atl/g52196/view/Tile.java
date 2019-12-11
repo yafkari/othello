@@ -72,24 +72,8 @@ public class Tile extends StackPane {
     }
 
     private void handleMouseClicked(MouseEvent event) {
-        //System.out.println("CLICKED=" + position);
-        //System.out.println("moves=" + game.getPossibleMoves());
-
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
         }
-
-        /*for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                Pawn pawn = game.getBoard().getPawn(new Position(i, j));
-                if (pawn != null) {
-                    System.out.print(pawn + String.valueOf(
-                            pawn.getColor().toString().charAt(0)) + " ");
-                } else {
-                    System.out.print(".  ");
-                }
-            }
-            System.out.println("");
-        }*/
     }
 }
