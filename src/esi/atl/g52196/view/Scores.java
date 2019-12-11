@@ -3,6 +3,7 @@ package esi.atl.g52196.view;
 import esi.atl.g52196.model.Observer;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.PlayerColor;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -26,7 +27,7 @@ public class Scores extends HBox implements Observer {
     Scores(Game game) {
         this.game = game;
         game.registerObserver(this);
-        Rectangle blackRec = new Rectangle(225, 50, Color.DARKGREY);
+        Rectangle blackRec = new Rectangle(225, 50, Color.TOMATO);
 
         Text blackNameLabel = new Text("Name");
         Text blackPlayerName = new Text(game.getPlayerName(PlayerColor.BLACK));
@@ -44,7 +45,7 @@ public class Scores extends HBox implements Observer {
         StackPane blackScore = new StackPane(blackRec,
                 new HBox(10, blackName, blackPawnColor, blackScoreBox));
 
-        Rectangle whiteRec = new Rectangle(225, 50, Color.LIGHTGREY);
+        Rectangle whiteRec = new Rectangle(225, 50, Color.LIGHTGREEN);
 
         Text whiteNameLabel = new Text("Name");
         Text whitePlayerName = new Text(game.getPlayerName(PlayerColor.WHITE));
