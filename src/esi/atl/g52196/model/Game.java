@@ -458,6 +458,19 @@ public class Game implements Model, Observable {
     }
 
     /**
+     * Sets the player as a bot
+     *
+     * @param color the color of the player to set
+     */
+    public void setBot(PlayerColor color) {
+        if (color == getCurrentColor()) {
+            currentPlayer = new Player(currentPlayer, true);
+        } else {
+            opponentPlayer = new Player(opponentPlayer, true);
+        }
+    }
+
+    /**
      * Resets the game
      */
     @Override

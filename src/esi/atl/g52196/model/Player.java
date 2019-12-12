@@ -27,10 +27,13 @@ public class Player {
         }
         this.color = color;
         this.pawns = new ArrayList<>();
+        this.isBot = false;
     }
     
-    Player (PlayerColor color, boolean isBot) {
-        this(color);
+    Player (Player player, boolean isBot) {
+        this.color = player.getColor();
+        this.pawns = player.getPawns();
+        this.name = player.getName();
         this.isBot = isBot;
     }
 

@@ -56,27 +56,16 @@ public class StartPage extends GridPane {
         setPadding(new Insets(20));
     }
 
-    /**
-     * Returns true if the black checkbox is selected
-     *
-     * @return true if the checkbox is selected
-     */
-    public boolean isBlackABot() {
-        return isBlackIA.isSelected();
-    }
-
-    /**
-     * Returns true if the white checkbox is selected
-     *
-     * @return true if the checkbox is selected
-     */
-    public boolean isWhiteABot() {
-        return isWhiteIA.isSelected();
-    }
-
     private void handleSubmit(ActionEvent e) {
         game.setPlayerName(PlayerColor.BLACK, blackNameField.getText());
         game.setPlayerName(PlayerColor.WHITE, whiteNameField.getText());
+        if (isBlackIA.isSelected()) {
+            game.setBot(PlayerColor.BLACK);
+        }
+        if (isWhiteIA.isSelected()) {
+            game.setBot(PlayerColor.WHITE);
+        }
+
         Button src = (Button) e.getSource();
         Stage stage = (Stage) src.getScene().getWindow();
         stage.hide();
