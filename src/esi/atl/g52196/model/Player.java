@@ -13,6 +13,7 @@ public class Player {
     private PlayerColor color;
     private List<Pawn> pawns;
     private String name;
+    private boolean isBot;
 
     /**
      * Creates a new player
@@ -26,6 +27,11 @@ public class Player {
         }
         this.color = color;
         this.pawns = new ArrayList<>();
+    }
+    
+    Player (PlayerColor color, boolean isBot) {
+        this(color);
+        this.isBot = isBot;
     }
 
     /**

@@ -19,8 +19,6 @@ import javafx.stage.Stage;
  */
 public class StartPage extends GridPane {
 
-    private String blackPlayerName;
-    private String whitePlayerName;
     private TextField blackNameField;
     private TextField whiteNameField;
     private CheckBox isWhiteIA;
@@ -56,24 +54,6 @@ public class StartPage extends GridPane {
         setVgap(10);
         setHgap(10);
         setPadding(new Insets(20));
-    }
-
-    /**
-     * Returns black player name
-     *
-     * @return black player name
-     */
-    public String getBlackName() {
-        return blackPlayerName;
-    }
-
-    /**
-     * Returns black player name
-     *
-     * @return black player name
-     */
-    public String getWhiteName() {
-        return whitePlayerName;
     }
 
     /**

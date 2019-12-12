@@ -75,5 +75,6 @@ public class Tile extends StackPane {
         if (game.getPossibleMoves().contains(position)) {
             game.play(position);
         }
+        event.consume();
     }
 }
