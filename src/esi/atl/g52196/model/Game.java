@@ -102,23 +102,23 @@ public class Game implements Model, Observable {
     }
 
     /**
-     * Returns the color of the current player
+     * Returns a copy of the current player
      *
-     * @return the color of the current player
+     * @return a copy of the current player
      */
     @Override
-    public PlayerColor getCurrentColor() {
-        return currentPlayer.getColor();
+    public Player getCurrent() {
+        return new Player(currentPlayer);
     }
 
     /**
-     * Returns the color of the opponent player
+     * Returns a copy of opponent player
      *
-     * @return the color of the opponent player
+     * @return a copy of the opponent player
      */
     @Override
-    public PlayerColor getOpponentColor() {
-        return opponentPlayer.getColor();
+    public Player getOpponent() {
+        return new Player(opponentPlayer);
     }
 
     /**
@@ -129,7 +129,7 @@ public class Game implements Model, Observable {
      */
     @Override
     public int getScore(PlayerColor color) {
-        if (getCurrentColor() == color) {
+        if (currentPlayer.getColor() == color) {
             return currentPlayer.getPawns().stream()
                     .mapToInt(x -> x.getPosition() != null ? x.getValue() : 0)
                     .sum();
@@ -151,7 +151,7 @@ public class Game implements Model, Observable {
         if (pawn != null) {
             if (opponentPlayer.getPawns().contains(pawn)) {
                 currentPlayer.addPawn(opponentPlayer.removePawn(pawn));
-                pawn.setColor(getCurrentColor());
+                pawn.setColor(currentPlayer.getColor());
                 return true;
             }
         }
@@ -311,6 +311,14 @@ public class Game implements Model, Observable {
         return true;
     }
 
+    public boolean playRandomMove() {
+        if (!getPossibleMoves().isEmpty()) {
+            int idx = (int) (Math.random() * getPossibleMoves().size());
+            return play(getPossibleMoves().get(idx));
+        }
+        return false;
+    }
+
     /**
      * Returns true if the pawn passed in parameter is a pawn of the current
      * player
@@ -319,7 +327,7 @@ public class Game implements Model, Observable {
      * @return true if the pawn belongs to the current player, otherwise false
      */
     private boolean isMyPawn(Pawn pawn) {
-        return pawn.getColor() == getCurrentColor();
+        return pawn.getColor() == currentPlayer.getColor();
     }
 
     /**
@@ -446,7 +454,7 @@ public class Game implements Model, Observable {
      */
     @Override
     public void setPlayerName(PlayerColor color, String name) {
-        if (getCurrentColor() == color) {
+        if (currentPlayer.getColor() == color) {
             currentPlayer.setName(name.length() == 0
                     ? color.toString()
                     : name);
@@ -463,7 +471,7 @@ public class Game implements Model, Observable {
      * @param color the color of the player to set
      */
     public void setBot(PlayerColor color) {
-        if (color == getCurrentColor()) {
+        if (color == currentPlayer.getColor()) {
             currentPlayer = new Player(currentPlayer, true);
         } else {
             opponentPlayer = new Player(opponentPlayer, true);
@@ -479,10 +487,10 @@ public class Game implements Model, Observable {
         String opponentName = opponentPlayer.getName();
         history.add(new History(currentName, "restarted game", ""));
 
-        currentPlayer = new Player(PlayerColor.BLACK);
+        currentPlayer = new Player(PlayerColor.BLACK, currentPlayer.isABot());
         currentPlayer.setName(currentName);
 
-        opponentPlayer = new Player(PlayerColor.WHITE);
+        opponentPlayer = new Player(PlayerColor.WHITE, opponentPlayer.isABot());
         opponentPlayer.setName(opponentName);
         initialize();
         isOver = false;

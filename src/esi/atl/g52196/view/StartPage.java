@@ -32,10 +32,12 @@ public class StartPage extends GridPane {
         Label blackNameLabel = new Label("Black player name: ");
         blackNameField = new TextField("");
         isBlackIA = new CheckBox("IA ?");
+        isBlackIA.setOnAction(e -> handleBoxClicked(isWhiteIA, e));
 
         Label whiteNameLabel = new Label("White player name: ");
         whiteNameField = new TextField("");
         isWhiteIA = new CheckBox("IA ?");
+        isWhiteIA.setOnAction(e -> handleBoxClicked(isBlackIA, e));
 
         Button submitButton = new Button("Submit");
         submitButton.setMinWidth(250);
@@ -66,6 +68,10 @@ public class StartPage extends GridPane {
             game.setBot(PlayerColor.WHITE);
         }
 
+        hideAndInitialize(e);
+    }
+
+    private void hideAndInitialize(ActionEvent e) {
         Button src = (Button) e.getSource();
         Stage stage = (Stage) src.getScene().getWindow();
         stage.hide();
@@ -87,5 +93,10 @@ public class StartPage extends GridPane {
         stage.setX(300);
         stage.setY(200);
         stage.show();
+    }
+
+    private void handleBoxClicked(CheckBox other, ActionEvent event) {
+        CheckBox self = (CheckBox) event.getSource();
+        other.setSelected(!self.isSelected());
     }
 }

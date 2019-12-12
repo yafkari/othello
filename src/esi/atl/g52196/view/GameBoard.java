@@ -64,5 +64,8 @@ public class GameBoard extends GridPane implements Observer {
     public void update() {
         getChildren().clear();
         initializeBoard();
+        if (game.getCurrent().isABot()) {
+            game.playRandomMove();
+        }
     }
 }

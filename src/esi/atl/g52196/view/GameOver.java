@@ -13,7 +13,7 @@ public class GameOver extends Alert {
     public GameOver(Game game, boolean givingUp) {
         super(AlertType.INFORMATION);
         PlayerColor winner = givingUp
-                ? game.getOpponentColor()
+                ? game.getOpponent().getColor()
                 : game.getWinner();
 
         setTitle("Game over");

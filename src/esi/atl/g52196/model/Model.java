@@ -29,18 +29,18 @@ public interface Model extends Observable {
     boolean isOver();
 
     /**
-     * Returns the color of the current player
+     * Returns a copy of the current player
      *
-     * @return the color of the current player
+     * @return a copy of the current player
      */
-    PlayerColor getCurrentColor();
+    Player getCurrent();
 
     /**
-     * Returns the color of the opponent player
+     * Returns a copy of the opponent player
      *
-     * @return the color of the opponent player
+     * @return a copy of the opponent player
      */
-    PlayerColor getOpponentColor();
+    Player getOpponent();
 
     /**
      * Returns the score of a player

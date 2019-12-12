@@ -29,11 +29,21 @@ public class Player {
         this.pawns = new ArrayList<>();
         this.isBot = false;
     }
-    
-    Player (Player player, boolean isBot) {
+
+    Player(Player player) {
         this.color = player.getColor();
         this.pawns = player.getPawns();
         this.name = player.getName();
+        this.isBot = player.isABot();
+    }
+
+    Player(Player player, boolean isBot) {
+        this(player);
+        this.isBot = isBot;
+    }
+
+    Player(PlayerColor color, boolean isBot) {
+        this(color);
         this.isBot = isBot;
     }
 
@@ -42,7 +52,7 @@ public class Player {
      *
      * @return the color of the player
      */
-    PlayerColor getColor() {
+    public PlayerColor getColor() {
         return color;
     }
 
@@ -54,7 +64,7 @@ public class Player {
     String getName() {
         return name;
     }
-    
+
     void setName(String name) {
         this.name = name;
     }
@@ -66,6 +76,15 @@ public class Player {
      */
     List<Pawn> getPawns() {
         return pawns;
+    }
+
+    /**
+     * Returns if the player is a bot or not
+     *
+     * @return true if the player is a bot, otherwise false
+     */
+    public boolean isABot() {
+        return isBot;
     }
 
     /**

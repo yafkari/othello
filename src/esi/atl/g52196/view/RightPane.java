@@ -23,7 +23,7 @@ public class RightPane extends VBox implements Observer {
         game.registerObserver(this);
 
         Label turnLabel = new Label("Turn: ");
-        turn = new Label(game.getPlayerName(game.getCurrentColor()));
+        turn = new Label(game.getPlayerName(game.getCurrent().getColor()));
         Scores scores = new Scores(game);
         history = new Historic(game.getHistory());
 
@@ -35,7 +35,7 @@ public class RightPane extends VBox implements Observer {
 
     @Override
     public void update() {
-        turn.setText(game.getPlayerName(game.getCurrentColor()));
+        turn.setText(game.getPlayerName(game.getCurrent().getColor()));
         history.setItems(game.getHistory());
         history.scrollTo(history.getItems().size() - 1);
     }
