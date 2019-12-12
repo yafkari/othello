@@ -41,7 +41,7 @@ public class LeftPane extends VBox {
 
     private void handleGiveUp() {
         GameOver end = new GameOver(game, true);
-        end.setOnHidden(e -> handleQuit(e));
+        end.setOnHidden(e -> handleQuit());
     }
 
     private void handleSkip() {
@@ -52,7 +52,7 @@ public class LeftPane extends VBox {
         game.reset();
     }
 
-    private void handleQuit(DialogEvent e) { //tmp
+    private void handleQuit() {
         Stage s = (Stage) getScene().getWindow();
         s.close();
     }

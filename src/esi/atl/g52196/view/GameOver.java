@@ -3,7 +3,6 @@ package esi.atl.g52196.view;
 import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.PlayerColor;
 import javafx.scene.control.Alert;
-import javafx.stage.Stage;
 
 /**
  *

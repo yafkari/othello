@@ -15,15 +15,18 @@ import javafx.stage.Stage;
 public class Othello extends Application implements Observer {
 
     Game game;
-    Scene scene;
+    Stage stage;
 
     @Override
     public void start(Stage primaryStage) {
         game = new Game();
-        game.initialize();
         game.registerObserver(this);
+        game.initialize();
+
+        stage = primaryStage;
 
         StartPage startPage = new StartPage(game);
+
         primaryStage.setScene(new Scene(startPage, 300, 150));
         primaryStage.setTitle("OthelloFX++");
         primaryStage.setResizable(false);
@@ -40,17 +43,8 @@ public class Othello extends Application implements Observer {
     @Override
     public void update() {
         if (game.isOver()) {
-            try {
-                GameOver end = new GameOver(game, false);
-                end.setOnHidden(e -> handleQuit());
-            } catch (Exception ex) {
-            }
+            GameOver end = new GameOver(game, false);
+            end.setOnHidden(e -> stage.close());
         }
-    }
-
-    private void handleQuit() {
-        System.out.println("deja");
-        Stage s = (Stage) scene.getWindow();
-        s.close();
     }
 }
