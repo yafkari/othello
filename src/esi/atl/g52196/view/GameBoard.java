@@ -38,6 +38,9 @@ public class GameBoard extends GridPane implements Observer {
                         col, row);
             }
         }
+        if (game.getCurrent().isABot()) {
+            game.playRandomMove();
+        }
     }
 
     private void initializeRowIndexes() {
@@ -64,8 +67,5 @@ public class GameBoard extends GridPane implements Observer {
     public void update() {
         getChildren().clear();
         initializeBoard();
-        if (game.getCurrent().isABot()) {
-            game.playRandomMove();
-        }
     }
 }
