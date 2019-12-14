@@ -59,6 +59,8 @@ public class StartPage extends GridPane {
 
     private void handleBoxClicked(CheckBox other, ActionEvent event) {
         CheckBox self = (CheckBox) event.getSource();
-        other.setSelected(!self.isSelected());
+        if (other.isSelected()) {
+            other.setSelected(false);
+        }
     }
 }
