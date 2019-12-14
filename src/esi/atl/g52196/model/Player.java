@@ -24,13 +24,18 @@ public class Player {
      * @throws NullPointerException if the color is null
      */
     Player(PlayerColor color, String name, boolean isBot) {
-        if (color == null) {
-            throw new NullPointerException("The color can't be null !");
+        if (color == null || name == null) {
+            throw new NullPointerException("The values can't be null !");
         }
         this.color = color;
         this.pawns = new ArrayList<>();
         this.isBot = isBot;
-        this.name = name;
+        if (name.length() != 0) {
+            this.name = name;
+
+        } else {
+            this.name = color.toString().toLowerCase();
+        }
     }
 
     /**

@@ -441,7 +441,7 @@ public class Game implements Model, Observable {
      */
     @Override
     public String getPlayerName(PlayerColor color) {
-        if (color == currentPlayer.getColor()) {
+        /*if (color == currentPlayer.getColor()) {
             return currentPlayer.getName().length() == 0
                     ? currentPlayer.getColor().toString()
                     : currentPlayer.getName();
@@ -449,6 +449,12 @@ public class Game implements Model, Observable {
             return opponentPlayer.getName().length() == 0
                     ? opponentPlayer.getColor().toString()
                     : opponentPlayer.getName();
+        }*/
+        
+        if (color == currentPlayer.getColor()) {
+            return currentPlayer.getName();
+        } else {
+            return opponentPlayer.getName();
         }
     }
 
