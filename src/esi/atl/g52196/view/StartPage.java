@@ -1,17 +1,14 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Game;
-import esi.atl.g52196.model.PlayerColor;
+import esi.atl.g52196.model.Model;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -19,15 +16,13 @@ import javafx.stage.Stage;
  */
 public class StartPage extends GridPane {
 
-    private TextField blackNameField;
-    private TextField whiteNameField;
+    private final TextField blackNameField;
+    private final TextField whiteNameField;
     private CheckBox isWhiteIA;
     private CheckBox isBlackIA;
+    public Button submitButton;
 
-    private Game game;
-
-    public StartPage(Game game) {
-        this.game = game;
+    public StartPage() {
 
         Label blackNameLabel = new Label("Black player name: ");
         blackNameField = new TextField("");
@@ -39,9 +34,8 @@ public class StartPage extends GridPane {
         isWhiteIA = new CheckBox("IA ?");
         isWhiteIA.setOnAction(e -> handleBoxClicked(isBlackIA, e));
 
-        Button submitButton = new Button("Submit");
+        submitButton = new Button("Submit");
         submitButton.setMinWidth(250);
-        submitButton.setOnAction(e -> handleSubmit(e));
 
         add(blackNameLabel, 0, 0);
         add(blackNameField, 1, 0, 2, 1);
@@ -58,41 +52,9 @@ public class StartPage extends GridPane {
         setPadding(new Insets(20));
     }
 
-    private void handleSubmit(ActionEvent e) {
-        game.setPlayerName(PlayerColor.BLACK, blackNameField.getText());
-        game.setPlayerName(PlayerColor.WHITE, whiteNameField.getText());
-        if (isBlackIA.isSelected()) {
-            game.setBot(PlayerColor.BLACK);
-        }
-        if (isWhiteIA.isSelected()) {
-            game.setBot(PlayerColor.WHITE);
-        }
-
-        hideAndInitialize(e);
-    }
-
-    private void hideAndInitialize(ActionEvent e) {
-        Button src = (Button) e.getSource();
-        Stage stage = (Stage) src.getScene().getWindow();
-        stage.hide();
-        initializeGame(stage);
-    }
-
-    private void initializeGame(Stage stage) {
-        BorderPane root = new BorderPane();
-        CustomMenu menu = new CustomMenu();
-        LeftPane leftPane = new LeftPane(20, game);
-        RightPane rightPane = new RightPane(20, game);
-
-        root.setTop(menu);
-        root.setLeft(leftPane);
-        root.setRight(rightPane);
-        Scene scene = new Scene(root, 999, 749);
-
-        stage.setScene(scene);
-        stage.setX(300);
-        stage.setY(200);
-        stage.show();
+    public Model getData() {
+        return new Game(blackNameField.getText(), isBlackIA.isSelected(),
+                whiteNameField.getText(), isWhiteIA.isSelected());
     }
 
     private void handleBoxClicked(CheckBox other, ActionEvent event) {

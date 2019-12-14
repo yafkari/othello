@@ -107,14 +107,6 @@ public interface Model extends Observable {
     String getPlayerName(PlayerColor color);
 
     /**
-     * Sets player's name
-     *
-     * @param color the color of the player
-     * @param name the name to set
-     */
-    void setPlayerName(PlayerColor color, String name);
-
-    /**
      * Resets the game
      */
     void reset();

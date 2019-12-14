@@ -19,32 +19,30 @@ public class Player {
      * Creates a new player
      *
      * @param color the color of the player (black or white)
+     * @param name the name of the player
+     * @param isBot true if the player is a bot, otherwise false
      * @throws NullPointerException if the color is null
      */
-    Player(PlayerColor color) {
+    Player(PlayerColor color, String name, boolean isBot) {
         if (color == null) {
             throw new NullPointerException("The color can't be null !");
         }
         this.color = color;
         this.pawns = new ArrayList<>();
-        this.isBot = false;
+        this.isBot = isBot;
+        this.name = name;
     }
 
+    /**
+     * Creates a copy of a player
+     *
+     * @param player the player to copy
+     */
     Player(Player player) {
         this.color = player.getColor();
         this.pawns = player.getPawns();
         this.name = player.getName();
         this.isBot = player.isABot();
-    }
-
-    Player(Player player, boolean isBot) {
-        this(player);
-        this.isBot = isBot;
-    }
-
-    Player(PlayerColor color, boolean isBot) {
-        this(color);
-        this.isBot = isBot;
     }
 
     /**
@@ -63,10 +61,6 @@ public class Player {
      */
     String getName() {
         return name;
-    }
-
-    void setName(String name) {
-        this.name = name;
     }
 
     /**
