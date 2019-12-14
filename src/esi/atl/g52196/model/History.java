@@ -11,13 +11,20 @@ public class History {
     private String playerName;
     private String action;
     private String position;
-    //private int nbTaken;
 
-    public History(String playerName, String action, String position) {
+    public History(String playerName, String action, Position position) {
         this.id = idCounter++;
         this.playerName = playerName;
         this.action = action;
-        this.position = position;
+        if (position == null) {
+            this.position = "";
+        } else {
+            this.position = position.toString();
+        }
+    }
+
+    public History(String playerName, String action) {
+        this(playerName, action, null);
     }
 
     public int getId() {

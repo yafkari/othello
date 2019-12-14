@@ -39,7 +39,7 @@ public class Game implements Model, Observable {
         currentPlayer = new Player(BLACK, currentName, currentIsBot);
         opponentPlayer = new Player(WHITE, opponentName, opponentIsBot);
         history.add(new History(currentPlayer.getName(),
-                "New game started", ""));
+                "started a new game"));
     }
 
     /**
@@ -308,8 +308,7 @@ public class Game implements Model, Observable {
         }
 
         board.addPawn(pawn);
-        history.add(new History(currentPlayer.getName(), "made a move",
-                position.toString()));
+        history.add(new History(currentPlayer.getName(), "made a move", position));
         swapPlayers();
         checkIsOver();
         notifyObservers();
@@ -465,7 +464,7 @@ public class Game implements Model, Observable {
     public void reset() {
         String currentName = currentPlayer.getName();
         String opponentName = opponentPlayer.getName();
-        history.add(new History(currentName, "restarted game", ""));
+        history.add(new History(currentName, "restarted game"));
 
         currentPlayer = new Player(BLACK, currentName,
                 currentPlayer.isABot());
@@ -483,7 +482,7 @@ public class Game implements Model, Observable {
     @Override
     public void skipTurn() {
         swapPlayers();
-        history.add(new History(currentPlayer.getName(), "change player", ""));
+        history.add(new History(currentPlayer.getName(), "change player"));
         notifyObservers();
     }
 

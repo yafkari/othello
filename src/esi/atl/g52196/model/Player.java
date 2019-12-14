@@ -21,18 +21,17 @@ public class Player {
      * @param color the color of the player (black or white)
      * @param name the name of the player
      * @param isBot true if the player is a bot, otherwise false
-     * @throws NullPointerException if the color is null
+     * @throws NullPointerException if the color or the name are null
      */
     Player(PlayerColor color, String name, boolean isBot) {
         if (color == null || name == null) {
             throw new NullPointerException("The values can't be null !");
         }
         this.color = color;
-        this.pawns = new ArrayList<>();
+        this.pawns = new ArrayList();
         this.isBot = isBot;
         if (name.length() != 0) {
             this.name = name;
-
         } else {
             this.name = color.toString().toLowerCase();
         }
