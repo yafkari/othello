@@ -297,4 +297,12 @@ public class GameTest {
         instance.registerObserver(obs);
         instance.notifyObservers();
     }
+    
+    @Test
+    public void testGetNbPawnsOnBoard() {
+        System.out.println("testGetNbPawnsOnBoard");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        assertEquals(4, instance.getNbPawnsOnBoard());
+    }
 }
