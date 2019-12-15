@@ -63,7 +63,7 @@ public class Player {
      *
      * @return the name of the player
      */
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -83,6 +83,17 @@ public class Player {
      */
     public boolean isABot() {
         return isBot;
+    }
+
+    /**
+     * Returns the score of a player
+     *
+     * @return the score of a player
+     */
+    public int getScore() {
+        return pawns.stream()
+                .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
+                .sum();
     }
 
     /**

@@ -43,14 +43,6 @@ public interface Model extends Observable {
     Player getOpponent();
 
     /**
-     * Returns the score of a player
-     *
-     * @param color the color of the player we wants to get the score
-     * @return the score of a player
-     */
-    int getScore(PlayerColor color);
-
-    /**
      * Returns a list of possible moves for the current player
      *
      * @return a list of possible move (position) for the current player
@@ -80,7 +72,15 @@ public interface Model extends Observable {
      *
      * @return the color of the player that as the highest score
      */
-    PlayerColor getWinner();
+    Player getWinner();
+
+    /**
+     * Returns the player with the color passed in parameter
+     *
+     * @param color the color of the player we want to get
+     * @return
+     */
+    Player getPlayer(PlayerColor color);
 
     /**
      * Returns the historic of the game

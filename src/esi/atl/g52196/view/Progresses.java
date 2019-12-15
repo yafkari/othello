@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author g52196
  */
-public class Progresses extends GridPane implements Observer {  //TODOProgressIndicator
+public class Progresses extends GridPane implements Observer {  //TODO ProgressIndicator + refaire
 
     private final Model game;
     private final ProgressBar blackProgress;
@@ -38,7 +38,7 @@ public class Progresses extends GridPane implements Observer {  //TODOProgressIn
 
     @Override
     public void update() {
-        blackProgress.setProgress(game.getScore(PlayerColor.BLACK) / 72F);
-        whiteProgress.setProgress(game.getScore(PlayerColor.WHITE) / 72F);
+            blackProgress.setProgress(game.getCurrent().getScore() / 72F);
+            whiteProgress.setProgress(game.getOpponent().getScore() / 72F);
     }
 }

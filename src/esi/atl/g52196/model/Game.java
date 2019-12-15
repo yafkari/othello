@@ -133,7 +133,7 @@ public class Game implements Model, Observable {
      * @param color the color of the player we wants to get the score
      * @return the score of a player
      */
-    @Override
+    /*@Override
     public int getScore(PlayerColor color) {
         if (currentPlayer.getColor() == color) {
             return currentPlayer.getPawns().stream()
@@ -144,8 +144,7 @@ public class Game implements Model, Observable {
         return opponentPlayer.getPawns().stream()
                 .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
                 .sum();
-    }
-
+    }*/
     /**
      * Changes the color of a pawn to the color of the current player and
      * removes it from the opponent
@@ -392,20 +391,33 @@ public class Game implements Model, Observable {
      * @return the color of the player that as the highest score
      */
     @Override
-    public PlayerColor getWinner() {
+    public Player getWinner() {
         if (!isOver) {
             throw new IllegalArgumentException("The game is not finished");
         }
-        int currentScore = getScore(currentPlayer.getColor());
-        int opponentScore = getScore(opponentPlayer.getColor());
+        int currentScore = currentPlayer.getScore();
+        int opponentScore = opponentPlayer.getScore();
 
         if (currentScore == opponentScore) {
             return null;
         }
 
         return currentScore > opponentScore
-                ? currentPlayer.getColor()
-                : opponentPlayer.getColor();
+                ? new Player(currentPlayer)
+                : new Player(opponentPlayer);
+    }
+
+    /**
+     * Returns the player with the color passed in parameter
+     *
+     * @param color the color of the player we want to get
+     * @return
+     */
+    public Player getPlayer(PlayerColor color) {
+        if (currentPlayer.getColor() == color) {
+            return new Player(currentPlayer);
+        }
+        return new Player(opponentPlayer);
     }
 
     /**

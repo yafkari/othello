@@ -85,7 +85,7 @@ public class GameTest {
         Game instance = new Game("", false, "", false);
         instance.initialize();
         int expResult = 2;
-        int result = instance.getScore(PlayerColor.BLACK);
+        int result = instance.getPlayer(PlayerColor.BLACK).getScore();
         assertEquals(expResult, result);
     }
 
@@ -171,25 +171,35 @@ public class GameTest {
         instance.play(new Position(2, 3));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetWinnerWhenNotOver() {
+        System.out.println("testGetWinnerWhenNotOver");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.play(new Position(2, 3));
+        instance.getWinner();
+    }
+
     @Test
     public void testGetWinnerWhenWinner() {
         System.out.println("testGetWinnerWhenWinner");
         Game instance = new Game("", false, "", false);
         instance.initialize();
         instance.play(new Position(2, 3));
-        PlayerColor result = instance.getWinner();
-        assertEquals(PlayerColor.BLACK, result);
+        instance.skipTurn();
+        instance.play(instance.getPossibleMoves().get(0));
+        Player result = instance.getWinner();
+        assertEquals(PlayerColor.BLACK, result.getColor());
     }
 
-    @Test
-    public void testGetWinnerWhenEquality() {
+    /*@Test
+   public void testGetWinnerWhenEquality() {
         System.out.println("testGetWinnerWhenEquality");
         Game instance = new Game("", false, "", false);
         instance.initialize();
         PlayerColor result = instance.getWinner();
         assertNull(result);
-    }
-
+    }*/
     @Test
     public void testReset() {
         System.out.println("testReset");

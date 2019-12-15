@@ -39,7 +39,7 @@ public class Scores extends HBox implements Observer {
 
         Label blackScoreLabel = new Label("Score");
         blackScoreValue = new Label(String.valueOf(
-                game.getScore(PlayerColor.BLACK)));
+                game.getPlayer(PlayerColor.BLACK).getScore()));
         VBox blackScoreBox = new VBox(10, blackScoreLabel, blackScoreValue);
 
         StackPane blackScore = new StackPane(blackRec,
@@ -57,7 +57,7 @@ public class Scores extends HBox implements Observer {
 
         Label whiteScoreLabel = new Label("Score");
         whiteScoreValue = new Label(String.valueOf(
-                game.getScore(PlayerColor.WHITE)));
+                game.getPlayer(PlayerColor.WHITE).getScore()));
         VBox whiteScoreBox = new VBox(10, whiteScoreLabel, whiteScoreValue);
 
         StackPane whiteScore = new StackPane(whiteRec,
@@ -72,7 +72,9 @@ public class Scores extends HBox implements Observer {
 
     @Override
     public void update() {
-        blackScoreValue.setText(String.valueOf(game.getScore(PlayerColor.BLACK)));
-        whiteScoreValue.setText(String.valueOf(game.getScore(PlayerColor.WHITE)));
+        blackScoreValue.setText(String.valueOf(
+                game.getPlayer(PlayerColor.BLACK).getScore()));
+        whiteScoreValue.setText(String.valueOf(
+                game.getPlayer(PlayerColor.WHITE).getScore()));
     }
 }
