@@ -2,11 +2,9 @@ package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Game;
 
-import javafx.event.ActionEvent;
+import esi.atl.g52196.model.Model;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,9 +15,9 @@ import javafx.stage.Stage;
  */
 public class LeftPane extends VBox {
 
-    Game game;
+    Model game;
 
-    public LeftPane(double padding, Game game) {
+    public LeftPane(double padding, Model game) {
         super(padding);
         this.game = game;
         GameBoard board = new GameBoard(game);

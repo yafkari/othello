@@ -2,8 +2,8 @@ package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Observer;
 import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.PlayerColor;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -20,11 +20,11 @@ import javafx.scene.text.Text;
  */
 public class Scores extends HBox implements Observer {
 
-    private Game game;
-    private Label whiteScoreValue;
-    private Label blackScoreValue;
+    private final Model game;
+    private final Label whiteScoreValue;
+    private final Label blackScoreValue;
 
-    Scores(Game game) {
+    Scores(Model game) {
         this.game = game;
         game.registerObserver(this);
         Rectangle blackRec = new Rectangle(225, 50, Color.TOMATO);

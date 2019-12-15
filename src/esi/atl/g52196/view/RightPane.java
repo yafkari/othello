@@ -1,7 +1,7 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Observer;
-import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -13,11 +13,11 @@ import javafx.scene.layout.VBox;
  */
 public class RightPane extends VBox implements Observer {
 
-    private Label turn;
-    private Game game;
-    private History history;
+    private final Label turn;
+    private final Model game;
+    private final History history;
 
-    public RightPane(double padding, Game game) {
+    public RightPane(double padding, Model game) {
         super(padding);
         this.game = game;
         game.registerObserver(this);

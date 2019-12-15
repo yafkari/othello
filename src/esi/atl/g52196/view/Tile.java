@@ -1,6 +1,7 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
 import esi.atl.g52196.model.Position;
@@ -20,10 +21,10 @@ import javafx.scene.text.Text;
  */
 public class Tile extends StackPane {
 
-    private final Game game;
+    private final Model game;
     private final Position position;
 
-    Tile(double width, double height, Position position, Game game) {
+    Tile(double width, double height, Position position, Model game) {
         this.game = game;
         this.position = position;
 

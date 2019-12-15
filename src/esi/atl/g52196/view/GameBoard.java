@@ -3,6 +3,7 @@ package esi.atl.g52196.view;
 import esi.atl.g52196.model.Observer;
 import static esi.atl.g52196.model.Board.BOARD_SIZE;
 import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.Position;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
@@ -17,10 +18,10 @@ import javafx.scene.text.Text;
  */
 public class GameBoard extends GridPane implements Observer {
 
-    private Game game;
-    public static final int SIDE_SIZE = 50;
+    private final Model game;
+    private static final int SIDE_SIZE = 50;
 
-    public GameBoard(Game game) {
+    public GameBoard(Model game) {
         this.game = game;
         game.registerObserver(this);
         setPadding(new Insets(20));

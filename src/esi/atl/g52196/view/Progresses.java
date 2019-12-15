@@ -1,7 +1,7 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Observer;
-import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.PlayerColor;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -14,11 +14,11 @@ import javafx.scene.layout.GridPane;
  */
 public class Progresses extends GridPane implements Observer {  //TODOProgressIndicator
 
-    private final Game game;
+    private final Model game;
     private final ProgressBar blackProgress;
     private final ProgressBar whiteProgress;
 
-    Progresses(Game game) {
+    Progresses(Model game) {
         this.game = game;
         game.registerObserver(this);
         blackProgress = new ProgressBar();

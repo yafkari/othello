@@ -1,6 +1,6 @@
 package esi.atl.g52196.view;
 
-import esi.atl.g52196.model.Game;
+import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.PlayerColor;
 import javafx.scene.control.Alert;
 
@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
  */
 public class GameOver extends Alert {
 
-    public GameOver(Game game, boolean givingUp) {
+    public GameOver(Model game, boolean givingUp) {
         super(AlertType.INFORMATION);
         PlayerColor winner = givingUp
                 ? game.getOpponent().getColor()
