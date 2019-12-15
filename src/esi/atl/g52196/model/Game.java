@@ -171,7 +171,8 @@ public class Game implements Model, Observable {
      * @param position the position to check
      * @return true if the move to the position passed in parameter is legal
      */
-    boolean applyMove(Position position) {
+    private boolean applyMove(Position position) {
+        checkIsInitialized();
         List<Position> toEat = new ArrayList<>();
         boolean legit = false;
         for (Direction direction : Direction.values()) {
@@ -223,6 +224,7 @@ public class Game implements Model, Observable {
      */
     @Override
     public List<Position> getPossibleMoves() {
+        checkIsInitialized();
         List<Position> moves = new ArrayList<>();
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
@@ -391,6 +393,9 @@ public class Game implements Model, Observable {
      */
     @Override
     public PlayerColor getWinner() {
+        if (!isOver) {
+            throw new IllegalArgumentException("The game is not finished");
+        }
         int currentScore = getScore(currentPlayer.getColor());
         int opponentScore = getScore(opponentPlayer.getColor());
 
@@ -488,6 +493,15 @@ public class Game implements Model, Observable {
         swapPlayers();
         history.add(new HistoryAction(currentPlayer.getName(), "change player"));
         notifyObservers();
+    }
+
+    /**
+     * Checks if the game is initialized or not
+     */
+    private void checkIsInitialized() {
+        if (board == null) {
+            throw new IllegalStateException("The game is not initialized !");
+        }
     }
 
     /**

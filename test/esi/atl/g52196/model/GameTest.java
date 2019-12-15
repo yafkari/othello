@@ -100,7 +100,7 @@ public class GameTest {
         assertEquals(expResult, result);
     }
 
-    @Test
+    /*@Test
     public void testIsLegalMoveWhenTrueFirstTurn() {
         System.out.println("testIsLegalMoveWhenTrueFirstTurn");
         Game instance = new Game("", false, "", false);
@@ -136,8 +136,7 @@ public class GameTest {
         Game instance = new Game("", false, "", false);
         instance.initialize();
         assertFalse(instance.applyMove(new Position(0, 0)));
-    }
-
+    }*/
     @Test
     public void testPlayWhenTrue() {
         System.out.println("testPlayWhenTrue");
@@ -190,4 +189,64 @@ public class GameTest {
         PlayerColor result = instance.getWinner();
         assertNull(result);
     }
+
+    @Test
+    public void testReset() {
+        System.out.println("testReset");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        int expResult = instance.getPossibleMoves().size();
+        instance.initialize();
+        instance.reset();
+        assertEquals(expResult, instance.getPossibleMoves().size());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testWhenGameNotInitialized() {
+        System.out.println("testWhenGameNotInitialized");
+        Game instance = new Game("", false, "", false);
+        instance.getPossibleMoves();
+    }
+
+    @Test
+    public void testPlayRandomMove() {
+        System.out.println("testPlayRandomMove");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.playRandomMove();
+    }
+
+    @Test
+    public void testSkipTurn() {
+        System.out.println("testSkipTurn");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.skipTurn();
+        assertEquals(PlayerColor.WHITE, instance.getCurrent().getColor());
+        assertEquals(2, instance.getHistory().size());
+    }
+
+    @Test
+    public void testGetPlayerName() {
+        System.out.println("testGetBlackPlayerName");
+        Game instance = new Game("Black", false, "White", false);
+        instance.initialize();
+        assertTrue("Black".equals(instance.getPlayerName(PlayerColor.BLACK)));
+        assertTrue("White".equals(instance.getPlayerName(PlayerColor.WHITE)));
+    }
+
+    public void testGetOpponent() {
+        System.out.println("testGetOpponent");
+        Game instance = new Game("Black", false, "White", false);
+        instance.initialize();
+        assertEquals(PlayerColor.WHITE, instance.getOpponent().getColor());
+    }
+
+    public void testGetHistory() {
+        System.out.println("testGetHistory");
+        Game instance = new Game("Black", false, "White", false);
+        instance.initialize();
+        assertEquals(1, instance.getHistory().size());
+    }
+
 }
