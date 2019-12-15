@@ -10,12 +10,24 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
 
+    @Test(expected = NullPointerException.class)
+    public void testConstructWhenNull() {
+        System.out.println("testConstructWhenNull");
+        Player player = new Player(null, "", false);
+    }
+
+    @Test
+    public void testConstructWhenNameGiven() {
+        System.out.println("testConstructWhenNull");
+        Player player = new Player(BLACK, "name", false);
+    }
+
     @Test
     public void testGetColor() {
         System.out.println("testGetColor");
         Player player = new Player(BLACK, "", false);
         PlayerColor result = player.getColor();
-        assertEquals(PlayerColor.BLACK, result);
+        assertEquals(BLACK, result);
     }
 
     @Test
@@ -48,5 +60,13 @@ public class PlayerTest {
         assertEquals(new Pawn(BLACK, null, 7), result);
         assertTrue(!player.getPawns()
                 .contains(new Pawn(BLACK, null, 7)));
+    }
+
+    @Test
+    public void testRemovePawnWhenNull() {
+        System.out.println("testRemovePawnWhenNull");
+        Player player = new Player(BLACK, "", false);
+        player.addPawn(new Pawn(BLACK, null, 0));
+        assertNull(player.removePawn(new Pawn(BLACK, null, 1)));
     }
 }
