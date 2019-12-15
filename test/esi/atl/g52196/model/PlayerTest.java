@@ -11,9 +11,15 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     @Test(expected = NullPointerException.class)
-    public void testConstructWhenNull() {
-        System.out.println("testConstructWhenNull");
+    public void testConstructWhenColorNull() {
+        System.out.println("testConstructWhenColorNull");
         Player player = new Player(null, "", false);
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testConstructWhenNameNull() {
+        System.out.println("testConstructWhenNameNull");
+        Player player = new Player(BLACK, null, false);
     }
 
     @Test

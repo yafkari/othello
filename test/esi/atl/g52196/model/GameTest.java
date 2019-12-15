@@ -147,6 +147,22 @@ public class GameTest {
     }
 
     @Test
+    public void testPlayWhenNotPossibleMove() {
+        System.out.println("testPlayWhenNotPossibleMove");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.play(new Position(0, -1));
+    }
+
+    @Test
+    public void testPlayWhenNotEmpty() {
+        System.out.println("testPlayWhenNotEmpty");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.play(new Position(3, 3));
+    }
+
+    @Test
     public void testPlayWhenFalse() {
         System.out.println("testPlayWhenFalse");
         Game instance = new Game("", false, "", false);
@@ -273,7 +289,7 @@ public class GameTest {
             }
         });
     }
-    
+
     @Test
     public void testRemoveObserver() {
         System.out.println("testRemoveObserver");
@@ -285,8 +301,8 @@ public class GameTest {
         instance.registerObserver(obs);
         instance.removeObserver(obs);
     }
-    
-    @Test(expected=UnsupportedOperationException.class)
+
+    @Test(expected = UnsupportedOperationException.class)
     public void testNotifyObserver() {
         System.out.println("testNotifyObserver");
         Game instance = new Game("", false, "", false);
@@ -297,7 +313,7 @@ public class GameTest {
         instance.registerObserver(obs);
         instance.notifyObservers();
     }
-    
+
     @Test
     public void testGetNbPawnsOnBoard() {
         System.out.println("testGetNbPawnsOnBoard");
