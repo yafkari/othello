@@ -66,7 +66,7 @@ public class Game implements Model, Observable {
 
         initializePlayerPawns();
     }
-    
+
     /**
      * Initialize and shuffle player pawns
      */
@@ -285,26 +285,27 @@ public class Game implements Model, Observable {
      *
      * If the move was legal the method checks for the first pawn of the
      * currentPlayer that is not present on board and sets its position and adds
-     * it to the board. Finally, the methods checks if the game need to be set
-     * to true
-     *
-     * If it returns false, it means that the move was not legal
+     * it to the board.
      *
      * @param position The future position of the pawn
      *
-     * @return true if the move has been done, otherwise false
      */
     @Override
-    public boolean play(Position position) {
+    public void play(Position position) {
         if (!getPossibleMoves().contains(position)) {
-            return false;
+            return;
         }
         applyMove(position);
         Pawn pawn = pickUnusedPawn();
+        if (pawn == null) {
+            checkIsOver();
+            notifyObservers();
+            return;
+        }
         pawn.setPosition(position);
 
         if (!board.isEmpty(position)) {
-            return false;
+            return;
         }
 
         board.addPawn(pawn);
@@ -312,16 +313,19 @@ public class Game implements Model, Observable {
         swapPlayers();
         checkIsOver();
         notifyObservers();
-
-        return true;
     }
 
-    public boolean playRandomMove() {
+    /**
+     * Plays a random move
+     */
+    @Override
+    public void playRandomMove() {
         if (!getPossibleMoves().isEmpty()) {
             int idx = (int) (Math.random() * getPossibleMoves().size());
-            return play(getPossibleMoves().get(idx));
+            play(getPossibleMoves().get(idx));
+        } else {
+            swapPlayers();  //TODO test
         }
-        return false;
     }
 
     /**
@@ -449,7 +453,7 @@ public class Game implements Model, Observable {
                     ? opponentPlayer.getColor().toString()
                     : opponentPlayer.getName();
         }*/
-        
+
         if (color == currentPlayer.getColor()) {
             return currentPlayer.getName();
         } else {

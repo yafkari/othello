@@ -66,16 +66,12 @@ public interface Model extends Observable {
      *
      * If the move was legal the method checks for the first pawn of the
      * currentPlayer that is not present on board and sets its position and adds
-     * it to the board. Finally, the methods checks if the game need to be set
-     * to true
-     *
-     * If it returns false, it means that the move was not legal
+     * it to the board.
      *
      * @param position The future position of the pawn
      *
-     * @return true if the move has been done, otherwise false
      */
-    boolean play(Position position);
+    void play(Position position);
 
     /**
      * Returns the color of the player that as the highest score.
@@ -115,4 +111,9 @@ public interface Model extends Observable {
      * Skip turn of current player
      */
     void skipTurn();
+
+    /**
+     * Plays a random move
+     */
+    void playRandomMove();
 }

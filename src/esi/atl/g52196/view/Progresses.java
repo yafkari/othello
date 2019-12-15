@@ -14,9 +14,9 @@ import javafx.scene.layout.GridPane;
  */
 public class Progresses extends GridPane implements Observer {  //TODOProgressIndicator
 
-    private Game game;
-    private ProgressBar blackProgress;
-    private ProgressBar whiteProgress;
+    private final Game game;
+    private final ProgressBar blackProgress;
+    private final ProgressBar whiteProgress;
 
     Progresses(Game game) {
         this.game = game;
