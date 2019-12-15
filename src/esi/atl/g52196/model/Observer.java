@@ -7,5 +7,8 @@ package esi.atl.g52196.model;
  */
 public interface Observer {
 
+    /**
+     * This method is called whenever the observed object is changed.
+     */
     void update();
 }

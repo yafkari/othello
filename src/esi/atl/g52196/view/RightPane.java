@@ -15,7 +15,7 @@ public class RightPane extends VBox implements Observer {
 
     private Label turn;
     private Game game;
-    private Historic history;
+    private History history;
 
     public RightPane(double padding, Game game) {
         super(padding);
@@ -25,7 +25,7 @@ public class RightPane extends VBox implements Observer {
         Label turnLabel = new Label("Turn: ");
         turn = new Label(game.getPlayerName(game.getCurrent().getColor()));
         Scores scores = new Scores(game);
-        history = new Historic(game.getHistory());
+        history = new History(game.getHistory());
 
         setPrefSize(500, 600);
         setPadding(new Insets(10));

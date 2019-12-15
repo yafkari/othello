@@ -21,6 +21,11 @@ public class Position {
         this.column = column;
     }
 
+    /**
+     * Creates a copy of the position passed in parameter
+     *
+     * @param position the position to copy
+     */
     public Position(Position position) {
         this(position.getRow(), position.getColumn());
     }

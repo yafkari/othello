@@ -20,7 +20,7 @@ public class Game implements Model, Observable {
     private Player opponentPlayer;
     private boolean isOver;
     private final List<Observer> observers;
-    private final List<History> history;
+    private final List<HistoryAction> history;
 
     /**
      * Creates a game with two players.One is black and the other is white
@@ -38,7 +38,7 @@ public class Game implements Model, Observable {
         history = new ArrayList();
         currentPlayer = new Player(BLACK, currentName, currentIsBot);
         opponentPlayer = new Player(WHITE, opponentName, opponentIsBot);
-        history.add(new History(currentPlayer.getName(),
+        history.add(new HistoryAction(currentPlayer.getName(),
                 "started a new game"));
     }
 
@@ -309,7 +309,7 @@ public class Game implements Model, Observable {
         }
 
         board.addPawn(pawn);
-        history.add(new History(currentPlayer.getName(), "made a move", position));
+        history.add(new HistoryAction(currentPlayer.getName(), "made a move", position));
         swapPlayers();
         checkIsOver();
         notifyObservers();
@@ -409,7 +409,7 @@ public class Game implements Model, Observable {
      * @return the historic of the game
      */
     @Override
-    public ObservableList<History> getHistory() {
+    public ObservableList<HistoryAction> getHistory() {
         return FXCollections.observableArrayList(history);
     }
 
@@ -468,7 +468,7 @@ public class Game implements Model, Observable {
     public void reset() {
         String currentName = currentPlayer.getName();
         String opponentName = opponentPlayer.getName();
-        history.add(new History(currentName, "restarted game"));
+        history.add(new HistoryAction(currentName, "restarted game"));
 
         currentPlayer = new Player(BLACK, currentName,
                 currentPlayer.isABot());
@@ -486,10 +486,15 @@ public class Game implements Model, Observable {
     @Override
     public void skipTurn() {
         swapPlayers();
-        history.add(new History(currentPlayer.getName(), "change player"));
+        history.add(new HistoryAction(currentPlayer.getName(), "change player"));
         notifyObservers();
     }
 
+    /**
+     * Adds an observer to the list of observers of this object.
+     *
+     * @param obs the observer to add to the list
+     */
     @Override
     public void registerObserver(Observer obs) {
         if (!observers.contains(obs)) {
@@ -497,6 +502,11 @@ public class Game implements Model, Observable {
         }
     }
 
+    /**
+     * Deletes an observer from the list of observers of this object.
+     *
+     * @param obs the observer to remove from the list
+     */
     @Override
     public void removeObserver(Observer obs) {
         if (observers.contains(obs)) {
@@ -504,6 +514,9 @@ public class Game implements Model, Observable {
         }
     }
 
+    /**
+     * If this object has changed, notify all of its observers.
+     */
     @Override
     public void notifyObservers() {
         for (Observer obs : observers) {

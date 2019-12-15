@@ -87,7 +87,7 @@ public interface Model extends Observable {
      *
      * @return the historic of the game
      */
-    ObservableList<History> getHistory();
+    ObservableList<HistoryAction> getHistory();
 
     /**
      * Swaps the players

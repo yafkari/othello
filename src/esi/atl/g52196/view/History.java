@@ -10,9 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author 52196
  */
-public class Historic extends TableView {
+public class History extends TableView {
 
-    public Historic(ObservableList list) {
+    public History(ObservableList list) {
         super(list);
         setPlaceholder(new Label("No rows to display"));
         setEditable(false);
