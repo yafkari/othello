@@ -454,6 +454,26 @@ public class Game implements Model, Observable {
     }
 
     /**
+     * Counts the number of pawn on the board
+     *
+     * @return the number of pawn on the board
+     */
+    @Override
+    public int getNbPawnsOnBoard() {
+        int nbPawns = 0;
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                if (!board.isEmpty(new Position(row, col))) {
+                    ++nbPawns;
+                }
+            }
+        }
+
+        return nbPawns;
+    }
+
+    /**
      * Get the name of a player
      *
      * @param color the color of the player we want

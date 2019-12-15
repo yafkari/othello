@@ -116,4 +116,11 @@ public interface Model extends Observable {
      * Plays a random move
      */
     void playRandomMove();
+
+    /**
+     * Counts the number of pawn on the board
+     *
+     * @return the number of pawn on the board
+     */
+    int getNbPawnsOnBoard();
 }
