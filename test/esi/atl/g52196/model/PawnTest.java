@@ -24,9 +24,15 @@ public class PawnTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetPositionWhenNegative() {
-        System.out.println("testGetPositionWhenNegative");
-        Pawn instance = new Pawn(PlayerColor.WHITE, new Position(-1, -1), 0);
+    public void testGetPositionWhenNegative1() {
+        System.out.println("testGetPositionWhenNegative1");
+        Pawn instance = new Pawn(PlayerColor.WHITE, new Position(-1, 1), 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetPositionWhenNegative2() {
+        System.out.println("testGetPositionWhenNegative2");
+        Pawn instance = new Pawn(PlayerColor.WHITE, new Position(1, -1), 0);
     }
 
     @Test
@@ -46,10 +52,42 @@ public class PawnTest {
     }
 
     @Test
-    public void testHashCodeWhenNull() {
+    public void testEqualsWhenNull() {
         System.out.println("testHashCodeWhenNotEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
         assertFalse(instance1.equals(null));
+    }
+
+    @Test
+    public void testEqualsWhenThis() {
+        System.out.println("testEqualsWhenThis");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        assertTrue(instance1.equals(instance1));
+    }
+
+    @Test
+    public void testEqualsWhenOtherClass() {
+        System.out.println("testEqualsWhenOtherClass");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        assertFalse(instance1.equals(new String()));
+    }
+
+    @Test
+    public void testEqualsWhenDifferentColor() {
+        System.out.println("testEqualsWhenOtherClass");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        Pawn instance2 = new Pawn(PlayerColor.WHITE, null, 0);
+
+        assertFalse(instance1.equals(instance2));
+    }
+
+    @Test
+    public void testEqualsWhenDifferentValue() {
+        System.out.println("testEqualsWhenDifferentValue");
+        Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
+        Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
+
+        assertFalse(instance1.equals(instance2));
     }
 
     @Test
@@ -57,7 +95,7 @@ public class PawnTest {
         System.out.println("testHashCodeWhenNotEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
         Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
-        assertFalse(instance1.equals(instance2));
+        assertNotEquals(instance1.hashCode(), instance2.hashCode());
     }
 
     @Test
@@ -65,6 +103,6 @@ public class PawnTest {
         System.out.println("testHashCodeWhenEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
         Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 0);
-        assertTrue(instance1.equals(instance2));
+        assertEquals(instance1.hashCode(), instance2.hashCode());
     }
 }

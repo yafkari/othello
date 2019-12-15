@@ -53,13 +53,10 @@ public class PlayerTest {
     public void testRemovePawnWhenExist() {
         System.out.println("testRemovePawnWhenExist");
         Player player = new Player(BLACK, "", false);
-        for (int i = 0; i < 10; i++) {
-            player.addPawn(new Pawn(BLACK, null, i));
-        }
-        Pawn result = player.removePawn(new Pawn(BLACK, null, 7));
-        assertEquals(new Pawn(BLACK, null, 7), result);
-        assertTrue(!player.getPawns()
-                .contains(new Pawn(BLACK, null, 7)));
+        player.addPawn(new Pawn(BLACK, null, 0));
+        Pawn result = player.removePawn(new Pawn(BLACK, null, 0));
+        assertEquals(new Pawn(BLACK, null, 0), result);
+        assertFalse(player.getPawns().contains(result));
     }
 
     @Test

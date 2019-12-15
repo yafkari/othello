@@ -245,6 +245,7 @@ public class GameTest {
         assertTrue("White".equals(instance.getPlayerName(PlayerColor.WHITE)));
     }
 
+    @Test
     public void testGetOpponent() {
         System.out.println("testGetOpponent");
         Game instance = new Game("Black", false, "White", false);
@@ -252,6 +253,7 @@ public class GameTest {
         assertEquals(PlayerColor.WHITE, instance.getOpponent().getColor());
     }
 
+    @Test
     public void testGetHistory() {
         System.out.println("testGetHistory");
         Game instance = new Game("Black", false, "White", false);
@@ -259,4 +261,40 @@ public class GameTest {
         assertEquals(1, instance.getHistory().size());
     }
 
+    @Test
+    public void testRegisterObserver() {
+        System.out.println("testRegisterObserver");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        instance.registerObserver(new Observer() {
+            @Override
+            public void update() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+    }
+    
+    @Test
+    public void testRemoveObserver() {
+        System.out.println("testRemoveObserver");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        Observer obs = () -> {
+            throw new UnsupportedOperationException("Not supported yet.");
+        };
+        instance.registerObserver(obs);
+        instance.removeObserver(obs);
+    }
+    
+    @Test(expected=UnsupportedOperationException.class)
+    public void testNotifyObserver() {
+        System.out.println("testNotifyObserver");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        Observer obs = () -> {
+            throw new UnsupportedOperationException("Not supported yet.");
+        };
+        instance.registerObserver(obs);
+        instance.notifyObservers();
+    }
 }

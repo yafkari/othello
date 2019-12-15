@@ -25,6 +25,10 @@ public class BoardTest {
         System.out.println("testIsInsideWhenFalse");
         assertFalse(board.isInside(new Position(-1, -1)));
         assertFalse(board.isInside(new Position(8, 8)));
+        assertFalse(board.isInside(new Position(8, 0)));
+        assertFalse(board.isInside(new Position(0, 8)));
+        assertFalse(board.isInside(new Position(-1, 8)));
+        assertFalse(board.isInside(new Position(8, -1)));
 
     }
 
@@ -76,6 +80,12 @@ public class BoardTest {
         board.addPawn(pawn);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAddPawnWhenNull() {
+        System.out.println("testAddPawnWhenNull");
+        board.addPawn(null);
+    }
+
     @Test
     public void testRemoveWhenPawnNotPresent() {
         System.out.println("testRemoveWhenPawnNotPresent");
@@ -88,5 +98,17 @@ public class BoardTest {
     public void testRemoveWhenPawnPresent() {
         System.out.println("testRemoveWhenPawnPresent");
         assertFalse(board.isEmpty(new Position(3, 3)));
+    }
+    
+    @Test(expected = NullPointerException.class)
+    public void testRemoveWhenNull() {
+        System.out.println("testRemoveWhenNull");
+        board.remove(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCheckIsInside() {
+        System.out.println("testCheckIsInside");
+        board.isEmpty(new Position(-1, 0));
     }
 }

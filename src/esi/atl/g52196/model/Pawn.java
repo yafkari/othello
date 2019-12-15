@@ -119,9 +119,4 @@ public class Pawn {
         }
         return Objects.equals(this.position, other.position);
     }
-
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
 }

@@ -325,7 +325,7 @@ public class Game implements Model, Observable {
             int idx = (int) (Math.random() * getPossibleMoves().size());
             play(getPossibleMoves().get(idx));
         } else {
-            swapPlayers();  //TODO test
+            swapPlayers();
         }
     }
 

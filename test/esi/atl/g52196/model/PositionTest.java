@@ -26,7 +26,7 @@ public class PositionTest {
         boolean result = instance.equals(other);
         assertFalse(result);
     }
-    
+
     @Test
     public void testEqualsWhenSame() {
         System.out.println("testEqualsWhenSame");
@@ -34,7 +34,7 @@ public class PositionTest {
         boolean result = instance.equals(instance);
         assertTrue(result);
     }
-    
+
     @Test
     public void testEqualsWhenDifferentClass() {
         System.out.println("testEqualsWhenDifferentClass");
@@ -52,25 +52,18 @@ public class PositionTest {
     }
 
     @Test
-    public void testHashCodeWhenNull() {
-        System.out.println("testHashCodeWhenNotEquals");
-        Position instance1 = new Position(0,0);
-        assertFalse(instance1.equals(null));
-    }
-
-    @Test
     public void testHashCodeWhenNotEquals() {
         System.out.println("testHashCodeWhenNotEquals");
-        Position instance1 = new Position(0,0);
-        Position instance2 = new Position(0,1);
-        assertFalse(instance1.equals(instance2));
+        Position instance1 = new Position(0, 0);
+        Position instance2 = new Position(0, 1);
+        assertNotEquals(instance1.hashCode(), instance2.hashCode());
     }
 
     @Test
     public void testHashCodeWhenEquals() {
         System.out.println("testHashCodeWhenEquals");
-        Position instance1 = new Position(0,0);
-        Position instance2 = new Position(0,0);
-        assertTrue(instance1.equals(instance2));
+        Position instance1 = new Position(0, 0);
+        Position instance2 = new Position(0, 0);
+        assertEquals(instance1.hashCode(), instance2.hashCode());
     }
 }
