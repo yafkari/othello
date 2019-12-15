@@ -49,7 +49,6 @@ public class PawnTest {
     public void testHashCodeWhenNull() {
         System.out.println("testHashCodeWhenNotEquals");
         Pawn instance1 = new Pawn(PlayerColor.BLACK, null, 0);
-        Pawn instance2 = new Pawn(PlayerColor.BLACK, null, 1);
         assertFalse(instance1.equals(null));
     }
 
