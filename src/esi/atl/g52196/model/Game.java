@@ -5,6 +5,7 @@ import static esi.atl.g52196.model.PlayerColor.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -21,6 +22,7 @@ public class Game implements Model, Observable {
     private boolean isOver;
     private final List<Observer> observers;
     private final List<HistoryAction> history;
+    private final List<Position> bonusPositions;
 
     /**
      * Creates a game with two players.One is black and the other is white
@@ -40,6 +42,7 @@ public class Game implements Model, Observable {
         opponentPlayer = new Player(WHITE, opponentName, opponentIsBot);
         history.add(new HistoryAction(currentPlayer.getName(),
                 "started a new game"));
+        bonusPositions = new ArrayList();
     }
 
     /**
@@ -64,7 +67,33 @@ public class Game implements Model, Observable {
         opponentPlayer.addPawn(whitePawn1);
         opponentPlayer.addPawn(whitePawn2);
 
+        for (int i = 0; i < 3; i++) {
+            bonusPositions.add(generateRandomPosition());
+        }
+
+        if (!bonusPositions.contains(new Position(2, 3))) { //manual for testing
+            bonusPositions.add(new Position(2, 3));
+        }
+
         initializePlayerPawns();
+    }
+
+    /**
+     * Returns a random position different of the 4 at the middle
+     *
+     * @return a random position different of the 4 at the middle
+     */
+    private Position generateRandomPosition() {
+        int x = 3;
+        int y = 3;
+        while (x == 3 || x == 4) {
+            x = (int) (Math.random() * ((BOARD_SIZE)));
+        }
+        while (y == 3 || y == 4) {
+            y = (int) (Math.random() * ((BOARD_SIZE)));
+        }
+
+        return new Position(x, y);
     }
 
     /**
@@ -127,24 +156,6 @@ public class Game implements Model, Observable {
         return new Player(opponentPlayer);
     }
 
-    /**
-     * Returns the score of a player
-     *
-     * @param color the color of the player we wants to get the score
-     * @return the score of a player
-     */
-    /*@Override
-    public int getScore(PlayerColor color) {
-        if (currentPlayer.getColor() == color) {
-            return currentPlayer.getPawns().stream()
-                    .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
-                    .sum();
-        }
-
-        return opponentPlayer.getPawns().stream()
-                .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
-                .sum();
-    }*/
     /**
      * Changes the color of a pawn to the color of the current player and
      * removes it from the opponent
@@ -395,8 +406,8 @@ public class Game implements Model, Observable {
         if (!isOver) {
             throw new IllegalArgumentException("The game is not finished");
         }
-        int currentScore = currentPlayer.getScore();
-        int opponentScore = opponentPlayer.getScore();
+        int currentScore = getScore(currentPlayer.getColor());
+        int opponentScore = getScore(opponentPlayer.getColor());
 
         if (currentScore == opponentScore) {
             return null;
@@ -428,6 +439,32 @@ public class Game implements Model, Observable {
     @Override
     public ObservableList<HistoryAction> getHistory() {
         return FXCollections.observableArrayList(history);
+    }
+
+    /**
+     * Returns the score of a player
+     *
+     * @param color the color of the player
+     * @return the score of a player
+     */
+    @Override
+    public int getScore(PlayerColor color) {
+        AtomicInteger score = new AtomicInteger(0);
+
+        getPlayer(color).getPawns().stream().forEach(p -> {
+            if (p.getPosition() != null) {
+                if (getBonusPositions().contains(p.getPosition())) {
+                    score.addAndGet(3);
+                }
+                score.addAndGet(p.getValue());
+            }
+        });
+
+        return score.get();
+        /*return getPlayer(color).getPawns().stream()
+                .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
+                .sum();
+         */
     }
 
     /**
@@ -474,6 +511,28 @@ public class Game implements Model, Observable {
     }
 
     /**
+     * Counts the number of pawn on the board
+     *
+     * @return the number of pawn on the board
+     */
+    public int getNbPawnsOnBoard(PlayerColor color) {
+        int nbPawns = 0;
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                Position pos = new Position(row, col);
+                if (!board.isEmpty(pos)) {
+                    if (board.getPawn(pos).getColor() == color) {
+                        ++nbPawns;
+                    }
+                }
+            }
+        }
+
+        return nbPawns;
+    }
+
+    /**
      * Get the name of a player
      *
      * @param color the color of the player we want
@@ -481,21 +540,20 @@ public class Game implements Model, Observable {
      */
     @Override
     public String getPlayerName(PlayerColor color) {
-        /*if (color == currentPlayer.getColor()) {
-            return currentPlayer.getName().length() == 0
-                    ? currentPlayer.getColor().toString()
-                    : currentPlayer.getName();
-        } else {
-            return opponentPlayer.getName().length() == 0
-                    ? opponentPlayer.getColor().toString()
-                    : opponentPlayer.getName();
-        }*/
-
         if (color == currentPlayer.getColor()) {
             return currentPlayer.getName();
         } else {
             return opponentPlayer.getName();
         }
+    }
+
+    /**
+     * Returns a copy of the list of bonus positions
+     *
+     * @return a copy of the list of bonus positions
+     */
+    public List<Position> getBonusPositions() {
+        return new ArrayList(bonusPositions);
     }
 
     /**

@@ -123,4 +123,26 @@ public interface Model extends Observable {
      * @return the number of pawn on the board
      */
     int getNbPawnsOnBoard();
+
+    /**
+     * Counts the number of pawn on the board of a player
+     *
+     * @return the number of pawn on the board of a player
+     */
+    int getNbPawnsOnBoard(PlayerColor color);
+
+    /**
+     * Returns a copy of the list of bonus positions
+     *
+     * @return a copy of the list of bonus positions
+     */
+    List<Position> getBonusPositions();
+    
+    /**
+     * Returns the score of a player
+     *
+     * @param color the color of the player
+     * @return the score of a player
+     */
+    int getScore(PlayerColor color);
 }

@@ -40,8 +40,8 @@ public class Progresses extends GridPane implements Observer {  //TODO ProgressI
 
     @Override
     public void update() {
-        double blackScore = game.getPlayer(PlayerColor.BLACK).getScore();
-        double whiteScore = game.getPlayer(PlayerColor.WHITE).getScore();
+        double blackScore = game.getScore(PlayerColor.BLACK);
+        double whiteScore = game.getScore(PlayerColor.WHITE);
 
         progressBar.setProgress(blackScore / (blackScore + whiteScore));
 

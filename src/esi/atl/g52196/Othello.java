@@ -48,7 +48,7 @@ public class Othello extends Application implements Observer {
 
     private void initializeGame() {
         BorderPane root = new BorderPane();
-        CustomMenu menu = new CustomMenu();
+        CustomMenu menu = new CustomMenu(game);
         LeftPane leftPane = new LeftPane(20, game);
         RightPane rightPane = new RightPane(20, game);
 

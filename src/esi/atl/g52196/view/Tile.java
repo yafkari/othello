@@ -1,6 +1,5 @@
 package esi.atl.g52196.view;
 
-import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.Pawn;
 import esi.atl.g52196.model.PlayerColor;
@@ -31,7 +30,11 @@ public class Tile extends StackPane {
         setPrefSize(width + 2, height + 2);
         Rectangle tile = new Rectangle(width, height);
         Circle circle = new Circle(sqrt(width * width + height * height) / 3);
-        tile.setFill(Color.DARKGREEN);
+        if (game.getBonusPositions().contains(position)) {
+            tile.setFill(Color.BURLYWOOD);
+        } else {
+            tile.setFill(Color.DARKGREEN);
+        }
 
         Pawn pawn = game.getBoard().getPawn(position);
         if (pawn != null) {
@@ -68,8 +71,12 @@ public class Tile extends StackPane {
 
     private void handleMouseExited(MouseEvent event) {
         StackPane tile1 = (StackPane) event.getSource();
-        Shape shape1 = (Shape) tile1.getChildren().get(0);
-        shape1.setFill(Color.DARKGREEN);
+        Shape tile = (Shape) tile1.getChildren().get(0);
+        if (game.getBonusPositions().contains(position)) {
+            tile.setFill(Color.BURLYWOOD);
+        } else {
+            tile.setFill(Color.DARKGREEN);
+        }
     }
 
     private void handleMouseClicked(MouseEvent event) {

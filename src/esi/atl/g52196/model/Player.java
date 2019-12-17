@@ -90,11 +90,11 @@ public class Player {
      *
      * @return the score of a player
      */
-    public int getScore() {
+    /*public int getScore() {
         return pawns.stream()
                 .mapToInt(p -> p.getPosition() != null ? p.getValue() : 0)
                 .sum();
-    }
+    }*/
 
     /**
      * Adds a pawn passed in parameter to the list of pawns of the player

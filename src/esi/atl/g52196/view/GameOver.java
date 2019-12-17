@@ -19,7 +19,7 @@ public class GameOver extends Alert {
         setTitle("Game over");
         setHeaderText("We have a winner !");
         String text = winner.getName() + " wins with "
-                + winner.getScore() + " points";
+                + game.getScore(winner.getColor()) + " points";
         setContentText(text);
         show();
     }

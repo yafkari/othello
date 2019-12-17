@@ -1,7 +1,6 @@
 package esi.atl.g52196.view;
 
 import esi.atl.g52196.model.Observer;
-import esi.atl.g52196.model.Game;
 import esi.atl.g52196.model.Model;
 import esi.atl.g52196.model.PlayerColor;
 import javafx.geometry.Pos;
@@ -39,7 +38,7 @@ public class Scores extends HBox implements Observer {
 
         Label blackScoreLabel = new Label("Score");
         blackScoreValue = new Label(String.valueOf(
-                game.getPlayer(PlayerColor.BLACK).getScore()));
+                game.getScore(PlayerColor.BLACK)));
         VBox blackScoreBox = new VBox(10, blackScoreLabel, blackScoreValue);
 
         StackPane blackScore = new StackPane(blackRec,
@@ -57,7 +56,7 @@ public class Scores extends HBox implements Observer {
 
         Label whiteScoreLabel = new Label("Score");
         whiteScoreValue = new Label(String.valueOf(
-                game.getPlayer(PlayerColor.WHITE).getScore()));
+                game.getScore(PlayerColor.WHITE)));
         VBox whiteScoreBox = new VBox(10, whiteScoreLabel, whiteScoreValue);
 
         StackPane whiteScore = new StackPane(whiteRec,
@@ -73,8 +72,8 @@ public class Scores extends HBox implements Observer {
     @Override
     public void update() {
         blackScoreValue.setText(String.valueOf(
-                game.getPlayer(PlayerColor.BLACK).getScore()));
+                game.getScore(PlayerColor.BLACK)));
         whiteScoreValue.setText(String.valueOf(
-                game.getPlayer(PlayerColor.WHITE).getScore()));
+                game.getScore(PlayerColor.WHITE)));
     }
 }

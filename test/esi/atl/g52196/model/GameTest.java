@@ -2,6 +2,7 @@ package esi.atl.g52196.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -85,7 +86,20 @@ public class GameTest {
         Game instance = new Game("", false, "", false);
         instance.initialize();
         int expResult = 2;
-        int result = instance.getPlayer(PlayerColor.BLACK).getScore();
+        int result = instance.getScore(PlayerColor.BLACK);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testGetScoreWhenBonus() {
+        System.out.println("testGetScoreWhenBonus");
+        Game instance = new Game("", false, "", false);
+        instance.initialize();
+        Position position = new Position(2, 3);
+
+        instance.play(position);
+        int expResult = instance.getBoard().getPawn(position).getValue() + 3;
+        int result = instance.getScore(PlayerColor.BLACK);
         assertEquals(expResult, result);
     }
 
